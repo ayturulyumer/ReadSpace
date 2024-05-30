@@ -2,7 +2,7 @@ export default function Search() {
   return (
     <div>
       <label className="input input-ghost flex items-center gap-20">
-        <input type="text" className="grow" placeholder="Search" />
+        <input type="text" className="grow" placeholder="Search for books or authors" />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
