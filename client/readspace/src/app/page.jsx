@@ -1,10 +1,12 @@
 import Hero from "./components/Hero/Hero.jsx";
-import BooksCategories from "./components/BooksCategories/BooksCategories.jsx";
+import KeyFeatures from "./components/KeyFeatures/KeyFeatures.jsx";
+import BestSellingBooks from "./components/BestSellingBooks/BestSellingBooks.jsx";
 export default function Home() {
   return (
-    <main>
+    <main className="min-h-screen self-center">
       <Hero />
-      <BooksCategories/>
+      <KeyFeatures />
+      <BestSellingBooks />
     </main>
   );
 }
