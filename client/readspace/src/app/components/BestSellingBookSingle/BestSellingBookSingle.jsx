@@ -3,7 +3,7 @@ import Rating from "../Rating/Rating.jsx";
 export default function BestSellingBookSingle({ data }) {
   return (
     <div className="indicator">
-  <span className="indicator-item  indicator-center badge  font-bold badge-accent text-white md:indicator-end  ">Best Seller</span> 
+  <span className="indicator-item  indicator-center badge font-medium badge-accent text-white md:indicator-end  ">Best Seller</span> 
     <div
       data-theme="retro"
       className="card card-compact  bg-white  w-72 shadow-xl relative group "
@@ -16,7 +16,7 @@ export default function BestSellingBookSingle({ data }) {
           alt={data.title}
         />
       </figure>
-      <div className="card-body items-baseline align-baseline font-bold  ">
+      <div className="card-body items-baseline align-baseline font-medium  ">
         <h1 className="text-lg truncate max-w-full">{data.title}</h1>
         <p>{data.author}</p>
         <Rating />

@@ -1,10 +1,10 @@
 export default function Hero() {
   return (
-    <div data-theme="retro" className="hero min-h-fit rounded-br-[28em]">
+    <div data-theme="retro" className="hero min-h-fit rounded-br-[8em]">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <img
           src="https://img.freepik.com/premium-vector/young-woman-enjoy-sitting-reading-book-hygge-concept-vector-illustration_194708-2078.jpg"
-          className="max-w-xxs mask mask-squircle  shadow-2xl md:max-w-lg lg:max-w-7xl"
+          className="mask mask-squircle  shadow-2xl md:max-w-lg lg:max-w-7xl"
         />
         <div className="text-center text-primary-content lg:text-left">
           <h1 className="text-4xl font-bold lg:text-6xl ">
