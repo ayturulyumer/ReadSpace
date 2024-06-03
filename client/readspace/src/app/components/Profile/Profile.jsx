@@ -8,11 +8,11 @@ export default function Profile() {
           <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
         </div>
       </div>
-      <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+      <ul  tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-white rounded-box w-52">
         <li>
           <a className="justify-between">
             Profile
-            <span className="badge">New</span>
+            <span className="badge badge-accent">New</span>
           </a>
         </li>
         <li><a>Settings</a></li>
