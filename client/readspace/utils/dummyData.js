@@ -45,5 +45,12 @@ export const bestSellers = [
     rating: 5,
     price: 12.99,
   },
+  {
+ image: "https://m.media-amazon.com/images/I/718ewn+YFJL._SY466_.jpg" ,
+    title: "$100M Offers: How To Make Offers So Good People Feel Stupid Saying No (Acquisition.com $100M Series Book 1)",
+    author: "Alex Hormozi",
+    rating: 5,
+    price: 25.15,
+  },
 
 ];
