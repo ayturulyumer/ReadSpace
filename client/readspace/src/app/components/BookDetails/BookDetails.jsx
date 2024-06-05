@@ -3,7 +3,7 @@ import { BsCartPlus } from "react-icons/bs";
 import { CiHeart } from "react-icons/ci";
 export default function BookDetails() {
   return (
-    <div data-theme="retro" className="hero  bg-white">
+    <div className="hero">
       <div className="hero-content flex-col   lg:flex-row">
         <img
           src="https://m.media-amazon.com/images/I/718ewn+YFJL._SY466_.jpg"
@@ -52,7 +52,7 @@ export default function BookDetails() {
           </div>
           <div className="flex flex-col items-center gap-4 mt-4 md:flex-row  md:items-start ">
             <button className="btn btn-wide btn-primary text-white font-medium md:btn-md">
-              Add to wishlist <CiHeart style={{ fontSize: "2em" }}/>
+              Add to wishlist <CiHeart style={{ fontSize: "2em" }} />
             </button>
             <button className="btn btn-wide btn-accent text-white md:btn-md">
               Add to cart <BsCartPlus style={{ fontSize: "2em" }} />
