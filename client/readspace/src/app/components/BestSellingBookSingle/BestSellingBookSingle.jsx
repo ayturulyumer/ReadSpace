@@ -1,5 +1,5 @@
 import Rating from "../Rating/Rating.jsx";
-import { IoIosAddCircleOutline } from "react-icons/io";
+import { BsCartPlus } from "react-icons/bs";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 
 export default function BestSellingBookSingle({ data }) {
@@ -28,7 +28,7 @@ export default function BestSellingBookSingle({ data }) {
         <div className="card-actions space-x-2">
           <button className="btn btn-outline btn-secondary">Details <IoIosInformationCircleOutline style={{ fontSize: "2em" }} /></button>
           <button className="btn btn-outline btn-accent text-white">
-            Add to cart <IoIosAddCircleOutline style={{ fontSize: "2em" }} />
+            Add to cart <BsCartPlus style={{ fontSize: "2em" }} />
           </button>
         </div>
       </div>
