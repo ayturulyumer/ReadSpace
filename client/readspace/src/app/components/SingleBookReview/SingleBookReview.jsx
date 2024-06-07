@@ -1,7 +1,7 @@
 import Rating from "../Rating/Rating.jsx";
 export default function SingleBookReview() {
   return (
-    <div className="flex flex-col gap-3 mt-4">
+    <div className="flex flex-col   gap-3 mt-4">
       <div className="flex flex-col gap-4 p-4">
         {/* Profile and Rating */}
         <div className="flex gap-4 justify-between ">

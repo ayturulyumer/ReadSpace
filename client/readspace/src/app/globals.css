@@ -2,3 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .underline-orange {
+    @apply underline;
+    text-decoration-color: rgb(161, 105, 0);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 8px; /* Adjusted to a more reasonable value */
+  }
+}

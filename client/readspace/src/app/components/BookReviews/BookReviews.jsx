@@ -15,6 +15,7 @@ export default function BookReviews() {
           Reviews
         </h1>
         <SingleBookReview />
+        <SingleBookReview />
         {/* Add more <SingleBookReview /> components if needed */}
       </div>
     </div>

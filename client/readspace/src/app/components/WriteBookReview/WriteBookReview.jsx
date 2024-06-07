@@ -12,7 +12,7 @@ export default function WriteBookReview() {
         <input
           type="text"
           placeholder="Type here"
-          className="input input-bordered   input-md max-w-lg  bg-white md:w-screen"
+          className="input input-bordered   input-md  max-w-lg w-4/5  bg-white md:w-full  xl:w-screen"
         />
         <div className="flex w- flex-col items-baseline gap-4 md:flex-row md:justify-between">
           <Rating />
