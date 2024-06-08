@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import PriceRange from "../PriceRange/PriceRange.jsx";
 
 export default function BookFilters() {
   const [openSections, setOpenSections] = useState({});
-  const [priceRange, setPriceRange] = useState(40);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(1000);
 
   const toggleCollapse = (section) => {
     setOpenSections((prev) => ({
@@ -27,9 +29,9 @@ export default function BookFilters() {
     },
   ];
 
-  const handlePriceChange = (e) => {
-    setPriceRange(parseInt(e.target.value));
-  
+  const handlePriceChange = ({ min, max }) => {
+    setMinPrice(min);
+    setMaxPrice(max);
   };
 
   return (
@@ -96,27 +98,20 @@ export default function BookFilters() {
                 openSections["priceRange"] ? "collapse-open" : "collapse-close"
               }`}
             >
-              <div className="collapse collapse-arrow relative flex justify-between items-center w-full cursor-pointer">
-                <span
-                  className="collapse-title text-md font-medium"
-                  onClick={() => toggleCollapse("priceRange")}
-                >
+              <div
+                className="collapse collapse-arrow relative flex justify-between items-center w-full cursor-pointer"
+                onClick={() => toggleCollapse("priceRange")}
+              >
+                <span className="collapse-title text-md font-medium">
                   Price Range
                 </span>
                 <div className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500"></div>
               </div>
-              <div className="collapse-content font-medium">
-                <input
-                  type="range"
-                  min={0}
-                  max={1000}
-                  value={priceRange}
-                  onChange={handlePriceChange}
-                  onClick={(e) => e.stopPropagation()} // Stop event propagation
-                  className="range range-accent mt-4"
-                />
-                <span className="text-gray-600">${priceRange}</span>
-              </div>
+              <PriceRange
+                minPrice={minPrice}
+                maxPrice={maxPrice}
+                onChange={handlePriceChange}
+              />
             </div>
           </div>
         </div>
