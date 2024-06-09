@@ -9,7 +9,7 @@ export default function BestSellingBooks() {
       <h1 className="text-center py-8  text-5xl ">Best sellers</h1>
       <div className="grid grid-cols-1 gap-10 py-4 pb-8  place-items-center gap-x-0 md:grid-cols-2 xl:grid-cols-4 ">
         {bestSellers.map((book, i) => (
-          <BookCard key={i} data={book} isBestSeller={true} size="large" />
+          <BookCard key={i} data={book} isBestSeller={true} size="large" actionsOverlay={true} />
         ))}
       </div>
     </section>

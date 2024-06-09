@@ -25,7 +25,7 @@ export default function PriceRange({ minPrice, maxPrice , onChange }) {
         value={minPrice}
         onChange={handleMinPriceChange}
         onClick={(e) => e.stopPropagation()} // Stop event propagation
-        className="range range-xs range-accent mt-4"
+        className="range range-xs range-primary mt-4"
       />
       <input
         type="range"

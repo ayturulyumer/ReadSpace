@@ -16,11 +16,11 @@ export default function ({ data, isBestSeller, size, actionsOverlay }) {
       )}
       <div
         data-theme="retro"
-        className={`card card-compact bg-white shadow-xl relative group ${cardSizeClasses}`}
+        className={`card card-compact bg-white shadow-xl relative group ${cardSizeClasses} transition duration-300 ease-in-out hover:scale-105`}
       >
         <figure className="relative">
           <img
-            className="w-full h-80 object-fit rounded-b-3xl"
+            className="w-full h-80 object-fit rounded-b-3xl transition duration-300 ease-in-out hover:scale-110 "
             src={data.image}
             alt={data.title}
           />
@@ -34,10 +34,10 @@ export default function ({ data, isBestSeller, size, actionsOverlay }) {
             <BookActionsOverlay />
           ) : (
             <div className="flex self-end gap-2">
-              <button>
-                <BsCartPlus style={{ fontSize: "2em" }} />
+              <button className="text-accent">
+                <BsCartPlus style={{ fontSize: "2em",  }} />
               </button>
-              <button>
+              <button className="text-primary">
                 <CiHeart style={{ fontSize: "2em" }} />
               </button>
             </div>
