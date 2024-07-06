@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "express": "^4.19.2",
     "react-icons": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
