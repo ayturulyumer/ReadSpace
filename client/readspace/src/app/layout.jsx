@@ -3,6 +3,7 @@ import "./globals.css";
 
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Footer from "./components/Footer/Footer.jsx";
+import { AuthProvider } from "./context/authContext.jsx";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,10 +15,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}  data-theme="cupcake">
-        <Navbar />
-        {children}
-        <Footer/>
+      <body className={inter.className} data-theme="cupcake">
+        <AuthProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
