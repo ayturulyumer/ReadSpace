@@ -1,32 +1,48 @@
 "use client";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 
 export default function Register() {
-  const initialValues = {
-    email: "",
-    password: "",
-    password_confirmation: "",
-  };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      confirm_password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required"),
+      password: Yup.string()
+        .min(8, "Password must be at least 8 characters")
+        .required("Password is required"),
+      confirm_password: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .required("Confirm password is required"),
+    }),
+    onSubmit: async (values, { setSubmitting, setStatus }) => {
+      setStatus(null);
+      console.log(values);
 
-  const validationSchema = Yup.object({
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: Yup.string()
-      .min(8, "Password must be at least 8 characters")
-      .required("Password is required"),
-    password_confirmation: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Confirm password is required"),
+      // Simulate a server request
+      // const res = await fetch('http://localhost:3001/auth/register', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(values),
+      // });
+
+      // if (res.ok) {
+      //   setStatus({ success: 'Registration successful!' });
+      // } else {
+      //   const error = await res.json();
+      //   setStatus({ error: `Registration failed: ${error.error}` });
+      // }
+
+      setSubmitting(false);
+    },
   });
-
-  const handleSubmit = async (values, { setSubmitting, setStatus }) => {
-    setStatus(null);
-    console.log(values);
-
-    // setSubmitting(false);
-  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -51,100 +67,104 @@ export default function Register() {
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
-            {({ isSubmitting, status }) => (
-              <Form>
-                <div className="mt-6">
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Email address
-                  </label>
-                  <div className="mt-1 relative rounded-md shadow-sm">
-                    <Field
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="user@example.com"
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                    />
-                    <ErrorMessage
-                      name="email"
-                      component="div"
-                      className="text-red-600 text-sm"
-                    />
+          <form onSubmit={formik.handleSubmit}>
+            <div className="mt-6">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium leading-5 text-gray-700"
+              >
+                Email address
+              </label>
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="user@example.com"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
+                />
+                {formik.touched.email && formik.errors.email ? (
+                  <div className="text-red-600 text-sm">
+                    {formik.errors.email}
                   </div>
-                </div>
-                <div className="mt-6">
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Password
-                  </label>
-                  <div className="mt-1 rounded-md shadow-sm">
-                    <Field
-                      id="password"
-                      name="password"
-                      type="password"
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                    />
-                    <ErrorMessage
-                      name="password"
-                      component="div"
-                      className="text-red-600 text-sm"
-                    />
+                ) : null}
+              </div>
+            </div>
+            <div className="mt-6">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-5 text-gray-700"
+              >
+                Password
+              </label>
+              <div className="mt-1 rounded-md shadow-sm">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
+                />
+                {formik.touched.password && formik.errors.password ? (
+                  <div className="text-red-600 text-sm">
+                    {formik.errors.password}
                   </div>
-                </div>
-                <div className="mt-6">
-                  <label
-                    htmlFor="password_confirmation"
-                    className="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Confirm Password
-                  </label>
-                  <div className="mt-1 rounded-md shadow-sm">
-                    <Field
-                      id="password_confirmation"
-                      name="password_confirmation"
-                      type="password"
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                    />
-                    <ErrorMessage
-                      name="password_confirmation"
-                      component="div"
-                      className="text-red-600 text-sm"
-                    />
+                ) : null}
+              </div>
+            </div>
+            <div className="mt-6">
+              <label
+                htmlFor="confirm_password"
+                className="block text-sm font-medium leading-5 text-gray-700"
+              >
+                Confirm Password
+              </label>
+              <div className="mt-1 rounded-md shadow-sm">
+                <input
+                  id="confirm_password"
+                  name="confirm_password"
+                  type="password"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.confirm_password}
+                />
+                {formik.touched.confirm_password &&
+                formik.errors.confirm_password ? (
+                  <div className="text-red-600 text-sm">
+                    {formik.errors.confirm_password}
                   </div>
-                </div>
-                <div className="mt-6">
-                  <span className="block w-full rounded-md shadow-sm">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
-                    >
-                      {isSubmitting ? "Creating account..." : "Create account"}
-                    </button>
-                  </span>
-                </div>
-                {status && (
-                  <div
-                    className={`mt-4 text-center ${
-                      status.success ? "text-green-600" : "text-red-600"
-                    }`}
-                  >
-                    {status.success || status.error}
-                  </div>
-                )}
-              </Form>
+                ) : null}
+              </div>
+            </div>
+            <div className="mt-6">
+              <span className="block w-full rounded-md shadow-sm">
+                <button
+                  type="submit"
+                  disabled={formik.isSubmitting}
+                  className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+                >
+                  {formik.isSubmitting
+                    ? "Creating account..."
+                    : "Create account"}
+                </button>
+              </span>
+            </div>
+            {formik.status && (
+              <div
+                className={`mt-4 text-center ${
+                  formik.status.success ? "text-green-600" : "text-red-600"
+                }`}
+              >
+                {formik.status.success || formik.status.error}
+              </div>
             )}
-          </Formik>
+          </form>
         </div>
       </div>
     </div>
