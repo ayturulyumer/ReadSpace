@@ -3,7 +3,7 @@ import { useState, createContext, useContext } from "react";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [session, setSession] = useState(true);
+  const [session, setSession] = useState(false);
 
   const values = {
     session,
