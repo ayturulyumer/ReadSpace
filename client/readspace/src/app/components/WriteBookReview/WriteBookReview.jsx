@@ -1,11 +1,15 @@
 import Rating from "../Rating/Rating.jsx";
 import { FaRegComment } from "react-icons/fa";
+
+import Image from "next/image.js";
+import ProfilePhoto from "../../../../public/samba.jpg";
+
 export default function WriteBookReview() {
   return (
     <div className="flex gap-4 w-full">
       <div className="avatar">
         <div className="w-12 h-12 rounded-full">
-          <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          <Image src={ProfilePhoto} />
         </div>
       </div>
       <div className="flex flex-col gap-4 w-fit  ">

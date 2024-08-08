@@ -2,6 +2,8 @@ import { CiSettings } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 
+import Image from "next/image.js";
+import ProfilePhoto from "../../../../public/samba.jpg";
 
 export default function Profile() {
   return (
@@ -12,10 +14,7 @@ export default function Profile() {
         className="btn btn-ghost btn-circle avatar"
       >
         <div className="w-10 rounded-full">
-          <img
-            alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-          />
+          <Image src={ProfilePhoto} />
         </div>
       </div>
       <ul
@@ -23,7 +22,10 @@ export default function Profile() {
         className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-white rounded-box w-52"
       >
         <li>
-          <a> <CiHeart style={{ fontSize: "2em" }} /> Wishlist</a>
+          <a>
+            {" "}
+            <CiHeart style={{ fontSize: "2em" }} /> Wishlist
+          </a>
         </li>
         <li>
           <a>

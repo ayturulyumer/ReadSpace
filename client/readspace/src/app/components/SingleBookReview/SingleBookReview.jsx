@@ -1,4 +1,8 @@
 import Rating from "../Rating/Rating.jsx";
+
+import Image from "next/image.js";
+import ProfilePhoto from "../../../../public/samba.jpg";
+
 export default function SingleBookReview() {
   return (
     <div className="flex flex-col   gap-3 mt-4">
@@ -8,7 +12,7 @@ export default function SingleBookReview() {
           <div className="flex gap-4">
             <div className="avatar">
               <div className="w-8 h-8 rounded-full">
-                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                <Image src={ProfilePhoto} />
               </div>
             </div>
             <span>Jess Hopkins</span>
