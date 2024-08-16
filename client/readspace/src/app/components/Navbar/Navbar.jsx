@@ -7,7 +7,7 @@ import Profile from "../Profile/Profile.jsx";
 
 export default function Navbar() {
   const { session } = useAuth();
-  console.log(session);
+
   return (
     <div className="navbar " data-theme="retro">
       <div className="navbar-start">

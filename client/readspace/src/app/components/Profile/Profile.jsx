@@ -5,6 +5,8 @@ import { CiHeart } from "react-icons/ci";
 import Image from "next/image.js";
 import ProfilePhoto from "../../../../public/samba.jpg";
 
+import { logout } from "@/app/logout/actions.js";
+
 export default function Profile() {
   return (
     <div className="dropdown dropdown-end">
@@ -32,7 +34,11 @@ export default function Profile() {
             <CiSettings style={{ fontSize: "2em" }} /> Settings
           </a>
         </li>
-        <li>
+        <li
+          onClick={() => {
+            logout();
+          }}
+        >
           <a>
             <CiLogout style={{ fontSize: "2em" }} />
             Logout
