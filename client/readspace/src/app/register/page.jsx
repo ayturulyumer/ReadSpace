@@ -2,7 +2,11 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
+import { useAuth } from "../context/authContext.jsx";
+
 export default function Register() {
+  const { register } = useAuth();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -22,24 +26,7 @@ export default function Register() {
     }),
     onSubmit: async (values, { setSubmitting, setStatus }) => {
       setStatus(null);
-      console.log(values);
-
-      // Simulate a server request
-      // const res = await fetch('http://localhost:3001/auth/register', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(values),
-      // });
-
-      // if (res.ok) {
-      //   setStatus({ success: 'Registration successful!' });
-      // } else {
-      //   const error = await res.json();
-      //   setStatus({ error: `Registration failed: ${error.error}` });
-      // }
-
+      register(values.email, values.password);
       setSubmitting(false);
     },
   });

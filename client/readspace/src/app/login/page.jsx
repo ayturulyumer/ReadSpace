@@ -2,7 +2,13 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
+import { useRouter } from "next/navigation";
+
+import { signIn } from "./actions.js";
+
 export default function Login() {
+  const router = useRouter();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -18,29 +24,14 @@ export default function Login() {
     }),
     onSubmit: async (values, { setSubmitting, setStatus }) => {
       setStatus(null);
-
-      // Simulate a server request for login
-      // const res = await fetch('http://localhost:3001/auth/login', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(values),
-      // });
-
-      // if (res.ok) {
-      //   setStatus({ success: 'Login successful!' });
-      // } else {
-      //   const error = await res.json();
-      //   setStatus({ error: `Login failed: ${error.error}` });
-      // }
-
+      signIn(values.email, values.password);
       setSubmitting(false);
+      router.push("/");
     },
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <img
           className="mx-auto h-10 w-auto"
