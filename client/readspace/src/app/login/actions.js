@@ -8,17 +8,17 @@ import { createClient } from "../../../utils/supabase/server.js";
 export async function signIn(email, password) {
   const supabase = createClient();
 
-  const data = {
+  const userInfo = {
     email,
     password,
   };
 
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const { data, error } = await supabase.auth.signInWithPassword(userInfo);
 
   if (error) {
-    console.log(error);
+    return error;
   }
 
   revalidatePath("/", "layout");
-  redirect("/");
+  return data;
 }

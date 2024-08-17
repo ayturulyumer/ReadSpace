@@ -1,5 +1,7 @@
 "use client";
 import { useAuth } from "@/app/context/authContext.jsx";
+import { createClient } from "../../../../utils/supabase/client.js";
+import { useEffect, useState } from "react";
 
 import Search from "../Search/Search.jsx";
 import Cart from "../Cart/Cart.jsx";
@@ -7,6 +9,7 @@ import Profile from "../Profile/Profile.jsx";
 
 export default function Navbar() {
   const { session } = useAuth();
+  console.log(session)
 
   return (
     <div className="navbar " data-theme="retro">

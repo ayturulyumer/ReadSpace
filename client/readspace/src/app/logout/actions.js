@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation.js";
 
+
 import { createClient } from "../../../utils/supabase/server.js";
 
 export async function logout(email, password) {

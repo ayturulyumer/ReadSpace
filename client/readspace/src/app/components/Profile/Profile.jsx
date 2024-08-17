@@ -5,9 +5,10 @@ import { CiHeart } from "react-icons/ci";
 import Image from "next/image.js";
 import ProfilePhoto from "../../../../public/samba.jpg";
 
-import { logout } from "@/app/logout/actions.js";
+import { useAuth } from "@/app/context/authContext.jsx";
 
 export default function Profile() {
+  const { logoutUser } = useAuth();
   return (
     <div className="dropdown dropdown-end">
       <div
@@ -36,7 +37,7 @@ export default function Profile() {
         </li>
         <li
           onClick={() => {
-            logout();
+            logoutUser();
           }}
         >
           <a>
