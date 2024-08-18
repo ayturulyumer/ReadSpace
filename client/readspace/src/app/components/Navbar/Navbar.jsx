@@ -1,7 +1,8 @@
 "use client";
 import { useAuth } from "@/app/context/authContext.jsx";
 import { createClient } from "../../../../utils/supabase/client.js";
-import { useEffect, useState } from "react";
+
+import Link from "next/link.js";
 
 import Search from "../Search/Search.jsx";
 import Cart from "../Cart/Cart.jsx";
@@ -13,7 +14,9 @@ export default function Navbar() {
   return (
     <div className="navbar " data-theme="retro">
       <div className="navbar-start">
-        <a className="btn btn-ghost text-xl">ReadSpace</a>
+        <Link className="btn btn-ghost text-xl" href="/">
+          ReadSpace
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <Search />
@@ -24,7 +27,7 @@ export default function Navbar() {
           {session ? (
             <>
               <li>
-                <a>Catalog</a>
+                <Link href="/catalog">Catalog</Link>
               </li>
               <Cart />
               <Profile />
@@ -32,10 +35,10 @@ export default function Navbar() {
           ) : (
             <>
               <li>
-                <a href="/login">Login</a>
+              <Link href="/login">Login</Link>
               </li>
               <li>
-                <a href="/register">Register</a>
+              <Link href="/register">Register</Link>
               </li>
             </>
           )}

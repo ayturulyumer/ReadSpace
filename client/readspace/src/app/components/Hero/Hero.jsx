@@ -1,3 +1,4 @@
+import Link from "next/link.js";
 export default function Hero() {
   return (
     <div data-theme="retro" className="hero min-h-fit rounded-br-[8em]">
@@ -13,7 +14,11 @@ export default function Hero() {
           <p className="text-xl py-6 lg:text-2xl">
             Find books that educate, entertain, and inspire
           </p>
-          <button className="btn btn-accent text-white ">Find Your Book</button>
+          <Link href="/catalog">
+            <button className="btn btn-accent text-white ">
+              Find Your Book
+            </button>
+          </Link>
         </div>
       </div>
     </div>

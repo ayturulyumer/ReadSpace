@@ -1,6 +1,6 @@
-import BookDetails from "../components/BookDetails/BookDetails.jsx";
-import BookReviews from "../components/BookReviews/BookReviews.jsx";
-import RelatedBooks from "../components/RelatedBooks/RelatedBooks.jsx";
+import BookDetails from "@/app/components/BookDetails/BookDetails.jsx";
+import BookReviews from "@/app/components/BookReviews/BookReviews.jsx";
+import RelatedBooks from "@/app/components/RelatedBooks/RelatedBooks.jsx";
 export default function Details() {
   return (
     <main data-theme="retro" className="min-h-fit bg-white">
