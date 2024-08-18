@@ -4,12 +4,8 @@ import * as Yup from "yup";
 
 import { useAuth } from "../context/authContext.jsx";
 
-import { useRouter } from "next/navigation";
-
-import { signIn } from "./actions.js";
 
 export default function Login() {
-  const router = useRouter();
   const { loginUser } = useAuth();
 
   const formik = useFormik({
@@ -28,7 +24,6 @@ export default function Login() {
     onSubmit: async (values, { setSubmitting, setStatus }) => {
       setStatus(null);
       loginUser(values.email, values.password);
-      router.push("/");
       setSubmitting(false);
     },
   });

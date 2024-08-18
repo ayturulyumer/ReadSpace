@@ -2,9 +2,10 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import { signUp } from "./actions.js";
+import { useAuth } from "../context/authContext.jsx";
 
 export default function Register() {
+  const { registerUser } = useAuth();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -24,7 +25,7 @@ export default function Register() {
     }),
     onSubmit: async (values, { setSubmitting, setStatus }) => {
       setStatus(null);
-      signUp(values.email, values.password);
+      registerUser(values.email, values.password);
       setSubmitting(false);
     },
   });
