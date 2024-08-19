@@ -4,12 +4,12 @@ import { CiHeart } from "react-icons/ci";
 import Rating from "../Rating/Rating.jsx";
 import BookActionsOverlay from "../BookActionsOverlay/BookActionsOverlay.jsx";
 
-export default function ({ data, isBestSeller, size, actionsOverlay }) {
+export default function ({ data, size, actionsOverlay }) {
   const cardSizeClasses = size === "large" ? "w-64 h-full" : "w-52 h-full";
 
   return (
     <div className="indicator">
-      {isBestSeller && (
+      {data.isBestseller && (
         <span className="indicator-item indicator-center badge font-medium badge-secondary text-primary-content md:indicator-end">
           Best Seller
         </span>
@@ -21,7 +21,7 @@ export default function ({ data, isBestSeller, size, actionsOverlay }) {
         <figure className="relative">
           <img
             className="w-full h-80 object-fit rounded-b-3xl transition duration-300 ease-in-out hover:scale-110 "
-            src={data.image}
+            src={data.thumbnail_image}
             alt={data.title}
           />
         </figure>
@@ -35,7 +35,7 @@ export default function ({ data, isBestSeller, size, actionsOverlay }) {
           ) : (
             <div className="flex self-end gap-2">
               <button className="text-accent">
-                <BsCartPlus style={{ fontSize: "2em",  }} />
+                <BsCartPlus style={{ fontSize: "2em" }} />
               </button>
               <button className="text-primary">
                 <CiHeart style={{ fontSize: "2em" }} />
