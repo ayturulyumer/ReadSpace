@@ -4,7 +4,7 @@ import { CiHeart } from "react-icons/ci";
 import Rating from "../Rating/Rating.jsx";
 import BookActionsOverlay from "../BookActionsOverlay/BookActionsOverlay.jsx";
 
-export default function ({ data, size, actionsOverlay }) {
+export default function ({ data, size, actionsOverlay, getBookIdHandler }) {
   const cardSizeClasses = size === "large" ? "w-64 h-full" : "w-52 h-full";
 
   return (
@@ -17,6 +17,7 @@ export default function ({ data, size, actionsOverlay }) {
       <div
         data-theme="retro"
         className={`card card-compact bg-white shadow-xl relative group ${cardSizeClasses} transition duration-300 ease-in-out hover:scale-105`}
+        onClick={() => getBookIdHandler(data.id)}
       >
         <figure className="relative">
           <img

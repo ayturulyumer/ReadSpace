@@ -1,21 +1,20 @@
 import Rating from "../Rating/Rating.jsx";
 import { BsCartPlus } from "react-icons/bs";
 import { CiHeart } from "react-icons/ci";
-export default function BookDetails() {
+export default function BookDetails({book}) {
   return (
     <div className="hero">
       <div className="hero-content flex-col   lg:flex-row">
         <img
-          src="https://m.media-amazon.com/images/I/718ewn+YFJL._SY466_.jpg"
+          src={book?.thumbnail_image}
           className="shadow-2xl md:max-w-7xl"
         />
         <div className="text-primary-content ml-6  ">
           <section className="flex flex-col mb-4 ">
             <h1 className="text-lg font-medium">
-              $100M Offers: How To Make Offers So Good People Feel Stupid Saying
-              No (Acquisition.com $100M Series Book 1)
+             {book?.title}
             </h1>
-            <p className="text-s "> by Alex Hormozi</p>
+            <p className="text-s "> by {book?.author}</p>
           </section>
           <Rating />
           <p className="py-4">
@@ -29,23 +28,23 @@ export default function BookDetails() {
               <tbody>
                 <tr>
                   <th className="uppercase">Publisher</th>
-                  <td>Acquisition.com</td>
+                  <td>{book?.details.publisher}</td>
                 </tr>
                 <tr>
                   <th className="uppercase">ISBN</th>
-                  <td className="">1737475731</td>
+                  <td className="">{book?.details.isbn}</td>
                 </tr>
                 <tr>
                   <th className="uppercase">Language</th>
-                  <td>English</td>
+                  <td>{book?.details.language}</td>
                 </tr>
                 <tr>
                   <th className="uppercase">Pages</th>
-                  <td>162</td>
+                  <td>{book?.details.pages}</td>
                 </tr>
                 <tr>
                   <th className="uppercase">Price</th>
-                  <td>$25.99</td>
+                  <td>{book?.price}</td>
                 </tr>
               </tbody>
             </table>
