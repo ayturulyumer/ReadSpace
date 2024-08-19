@@ -7,7 +7,7 @@ export default function BookDetails({book}) {
       <div className="hero-content flex-col   lg:flex-row">
         <img
           src={book?.thumbnail_image}
-          className="shadow-2xl md:max-w-7xl"
+        className="w-80 h-[466px] object-cover shadow-2xl"
         />
         <div className="text-primary-content ml-6  ">
           <section className="flex flex-col mb-4 ">
@@ -44,7 +44,7 @@ export default function BookDetails({book}) {
                 </tr>
                 <tr>
                   <th className="uppercase">Price</th>
-                  <td>{book?.price}</td>
+                  <td>${book?.price}</td>
                 </tr>
               </tbody>
             </table>
