@@ -8,7 +8,7 @@ export default function BooksCatalog({ books, error, getBookIdHandler }) {
         )}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-4">
           {books.map((book, i) => (
-            <BookCard key={i} data={book} getBookIdHandler={getBookIdHandler} />
+            <BookCard key={i} book={book} getBookIdHandler={getBookIdHandler} />
           ))}
         </div>
       </div>

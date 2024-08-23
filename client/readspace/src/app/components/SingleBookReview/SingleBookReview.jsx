@@ -17,7 +17,7 @@ export default function SingleBookReview() {
             </div>
             <span>Jess Hopkins</span>
           </div>
-          <Rating />
+          <Rating isDisabled={true} />
         </div>
         <div className="font-medium">
           Gorgeous design! Even more responsive than the previous version. A

@@ -19,14 +19,14 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchSession = async () => {
       const {
-        data: { session },
+        data: { user },
         error,
-      } = await supabase.auth.getSession();
+      } = await supabase.auth.getUser();
 
       if (error) {
         console.error("Error fetching session:", error);
       } else {
-        setSession(session);
+        setSession(user);
       }
     };
 
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
     } else if (user) {
       setSession(user);
       router.push("/");
-      console.log("User is successfully logged in");
+      console.log("User is successfully logged in", user);
     }
   };
 

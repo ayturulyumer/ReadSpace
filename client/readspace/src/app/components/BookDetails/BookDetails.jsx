@@ -1,46 +1,49 @@
 import Rating from "../Rating/Rating.jsx";
 import { BsCartPlus } from "react-icons/bs";
 import { CiHeart } from "react-icons/ci";
-export default function BookDetails({book}) {
+export default function BookDetails({ book }) {
   return (
     <div className="hero">
       <div className="hero-content flex-col   lg:flex-row">
         <img
           src={book?.thumbnail_image}
-        className="w-80 h-[466px] object-cover shadow-2xl"
+          className="w-80 h-[466px] object-cover shadow-2xl"
         />
         <div className="text-primary-content ml-6  ">
           <section className="flex flex-col mb-4 ">
-            <h1 className="text-lg font-medium">
-             {book?.title}
-            </h1>
-            <p className="text-s "> by {book?.author}</p>
+            <h1 className="text-lg font-medium">{book?.title}</h1>
+            <p className="text-s"> by {book?.author}</p>
           </section>
-          <Rating />
-          <p className="py-4">
-            $100M Offers by Alex Hormozi is a business book that provides
-            strategies for entrepreneurs and business owners to generate more
-            revenue and increase profits by creating compelling offers that
-            serve and add value to their clients.
-          </p>
+          <section>
+            <span className="mr-2 font-semibold">{book?.overall_rating}</span>
+            <Rating
+              rating={book?.overall_rating === 0 ? 1 : book?.overall_rating}
+              name={"BookDetails"}
+              isDisabled
+            />
+            <span className="ml-4 font-medium">
+              {book?.total_ratings} ratings
+            </span>
+          </section>
+          <p className="py-4">{book?.details?.description}</p>
           <div className="overflow-x-auto">
             <table className="table-sm text-left ">
               <tbody>
                 <tr>
                   <th className="uppercase">Publisher</th>
-                  <td>{book?.details.publisher}</td>
+                  <td>{book?.details?.publisher}</td>
                 </tr>
                 <tr>
                   <th className="uppercase">ISBN</th>
-                  <td className="">{book?.details.isbn}</td>
+                  <td className="">{book?.details?.isbn}</td>
                 </tr>
                 <tr>
                   <th className="uppercase">Language</th>
-                  <td>{book?.details.language}</td>
+                  <td>{book?.details?.language}</td>
                 </tr>
                 <tr>
                   <th className="uppercase">Pages</th>
-                  <td>{book?.details.pages}</td>
+                  <td>{book?.details?.pages}</td>
                 </tr>
                 <tr>
                   <th className="uppercase">Price</th>

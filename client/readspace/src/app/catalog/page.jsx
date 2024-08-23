@@ -8,7 +8,6 @@ import { getAllBooks } from "../actions/booksActions.js";
 import BookFilters from "../components/BookFilters/BookFilters.jsx";
 import BooksCatalog from "../components/BooksCatalog/BooksCatalog.jsx";
 
-BookFilters;
 export default function Catalog() {
   const [books, setBooks] = useState([]);
   const [error, setError] = useState(null);
@@ -27,10 +26,10 @@ export default function Catalog() {
     fetchBooks();
   }, []);
 
+
   const getBookIdHandler = (bookId) => {
     router.push(`/catalog/details/book?bookId=${bookId}`);
   };
-
   return (
     <div className="max-w-fit min-h-screen flex flex-col lg:flex-row ">
       <BookFilters />
