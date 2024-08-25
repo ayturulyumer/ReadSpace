@@ -7,7 +7,7 @@ export default function BookDetails({ book }) {
       <div className="hero-content flex-col   lg:flex-row">
         <img
           src={book?.thumbnail_image}
-          className="w-80 h-[466px] object-cover shadow-2xl"
+          className="w-80 h-[466px] object-cover shadow-2xl border rounded-lg"
         />
         <div className="text-primary-content ml-6  ">
           <section className="flex flex-col mb-4 ">

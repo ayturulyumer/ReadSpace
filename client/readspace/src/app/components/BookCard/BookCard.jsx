@@ -12,15 +12,15 @@ export default function BookCard({
 }) {
   const cardSizeClasses = size === "large" ? "w-64 h-full" : "w-52 h-full";
   return (
-    <div className="indicator">
+    <div className="indicator" data-theme="retro">
       {book?.isBestseller && (
         <span className="indicator-item indicator-center badge font-medium badge-secondary text-primary-content md:indicator-end">
           Best Seller
         </span>
       )}
       <div
-        book-theme="retro"
-        className={`card card-compact bg-white shadow-xl relative group ${cardSizeClasses} transition duration-300 ease-in-out hover:scale-105 cursor-pointer`}
+        data-theme="retro"
+        className={`card card-compact bg-white shadow-xl relative group ${cardSizeClasses} transition duration-300 ease-in-out hover:scale-105 cursor-pointer border border-gray-300`}
         onClick={() => getBookIdHandler(book?.book_id)}
       >
         <figure className="relative">

@@ -6,7 +6,7 @@ const supabase = createClient();
 export async function getUserRatingByBook(bookId, userId) {
   const { data, error } = await supabase
     .from("ratings")
-    .select("rating")
+    .select("rating,id")
     .eq("book_id", bookId)
     .eq("user_id", userId)
     .single();

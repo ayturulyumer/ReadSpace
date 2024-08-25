@@ -17,18 +17,25 @@ import {
 import BookDetails from "@/app/components/BookDetails/BookDetails.jsx";
 import BookReviews from "@/app/components/BookReviews/BookReviews.jsx";
 import RelatedBooks from "@/app/components/RelatedBooks/RelatedBooks.jsx";
+import {
+  getAllReviewsForBookById,
+  submitReview,
+} from "@/app/actions/reviewActions.js";
 export default function Details() {
   // get user id from context
   const { session } = useAuth();
 
   // saving the rating as number instead of boolean because i need to show the rating
   const [userRated, setUserRated] = useState(null);
+  const [userReview, setUserReview] = useState("");
+  const [allReviews, setAllReviews] = useState([]);
   const [book, setBook] = useState(null);
   const [error, setError] = useState(null);
 
   const searchParams = useSearchParams();
   // declare userID
   const userId = session?.id;
+  const username = session?.email;
   // get the  book id from url
   const bookId = searchParams.get("bookId");
 
@@ -36,27 +43,38 @@ export default function Details() {
   useEffect(() => {
     const fetchBookAndRating = async () => {
       // Fetch book details and parse bookId to Number
-      const { data, error } = await getBookWithRatingsById(Number(bookId));
-      if (error) {
+      const { data: bookData, error: bookError } = await getBookById(
+        Number(bookId)
+      );
+      if (bookError) {
         setError(error.message);
       } else {
-        setBook(data);
+        setBook(bookData);
       }
 
       // Fetch user rating if userId is available
       if (userId) {
-        const { data, error } = await getUserRatingByBook(bookId, userId);
-        console.log(error);
-        if (error) {
-          setError(error.message);
+        const { data: ratingData, error: ratingError } =
+          await getUserRatingByBook(bookId, userId);
+        if (ratingError) {
+          setError(ratingError.message);
         } else {
-          setUserRated(data?.rating);
+          setUserRated(ratingData?.rating);
         }
+      }
+
+      const { data: reviewsData, error: reviewsError } =
+        await getAllReviewsForBookById(bookId);
+      if (reviewsError) {
+        throw new Error(reviewsError.message);
+      } else {
+        setAllReviews(reviewsData);
       }
     };
 
     fetchBookAndRating();
   }, [bookId, userId]);
+
 
   // Submit the rating to the rating table and once it's submitted disable the rating
   const handleRatingSubmit = useCallback(
@@ -74,8 +92,30 @@ export default function Details() {
     [userId, bookId]
   );
 
+  const handleReviewTextChange = (event) => {
+    setUserReview(event.target.value);
+  };
+
+
+
+  const handleReviewSubmit = async () => {
+    if (userReview) {
+      const { data, error } = await submitReview(
+        bookId,
+        userId,
+        username,
+        userReview
+      );
+      if (error) {
+        console.log("Error submitting your review", error.message);
+      } else {
+        setAllReviews((prevReviews) => [data, ...prevReviews]);
+      }
+    }
+  };
+
   return (
-    <main data-theme="retro" className="min-h-fit bg-white">
+    <main data-theme="retro" className="min-h-fit bg-white py-24">
       <BookDetails book={book} />
       <div className="flex  max-w-full items-center justify-center p-1  ">
         <div
@@ -88,7 +128,11 @@ export default function Details() {
                 bookId={bookId}
                 userId={userId}
                 userRated={userRated}
+                userReview={userReview}
                 handleRatingSubmit={handleRatingSubmit}
+                handleReviewSubmit={handleReviewSubmit}
+                handleReviewTextChange={handleReviewTextChange}
+                allReviews={allReviews}
               />
               <RelatedBooks />
             </div>

@@ -31,7 +31,7 @@ export default function Catalog() {
     router.push(`/catalog/details/book?bookId=${bookId}`);
   };
   return (
-    <div className="max-w-fit min-h-screen flex flex-col lg:flex-row ">
+    <div className="max-w-fit min-h-screen flex flex-col lg:flex-row py-20 ">
       <BookFilters />
       <BooksCatalog
         books={books}

@@ -8,7 +8,10 @@ export default function WriteBookReview({
   bookId,
   userRated,
   userId,
+  userReview,
   handleRatingSubmit,
+  handleReviewSubmit,
+  handleReviewTextChange,
 }) {
   return (
     <div className="flex gap-4 w-full">
@@ -20,6 +23,8 @@ export default function WriteBookReview({
       <div className="flex flex-col gap-4 w-fit  ">
         <input
           type="text"
+          value={userReview}
+          onChange={handleReviewTextChange}
           placeholder="Type here"
           className="input input-bordered   input-md  max-w-lg w-4/5  bg-white md:w-full  xl:w-screen"
         />
@@ -27,7 +32,9 @@ export default function WriteBookReview({
           {userRated !== null ? (
             <section className="flex flex-col gap-2">
               <Rating rating={userRated} name={"userRated"} isDisabled={true} />
-              <p className="text-sm font-medium text-green-500">You rated this book !</p>
+              <p className="text-sm font-medium text-green-500">
+                You rated this book !
+              </p>
             </section>
           ) : (
             <Rating
@@ -37,7 +44,7 @@ export default function WriteBookReview({
             /> // Allow rating if the user hasn't rated yet
           )}
 
-          <button className="btn w-fit btn-accent  text-white  ">
+          <button onClick={handleReviewSubmit} className="btn w-fit btn-accent  text-white  ">
             Submit <FaRegComment style={{ fontSize: "2em" }} />
           </button>
         </div>

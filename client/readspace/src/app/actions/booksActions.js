@@ -9,18 +9,22 @@ export async function getAllBooks() {
   return { data, error };
 }
 
-export async function getBookById(id) {
-  const { data, error } = await supabase
-    .from("books")
-    .select()
-    .eq("id", id)
-    .single();
-  return { data, error };
-}
+
 
 export async function getBookWithRatingsById(bookId) {
   // rpc always returns array of objects
   const { data, error } = await supabase.rpc("get_book_with_ratings", {
+    input_book_id: bookId,
+  });
+
+  // Check if data exists and return the first object (which should be the only one)
+  const book = data ? data[0] : null;
+  return { data: book, error };
+}
+
+export async function getBookById(bookId) {
+  // rpc always returns array of objects
+  const { data, error } = await supabase.rpc("get_book_with_reviews", {
     input_book_id: bookId,
   });
 
