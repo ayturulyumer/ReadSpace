@@ -12,7 +12,7 @@ export default function Navbar() {
   const { session } = useAuth();
 
   return (
-    <div className="navbar " data-theme="retro">
+    <div className="navbar  h-fit  fixed z-50    " data-theme="luxury">
       <div className="navbar-start">
         <Link className="btn btn-ghost text-xl" href="/">
           ReadSpace
@@ -35,10 +35,10 @@ export default function Navbar() {
           ) : (
             <>
               <li>
-              <Link href="/login">Login</Link>
+                <Link href="/login">Login</Link>
               </li>
               <li>
-              <Link href="/register">Register</Link>
+                <Link href="/register">Register</Link>
               </li>
             </>
           )}

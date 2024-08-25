@@ -4,6 +4,7 @@ import { CiHeart } from "react-icons/ci";
 
 import Image from "next/image.js";
 import ProfilePhoto from "../../../../public/samba.jpg";
+import Link from "next/link.js";
 
 import { useAuth } from "@/app/context/authContext.jsx";
 
@@ -22,26 +23,42 @@ export default function Profile() {
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-white rounded-box w-52"
+        className="menu menu-sm dropdown-content mt-6 z-[1] p-2 shadow rounded-box w-52 "
+        data-theme=""
       >
-        <li>
+        <li className="rounded-lg hover:bg-red-300 hover:text-white group ">
           <a>
             {" "}
-            <CiHeart style={{ fontSize: "2em" }} /> Wishlist
+            <CiHeart
+              style={{ fontSize: "2em" }}
+              className="group-hover:animate-pulse"
+            />{" "}
+            Wishlist
           </a>
         </li>
-        <li>
-          <a>
-            <CiSettings style={{ fontSize: "2em" }} /> Settings
-          </a>
-        </li>
+        <Link href="/settings">
+          <li className="rounded-lg hover:bg-gray-400 hover:text-white group">
+            <a>
+              <CiSettings
+                style={{ fontSize: "2em" }}
+                className=" group-hover:animate-spin"
+              />
+              Settings
+            </a>
+          </li>
+        </Link>
         <li
+          li
+          className="rounded-lg hover:bg-red-500 hover:text-white group"
           onClick={() => {
             logoutUser();
           }}
         >
           <a>
-            <CiLogout style={{ fontSize: "2em" }} />
+            <CiLogout
+              style={{ fontSize: "2em" }}
+              className=" group-hover:animate-bounce"
+            />
             Logout
           </a>
         </li>
