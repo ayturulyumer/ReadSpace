@@ -1,6 +1,5 @@
 "use client";
 import { useAuth } from "@/app/context/authContext.jsx";
-import { createClient } from "../../../../utils/supabase/client.js";
 
 import Link from "next/link.js";
 
@@ -9,10 +8,15 @@ import Cart from "../Cart/Cart.jsx";
 import Profile from "../Profile/Profile.jsx";
 
 export default function Navbar() {
-  const { session } = useAuth();
+  const { session, logoutUser } = useAuth();
+
+  const userAvatar = session?.user_metadata?.avatar;
 
   return (
-    <div className="navbar  h-fit  fixed z-50    " data-theme="luxury">
+    <div
+      className="navbar mt-2 h-fit   fixed z-50  rounded-2xl   "
+      data-theme="luxury"
+    >
       <div className="navbar-start">
         <Link className="btn btn-ghost text-xl" href="/">
           ReadSpace
@@ -30,7 +34,7 @@ export default function Navbar() {
                 <Link href="/catalog">Catalog</Link>
               </li>
               <Cart />
-              <Profile />
+              <Profile userAvatar={userAvatar} logoutUser={logoutUser} />
             </>
           ) : (
             <>
