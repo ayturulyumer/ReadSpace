@@ -3,13 +3,10 @@ import { CiLogout } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 
 import Image from "next/image.js";
-import ProfilePhoto from "../../../../public/samba.jpg";
+
 import Link from "next/link.js";
 
-import { useAuth } from "@/app/context/authContext.jsx";
-
-export default function Profile() {
-  const { logoutUser } = useAuth();
+export default function Profile({ logoutUser, userAvatar }) {
   return (
     <div className="dropdown dropdown-end">
       <div
@@ -17,13 +14,13 @@ export default function Profile() {
         role="button"
         className="btn btn-ghost btn-circle avatar"
       >
-        <div className="w-10 rounded-full">
-          <Image src={ProfilePhoto} />
+        <div className="w-10 rounded-full ring-1 ring-orange-500 peer-checked:ring">
+          <img src={userAvatar} alt="userAvatar" className=" bg-white" />
         </div>
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content mt-6 z-[1] p-2 shadow rounded-box w-52 "
+        className="menu menu-sm dropdown-content mt-5 z-[1] p-2 shadow rounded-box w-52 "
         data-theme=""
       >
         <li className="rounded-lg hover:bg-red-300 hover:text-white group ">

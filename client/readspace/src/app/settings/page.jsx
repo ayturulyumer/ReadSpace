@@ -1,17 +1,55 @@
 "use client";
 import Image from "next/image.js";
-import ProfilePicture from "../../../public/samba.jpg";
+import ProfilePicture from "../../../public/profile.svg";
+import { uploadAvatar } from "../actions/profileActions.js";
+import { updateUserProfile } from "../actions/authActions.js";
 import { useAuth } from "../context/authContext.jsx";
 import { useState } from "react";
 
 export default function Settings() {
-  const { session } = useAuth();
+  const { session, refreshSession } = useAuth();
   const [passwordType, setPasswordType] = useState("password");
+  const [avatarUrl, setAvatarUrl] = useState(session?.user_metadata?.avatar);
+
+  console.log(session);
+
+  const userId = session?.id;
+
   const handlePasswordType = () => {
     if (passwordType === "password") {
       setPasswordType("text");
     } else {
       setPasswordType("password");
+    }
+  };
+
+  const handleAvatarChange = async (e) => {
+    // Store the avatar in supabase storage
+    const avatar = e.target.files[0];
+    if (avatar) {
+      if (avatar.type.startsWith("image/") && !avatar.type.includes("gif")) {
+        const uploadedAvatarUrl = await uploadAvatar(avatar, userId);
+        if (uploadedAvatarUrl) {
+          // Add unique query parameter to force the browser to fetch the new avatar
+          const urlWithTimestamp = `${uploadedAvatarUrl}?t=${new Date().getTime()}`;
+          setAvatarUrl(urlWithTimestamp); // Update avatar preview
+
+          // Update the user avatar in user object
+          const { error } = await updateUserProfile({
+            metadata: { avatar: urlWithTimestamp },
+          });
+          if (error) {
+            console.log(error);
+          } else {
+            // Refresh the session to reflect the updated avatar
+            await refreshSession();
+          }
+        }
+      } else {
+        alert(
+          "Please select a valid image file (JPEG, PNG, JPG). GIFs are not allowed."
+        );
+      }
     }
   };
 
@@ -72,19 +110,40 @@ export default function Settings() {
               </li>
             </ul>
           </div>
-          <div className="col-span-8 overflow-hidden py-4 rounded-xl border sm:bg-gray-50 sm:px-8 sm:shadow">
+          <div className="col-span-8 overflow-hidden py-4 rounded-xl border  sm:px-8 sm:shadow">
             <div className="pt-4">
               <h1 className="py-2 text-2xl font-semibold">Account settings</h1>
             </div>
             <hr className="mt-4 mb-8" />
             <div className="grid max-w-2xl  my-8">
               <div className="flex flex-col items-center space-y-5 sm:flex-row sm:space-y-0">
-                <Image
-                  src={ProfilePicture}
-                  className="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-orange-500"
-                />
+                {!avatarUrl ? (
+                  <Image
+                    src={ProfilePicture}
+                    height={160}
+                    width={160}
+                    alt="avatar"
+                    className="object-cover rounded-full  ring-2 ring-indigo-300 dark:ring-orange-500 "
+                  />
+                ) : (
+                  <img
+                    className="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-orange-500 "
+                    src={avatarUrl}
+                    alt="avatar"
+                  />
+                )}
                 <div className="flex flex-col space-y-5 sm:ml-8">
+                  <input
+                    type="file"
+                    id="avatar-input"
+                    className="hidden"
+                    accept="image/jpeg, image/png, image/jpg"
+                    onChange={handleAvatarChange}
+                  />
                   <button
+                    onClick={() =>
+                      document.getElementById("avatar-input").click()
+                    }
                     type="button"
                     className="py-3.5 px-7 text-base font-medium text-indigo-100 focus:outline-none bg-[#202142] rounded-lg border border-indigo-200 hover:bg-indigo-900 focus:z-10 focus:ring-4 focus:ring-indigo-200 "
                   >
@@ -110,17 +169,18 @@ export default function Settings() {
                       id="change-email"
                       className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
                       placeholder={session?.email}
+                      disabled
                     />
                   </div>
                 </label>
-                <label htmlFor="change-email">
+                <label htmlFor="change-email-new">
                   <span className="text-sm text-gray-500">New Email</span>
                   <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
                     <input
                       type="text"
-                      id="change-email"
+                      id="change-email-new"
                       className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
-                      placeholder=""
+                      placeholder="Your new email"
                     />
                   </div>
                 </label>
@@ -146,12 +206,12 @@ export default function Settings() {
                     />
                   </div>
                 </label>
-                <label htmlFor="login-password">
+                <label htmlFor="login-password-new">
                   <span className="text-sm text-gray-500">New Password</span>
                   <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
                     <input
                       type={passwordType}
-                      id="login-password"
+                      id="login-password-new"
                       className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
                       placeholder="***********"
                     />
