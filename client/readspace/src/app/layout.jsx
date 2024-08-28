@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import { AuthProvider } from "./context/authContext.jsx";
+import toast, { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +17,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className} data-theme="cupcake">
+        <Toaster
+          position="top-right"
+          containerStyle={{ marginTop: "5rem" }}
+          toastOptions={{
+            duration: 3000,
+            style: { background: "#0f0f0f", color: "#ffffff" },
+          }}
+        />
         <AuthProvider>
           <Navbar />
           {children}

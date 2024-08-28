@@ -7,6 +7,7 @@ import { createClient } from "../../../utils/supabase/client.js";
 import { useRouter } from "next/navigation.js";
 
 import { signIn, signUp, logout } from "../actions/authActions.js";
+import toast from "react-hot-toast";
 
 const supabase = createClient();
 
@@ -47,31 +48,37 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registerUser = async (email, password) => {
-    const { user, error } = await signUp(email, password);
-    if (error) {
-      console.log("Registration Error:", error);
-    } else if (user) {
-      setSession(user);
-      router.push("/");
-      console.log("User is successfully registered", user);
-    }
+    toast.promise(signUp(email, password), {
+      loading: "Registering...",
+      success: (data) => {
+        if (data) {
+          setSession(data.user);
+          router.push("/");
+          console.log("User is successfully registered", data.user);
+          return <b>Registration successful!</b>;
+        }
+      },
+      error: (error) => {
+        return <b>{error}</b>;
+      },
+    });
   };
 
   const loginUser = async (email, password) => {
     const { user, error } = await signIn(email, password);
     if (error) {
-      console.log("Login Error:", error);
+      toast.error("There was error with your login", error);
     } else if (user) {
       setSession(user);
       router.push("/");
-      console.log("User is successfully logged in", user);
+      toast.success("Successfully login !");
     }
   };
 
   const logoutUser = async () => {
     await logout();
     setSession(null);
-    console.log("user logged out");
+    toast.success("Logged out successfully !");
   };
 
   const values = {
