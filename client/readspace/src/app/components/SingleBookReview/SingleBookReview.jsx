@@ -12,7 +12,7 @@ export default function SingleBookReview({ review }) {
           <div className="flex gap-4">
             <div className="avatar">
               <div className="w-8 h-8 rounded-full">
-                <Image src={ProfilePhoto} />
+                <img src={review?.user_avatar} alt="userAvatar" />
               </div>
             </div>
             <span>{review?.username}</span>

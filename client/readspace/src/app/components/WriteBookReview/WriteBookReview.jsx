@@ -8,6 +8,7 @@ export default function WriteBookReview({
   bookId,
   userRated,
   userId,
+  userAvatar,
   userReview,
   handleRatingSubmit,
   handleReviewSubmit,
@@ -17,7 +18,7 @@ export default function WriteBookReview({
     <div className="flex gap-4 w-full">
       <div className="avatar">
         <div className="w-12 h-12 rounded-full">
-          <Image src={ProfilePhoto} />
+          <img src={userAvatar} alt="user-avatar" />
         </div>
       </div>
       <div className="flex flex-col gap-4 w-fit  ">
@@ -44,7 +45,10 @@ export default function WriteBookReview({
             /> // Allow rating if the user hasn't rated yet
           )}
 
-          <button onClick={handleReviewSubmit} className="btn w-fit btn-accent  text-white  ">
+          <button
+            onClick={handleReviewSubmit}
+            className="btn w-fit btn-accent  text-white  "
+          >
             Submit <FaRegComment style={{ fontSize: "2em" }} />
           </button>
         </div>

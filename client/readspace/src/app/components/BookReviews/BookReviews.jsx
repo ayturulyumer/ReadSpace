@@ -6,6 +6,7 @@ export default function BookReviews({
   bookId,
   userRated,
   userId,
+  userAvatar,
   handleRatingSubmit,
   handleReviewSubmit,
   handleReviewTextChange,
@@ -18,6 +19,7 @@ export default function BookReviews({
         Write review
       </h1>
       <WriteBookReview
+        userAvatar={userAvatar}
         bookId={bookId}
         userId={userId}
         userReview={userReview}
@@ -31,9 +33,9 @@ export default function BookReviews({
           Reviews
         </h1>
         {allReviews.length > 0 ? (
-          allReviews.map((review) => (
+          allReviews.map((review, i) => (
             <SingleBookReview
-              key={1} // Assuming each review has a unique `id`
+              key={i} // Assuming each review has a unique `id`
               review={review}
             />
           ))
