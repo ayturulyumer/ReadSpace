@@ -36,6 +36,7 @@ export default function Details() {
   // declare userID
   const userId = session?.id;
   const username = session?.email;
+  const userAvatar = session?.user_metadata?.avatar;
   // get the  book id from url
   const bookId = searchParams.get("bookId");
 
@@ -63,6 +64,7 @@ export default function Details() {
         }
       }
 
+      //Get all book reviews
       const { data: reviewsData, error: reviewsError } =
         await getAllReviewsForBookById(bookId);
       if (reviewsError) {
@@ -74,7 +76,6 @@ export default function Details() {
 
     fetchBookAndRating();
   }, [bookId, userId]);
-
 
   // Submit the rating to the rating table and once it's submitted disable the rating
   const handleRatingSubmit = useCallback(
@@ -96,14 +97,13 @@ export default function Details() {
     setUserReview(event.target.value);
   };
 
-
-
   const handleReviewSubmit = async () => {
     if (userReview) {
       const { data, error } = await submitReview(
         bookId,
         userId,
         username,
+        userAvatar,
         userReview
       );
       if (error) {
@@ -127,6 +127,7 @@ export default function Details() {
               <BookReviews
                 bookId={bookId}
                 userId={userId}
+                userAvatar={userAvatar}
                 userRated={userRated}
                 userReview={userReview}
                 handleRatingSubmit={handleRatingSubmit}
