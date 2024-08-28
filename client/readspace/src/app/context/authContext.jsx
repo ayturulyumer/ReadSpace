@@ -33,11 +33,26 @@ export const AuthProvider = ({ children }) => {
     fetchSession();
   }, []);
 
+  const refreshSession = async () => {
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+
+    if (error) {
+      console.error("Error refreshing session:", error);
+    } else {
+      setSession(user);
+    }
+  };
+
   const registerUser = async (email, password) => {
     const { user, error } = await signUp(email, password);
     if (error) {
       console.log("Registration Error:", error);
     } else if (user) {
+      setSession(user);
+      router.push("/");
       console.log("User is successfully registered", user);
     }
   };
@@ -64,6 +79,7 @@ export const AuthProvider = ({ children }) => {
     logoutUser,
     loginUser,
     registerUser,
+    refreshSession,
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
