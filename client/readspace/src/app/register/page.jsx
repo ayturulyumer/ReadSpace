@@ -120,6 +120,7 @@ export default function Register() {
                   onBlur={formik.handleBlur}
                   value={formik.values.confirm_password}
                 />
+                
                 {formik.touched.confirm_password &&
                 formik.errors.confirm_password ? (
                   <div className="text-red-600 text-sm">

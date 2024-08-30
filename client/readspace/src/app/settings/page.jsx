@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 export default function Settings() {
-  const { session, refreshSession } = useAuth();
+  const { session, refreshSession, logoutUser } = useAuth();
   const [passwordType, setPasswordType] = useState("password");
   const [avatarUrl, setAvatarUrl] = useState(null);
   const [loading, setIsLoading] = useState(true);
@@ -91,11 +91,10 @@ export default function Settings() {
     toast.promise(
       updateUserProfile({ email: newEmail }).then(async (result) => {
         const { error } = result;
-        console.log(result);
         if (error) {
           throw new Error(error.message);
         } else {
-          return "Email updated successfully! We've sent a confirmation link to your current and new email adress ! ";
+          return "Email updated successfully! We've sent a confirmation link to your current and new email address ! ";
         }
       }),
       {

@@ -48,25 +48,29 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registerUser = async (email, password) => {
-    toast.promise(signUp(email, password), {
-      loading: "Registering...",
-      success: (data) => {
-        if (data) {
+    toast.promise(
+      signUp(email, password).then(async (result) => {
+        const { data, error } = result;
+        if (error) {
+          throw new Error(error);
+        } else {
           setSession(data.user);
           router.push("/");
-          return <b>Successful registration !</b>;
+          return "Successful registration!";
         }
-      },
-      error: (error) => {
-        return <b>{error}</b>;
-      },
-    });
+      }),
+      {
+        loading: "Registering...",
+        success: (message) => message,
+        error: (err) => err.message || "Could not register user.",
+      }
+    );
   };
 
   const loginUser = async (email, password) => {
     const { user, error } = await signIn(email, password);
     if (error) {
-      toast.error("There was error with your login", error);
+      toast.error(error);
     } else if (user) {
       setSession(user);
       router.push("/");
@@ -77,7 +81,6 @@ export const AuthProvider = ({ children }) => {
   const logoutUser = async () => {
     await logout();
     setSession(null);
-    toast.success("Logged out successfully !");
   };
 
   const values = {

@@ -1,14 +1,13 @@
 export default function Rating({
-  rating = 1, // Default rating value if not provided
+  rating = 1,
   isDisabled = false,
   handleRatingSubmit,
   name,
 }) {
   // Handle rating change when a star is clicked
   const handleRatingChange = (index) => {
-    console.log("User rated", index + 1);
     if (!isDisabled && handleRatingSubmit) {
-      handleRatingSubmit(index + 1); // Trigger callback with the new rating
+      handleRatingSubmit(index + 1);
     }
   };
 
@@ -22,7 +21,7 @@ export default function Rating({
           className={`mask mask-star-2  bg-yellow-800 ${
             index < rating ? "checked" : "bg-gray-300"
           }`}
-          checked={index + 1 <= rating} // Adjust the condition here
+          checked={index + 1 <= rating}
           disabled={isDisabled}
           onChange={() => handleRatingChange(index)}
         />

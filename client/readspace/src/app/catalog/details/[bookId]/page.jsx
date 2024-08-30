@@ -21,6 +21,8 @@ import {
   getAllReviewsForBookById,
   submitReview,
 } from "@/app/actions/reviewActions.js";
+import toast from "react-hot-toast";
+
 export default function Details() {
   // get user id from context
   const { session } = useAuth();
@@ -30,7 +32,6 @@ export default function Details() {
   const [userReview, setUserReview] = useState("");
   const [allReviews, setAllReviews] = useState([]);
   const [book, setBook] = useState(null);
-  const [error, setError] = useState(null);
 
   const searchParams = useSearchParams();
   // declare userID
@@ -48,7 +49,7 @@ export default function Details() {
         Number(bookId)
       );
       if (bookError) {
-        setError(error.message);
+        console.error(bookError.message);
       } else {
         setBook(bookData);
       }
@@ -58,7 +59,7 @@ export default function Details() {
         const { data: ratingData, error: ratingError } =
           await getUserRatingByBook(bookId, userId);
         if (ratingError) {
-          setError(ratingError.message);
+          console.error(ratingError.message);
         } else {
           setUserRated(ratingData?.rating);
         }
@@ -68,7 +69,7 @@ export default function Details() {
       const { data: reviewsData, error: reviewsError } =
         await getAllReviewsForBookById(bookId);
       if (reviewsError) {
-        throw new Error(reviewsError.message);
+        console.error(reviewsError.message);
       } else {
         setAllReviews(reviewsData);
       }
@@ -78,20 +79,27 @@ export default function Details() {
   }, [bookId, userId]);
 
   // Submit the rating to the rating table and once it's submitted disable the rating
-  const handleRatingSubmit = useCallback(
-    async (newRating) => {
-      if (userId && bookId) {
-        const { status, error } = await submitRating(bookId, userId, newRating);
-        if (error) {
-          console.log("Error submitting your rating", error.message);
-        } else {
-          setUserRated(newRating);
-          console.log("Successfully rated", newRating, status);
+  const handleRatingSubmit = useCallback(async (newRating) => {
+    if (userId && bookId) {
+      toast.promise(
+        submitRating(bookId, userId, newRating).then(async (result) => {
+          const { error } = result;
+          if (error) {
+            throw new Error(error);
+          } else {
+            setUserRated(newRating);
+            return "You've Successfully rated this book !";
+          }
+        }),
+        {
+          loading: "Submitting rating...",
+          success: (message) => message,
+          error: (err) => err.message || "There was problem rating this book !",
         }
-      }
-    },
-    [userId, bookId]
-  );
+      );
+    }
+    [userId, bookId];
+  });
 
   const handleReviewTextChange = (event) => {
     setUserReview(event.target.value);
@@ -99,18 +107,27 @@ export default function Details() {
 
   const handleReviewSubmit = async () => {
     if (userReview) {
-      const { data, error } = await submitReview(
-        bookId,
-        userId,
-        username,
-        userAvatar,
-        userReview
+      toast.promise(
+        submitReview(bookId, userId, username, userAvatar, userReview).then(
+          async (result) => {
+            const { data, error } = result;
+            if (error) {
+              throw new Error(error.message);
+            } else {
+              setAllReviews((prevReviews) => [data, ...prevReviews]);
+              return "Successfully submitted review !";
+            }
+          }
+        ),
+        {
+          loading: "Submitting review...",
+          success: (message) => message,
+          error: (err) =>
+            err.message || "There was problem submitting your review",
+        }
       );
-      if (error) {
-        console.log("Error submitting your review", error.message);
-      } else {
-        setAllReviews((prevReviews) => [data, ...prevReviews]);
-      }
+    } else {
+      toast.error("You must type review first !");
     }
   };
 
