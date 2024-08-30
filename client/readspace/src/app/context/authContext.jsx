@@ -54,8 +54,7 @@ export const AuthProvider = ({ children }) => {
         if (data) {
           setSession(data.user);
           router.push("/");
-          console.log("User is successfully registered", data.user);
-          return <b>Registration successful!</b>;
+          return <b>Successful registration !</b>;
         }
       },
       error: (error) => {
@@ -71,7 +70,7 @@ export const AuthProvider = ({ children }) => {
     } else if (user) {
       setSession(user);
       router.push("/");
-      toast.success("Successfully login !");
+      toast.success("Successfully logged in !");
     }
   };
 

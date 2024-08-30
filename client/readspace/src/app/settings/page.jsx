@@ -4,12 +4,16 @@ import { uploadAvatar } from "../actions/profileActions.js";
 import { updateUserProfile } from "../actions/authActions.js";
 import { useAuth } from "../context/authContext.jsx";
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 export default function Settings() {
   const { session, refreshSession } = useAuth();
   const [passwordType, setPasswordType] = useState("password");
   const [avatarUrl, setAvatarUrl] = useState(null);
   const [loading, setIsLoading] = useState(true);
+  const [newEmail, setNewEmail] = useState("");
+
+  const userId = session?.id;
 
   const handlePasswordType = () => {
     if (passwordType === "password") {
@@ -27,32 +31,55 @@ export default function Settings() {
   }, [session]);
 
   const handleAvatarChange = async (e) => {
-    // Store the avatar in supabase storage
     const avatar = e.target.files[0];
+
     if (avatar) {
       if (avatar.type.startsWith("image/") && !avatar.type.includes("gif")) {
-        const uploadedAvatarUrl = await uploadAvatar(avatar, userId);
-        if (uploadedAvatarUrl) {
-          // Add unique query parameter to force the browser to fetch the new avatar
-          const urlWithTimestamp = `${uploadedAvatarUrl}?t=${new Date().getTime()}`;
-          setAvatarUrl(urlWithTimestamp); // Update avatar preview
+        toast.promise(
+          uploadAvatar(avatar, userId).then(async (uploadedAvatarUrl) => {
+            if (uploadedAvatarUrl) {
+              const urlWithTimestamp = `${uploadedAvatarUrl}?t=${new Date().getTime()}`;
+              setAvatarUrl(urlWithTimestamp); // Update avatar preview
 
-          // Update the user avatar in user object
-          const { error } = await updateUserProfile({
-            metadata: { avatar: urlWithTimestamp },
-          });
-          if (error) {
-            console.log(error);
-          } else {
-            // Refresh the session to reflect the updated avatar
-            await refreshSession();
+              const { error } = await updateUserProfile({
+                metadata: { avatar: urlWithTimestamp },
+              });
+
+              if (error) {
+                throw new Error(error.message);
+              }
+
+              await refreshSession();
+              return "Your avatar is updated successfully!";
+            } else {
+              throw new Error("Avatar upload failed.");
+            }
+          }),
+          {
+            loading: "Uploading avatar...",
+            success: (message) => message,
+            error: (err) => err.message || "Could not update avatar.",
           }
-        }
+        );
       } else {
-        alert(
+        toast.error(
           "Please select a valid image file (JPEG, PNG, JPG). GIFs are not allowed."
         );
       }
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    setNewEmail(e.target.value);
+  };
+
+  const submitEmailChange = () => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const isEmailValid = emailRegex.test(newEmail);
+
+    if (!isEmailValid) {
+      toast.error("Please enter a valid email adress !");
+      return;
     }
   };
 
@@ -145,13 +172,7 @@ export default function Settings() {
                     type="button"
                     className="py-3.5 px-7 text-base font-medium text-indigo-100 focus:outline-none bg-[#202142] rounded-lg border border-indigo-200 hover:bg-indigo-900 focus:z-10 focus:ring-4 focus:ring-indigo-200 "
                   >
-                    Change picture
-                  </button>
-                  <button
-                    type="button"
-                    className="py-3.5 px-7 text-base font-medium text-indigo-900 focus:outline-none bg-white rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200 "
-                  >
-                    Delete picture
+                    Change avatar
                   </button>
                 </div>
               </div>
@@ -175,6 +196,7 @@ export default function Settings() {
                   <span className="text-sm text-gray-500">New Email</span>
                   <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
                     <input
+                      onChange={handleEmailChange}
                       type="text"
                       id="change-email-new"
                       className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
@@ -235,15 +257,7 @@ export default function Settings() {
                 </svg>
               </button>
             </div>
-            <p className="mt-2">
-              Can't remember your current password.{" "}
-              <a
-                className="text-sm font-semibold text-blue-600 underline decoration-2"
-                href="#"
-              >
-                Recover Account
-              </a>
-            </p>
+
             <button className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white">
               Save Password
             </button>

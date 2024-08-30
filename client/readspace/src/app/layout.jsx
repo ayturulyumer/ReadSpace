@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className} data-theme="cupcake">
         <Toaster
-          position="top-right"
+          position="bottom-center"
           containerStyle={{ marginTop: "5rem" }}
           toastOptions={{
             duration: 3000,
