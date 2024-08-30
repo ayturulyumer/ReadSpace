@@ -73,14 +73,37 @@ export default function Settings() {
     setNewEmail(e.target.value);
   };
 
-  const submitEmailChange = () => {
+  const submitEmailChange = async () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const isEmailValid = emailRegex.test(newEmail);
 
     if (!isEmailValid) {
-      toast.error("Please enter a valid email adress !");
+      toast.error("Please enter a valid email address!");
       return;
     }
+
+    if (newEmail === session?.email) {
+      toast.error("You are already using this email !");
+      return;
+    }
+
+    // Use toast.promise to handle the email update process
+    toast.promise(
+      updateUserProfile({ email: newEmail }).then(async (result) => {
+        const { error } = result;
+        console.log(result);
+        if (error) {
+          throw new Error(error.message);
+        } else {
+          return "Email updated successfully! We've sent a confirmation link to your current and new email adress ! ";
+        }
+      }),
+      {
+        loading: "Updating email...",
+        success: (message) => message,
+        error: (err) => err.message || "Could not update email.",
+      }
+    );
   };
 
   return (
@@ -206,7 +229,10 @@ export default function Settings() {
                 </label>
               </div>
             </div>
-            <button className=" mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white">
+            <button
+              onClick={submitEmailChange}
+              className=" mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white"
+            >
               Save Email
             </button>
             <hr className="mt-4 mb-8" />
