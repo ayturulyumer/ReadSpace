@@ -2,6 +2,8 @@
 import { useAuth } from "@/app/context/authContext.jsx";
 
 import Link from "next/link.js";
+import Image from "next/image.js";
+import Logo from "../../../../public/readspace.jpg";
 
 import Search from "../Search/Search.jsx";
 import Cart from "../Cart/Cart.jsx";
@@ -18,7 +20,17 @@ export default function Navbar() {
       data-theme="luxury"
     >
       <div className="navbar-start">
-        <Link className="btn btn-ghost text-xl" href="/">
+        <Link
+          className="ml-2 h-fit  text-2xl text-gray-500 font-medium flex items-center"
+          href="/"
+        >
+          <Image
+            className="mask w-11 h-11 mask-circle mr-2"
+            src={Logo}
+            width={0}
+            height={0}
+            alt="Logo"
+          />
           ReadSpace
         </Link>
       </div>
@@ -27,7 +39,7 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-end">
-        <ul className="menu menu-lg menu-horizontal">
+        <ul className="menu menu-sm menu-vertical font-bold items-center md:menu-horizontal md:menu-lg">
           {session ? (
             <>
               <li>

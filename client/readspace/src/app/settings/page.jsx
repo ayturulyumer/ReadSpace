@@ -1,19 +1,15 @@
 "use client";
 import Image from "next/image.js";
-import ProfilePicture from "../../../public/profile.svg";
 import { uploadAvatar } from "../actions/profileActions.js";
 import { updateUserProfile } from "../actions/authActions.js";
 import { useAuth } from "../context/authContext.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Settings() {
   const { session, refreshSession } = useAuth();
   const [passwordType, setPasswordType] = useState("password");
-  const [avatarUrl, setAvatarUrl] = useState(session?.user_metadata?.avatar);
-
-  console.log(session);
-
-  const userId = session?.id;
+  const [avatarUrl, setAvatarUrl] = useState(null);
+  const [loading, setIsLoading] = useState(true);
 
   const handlePasswordType = () => {
     if (passwordType === "password") {
@@ -22,6 +18,13 @@ export default function Settings() {
       setPasswordType("password");
     }
   };
+
+  useEffect(() => {
+    if (session?.user_metadata?.avatar) {
+      setAvatarUrl(session.user_metadata.avatar);
+    }
+    setIsLoading(false);
+  }, [session]);
 
   const handleAvatarChange = async (e) => {
     // Store the avatar in supabase storage
@@ -117,14 +120,8 @@ export default function Settings() {
             <hr className="mt-4 mb-8" />
             <div className="grid max-w-2xl  my-8">
               <div className="flex flex-col items-center space-y-5 sm:flex-row sm:space-y-0">
-                {!avatarUrl ? (
-                  <Image
-                    src={ProfilePicture}
-                    height={160}
-                    width={160}
-                    alt="avatar"
-                    className="object-cover rounded-full  ring-2 ring-indigo-300 dark:ring-orange-500 "
-                  />
+                {loading ? (
+                  <div className="skeleton object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-orange-500"></div>
                 ) : (
                   <img
                     className="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-orange-500 "
@@ -132,6 +129,7 @@ export default function Settings() {
                     alt="avatar"
                   />
                 )}
+
                 <div className="flex flex-col space-y-5 sm:ml-8">
                   <input
                     type="file"
