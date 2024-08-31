@@ -3,7 +3,7 @@ import { BsCartPlus } from "react-icons/bs";
 import { CiHeart } from "react-icons/ci";
 export default function BookDetails({ book }) {
   return (
-    <div className="hero">
+    <div className="hero mt-20  md:mt-0">
       <div className="hero-content flex-col   lg:flex-row">
         <img
           src={book?.thumbnail_image}

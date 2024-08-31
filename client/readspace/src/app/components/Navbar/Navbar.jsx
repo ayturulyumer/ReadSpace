@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <div
-      className="navbar mt-2 h-fit   fixed z-50  rounded-2xl   "
+      className="navbar mt-2 h-fit    lg:fixed lg:z-50  rounded-2xl   "
       data-theme="luxury"
     >
       <div className="navbar-start">

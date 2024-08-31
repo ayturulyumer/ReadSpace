@@ -4,6 +4,9 @@ import { uploadAvatar } from "../actions/profileActions.js";
 import { updateUserProfile } from "../actions/authActions.js";
 import { useAuth } from "../context/authContext.jsx";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation.js";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import toast from "react-hot-toast";
 
 export default function Settings() {
@@ -13,8 +16,11 @@ export default function Settings() {
   const [loading, setIsLoading] = useState(true);
   const [newEmail, setNewEmail] = useState("");
 
+  const router = useRouter();
+
   const userId = session?.id;
 
+  // Toggle Show/Hide Password
   const handlePasswordType = () => {
     if (passwordType === "password") {
       setPasswordType("text");
@@ -23,6 +29,7 @@ export default function Settings() {
     }
   };
 
+  //
   useEffect(() => {
     if (session?.user_metadata?.avatar) {
       setAvatarUrl(session.user_metadata.avatar);
@@ -30,6 +37,7 @@ export default function Settings() {
     setIsLoading(false);
   }, [session]);
 
+  // Upload the avatar to storage and update the user's profile with the uploaded avatar
   const handleAvatarChange = async (e) => {
     const avatar = e.target.files[0];
 
@@ -69,10 +77,12 @@ export default function Settings() {
     }
   };
 
+  // Handle email input change
   const handleEmailChange = (e) => {
     setNewEmail(e.target.value);
   };
 
+  // Handle the email change functionality
   const submitEmailChange = async () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const isEmailValid = emailRegex.test(newEmail);
@@ -87,7 +97,6 @@ export default function Settings() {
       return;
     }
 
-    // Use toast.promise to handle the email update process
     toast.promise(
       updateUserProfile({ email: newEmail }).then(async (result) => {
         const { error } = result;
@@ -104,6 +113,44 @@ export default function Settings() {
       }
     );
   };
+
+  // Handle input validations
+  const formik = useFormik({
+    initialValues: {
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: Yup.object({
+      password: Yup.string()
+        .min(8, "Password must be at least 8 characters")
+        .required("Password is required"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .required("Confirm Password is required"),
+    }),
+    onSubmit: (values) => {
+      // Update the user's password
+      toast.promise(
+        updateUserProfile({ password: values.password }).then(
+          async (result) => {
+            const { error } = result;
+            if (error) {
+              throw new Error(error.message);
+            } else {
+              logoutUser();
+              router.push("/login");
+              return "Your password has been updated successfully! You will be logged out for security reasons. Please log in with your new password.";
+            }
+          }
+        ),
+        {
+          loading: "Updating password...",
+          success: (message) => message,
+          error: (err) => err.message || "Could not update password.",
+        }
+      );
+    },
+  });
 
   return (
     <div className="py-28 text-accent" data-theme="cupcake">
@@ -238,29 +285,48 @@ export default function Settings() {
             <p className="py-2 text-xl font-semibold">Password</p>
             <div className="flex items-center">
               <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-3">
-                <label htmlFor="login-password">
-                  <span className="text-sm text-gray-500">
-                    Current Password
-                  </span>
-                  <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
-                    <input
-                      type={passwordType}
-                      id="login-password"
-                      className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
-                      placeholder="***********"
-                    />
-                  </div>
-                </label>
-                <label htmlFor="login-password-new">
+                <label htmlFor="password">
                   <span className="text-sm text-gray-500">New Password</span>
                   <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
                     <input
                       type={passwordType}
-                      id="login-password-new"
+                      id="password"
+                      name="password"
                       className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
                       placeholder="***********"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.password}
                     />
                   </div>
+                  {formik.touched.password && formik.errors.password ? (
+                    <div className="text-red-500 text-sm">
+                      {formik.errors.password}
+                    </div>
+                  ) : null}
+                </label>
+                <label htmlFor="confirmPassword">
+                  <span className="text-sm text-gray-500">
+                    Confirm Password
+                  </span>
+                  <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
+                    <input
+                      type={passwordType}
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+                      placeholder="***********"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.confirmPassword}
+                    />
+                  </div>
+                  {formik.touched.confirmPassword &&
+                  formik.errors.confirmPassword ? (
+                    <div className="text-red-500 text-sm">
+                      {formik.errors.confirmPassword}
+                    </div>
+                  ) : null}
                 </label>
               </div>
               <button
@@ -282,8 +348,11 @@ export default function Settings() {
                 </svg>
               </button>
             </div>
-
-            <button className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white">
+            <button
+              type="submit"
+              onClick={formik.handleSubmit}
+              className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white"
+            >
               Save Password
             </button>
           </div>
