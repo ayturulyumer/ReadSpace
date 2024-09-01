@@ -132,7 +132,7 @@ export default function Details() {
   };
 
   return (
-    <main data-theme="retro" className="min-h-fit bg-white py-24">
+    <main data-theme="retro" className="min-h-fit bg-white ">
       <BookDetails book={book} />
       <div className="flex  max-w-full items-center justify-center p-1  ">
         <div
