@@ -3,16 +3,11 @@ import { createClient } from "../../../utils/supabase/client.js";
 const supabase = createClient();
 
 export const getWishlist = async (userId) => {
-  const { data, error } = await supabase
-    .from("wishlists")
-    .select("book_id, books(title, thumbnail_image)")
-    .eq("user_id", userId);
+  const { data, error } = await supabase.rpc("get_user_wishlist_with_details", {
+    p_user_id: userId,
+  });
 
-  if (error) {
-    return error;
-  }
-
-  return data;
+  return { data, error };
 };
 
 export const addToWishlist = async (userId, bookId) => {
