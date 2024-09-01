@@ -23,16 +23,18 @@ export default function Profile({ logoutUser, userAvatar }) {
         className="menu menu-sm dropdown-content mt-5 z-[1] p-2 shadow rounded-box w-52 "
         data-theme=""
       >
-        <li className="rounded-lg hover:bg-red-300 hover:text-white group ">
-          <a>
-            {" "}
-            <CiHeart
-              style={{ fontSize: "2em" }}
-              className="group-hover:animate-pulse"
-            />{" "}
-            Wishlist
-          </a>
-        </li>
+        <Link href="/wishlist">
+          <li className="rounded-lg hover:bg-red-300 hover:text-white group ">
+            <a>
+              {" "}
+              <CiHeart
+                style={{ fontSize: "2em" }}
+                className="group-hover:animate-pulse"
+              />{" "}
+              Wishlist
+            </a>
+          </li>
+        </Link>
         <Link href="/settings">
           <li className="rounded-lg hover:bg-gray-400 hover:text-white group">
             <a>

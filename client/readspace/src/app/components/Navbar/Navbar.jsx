@@ -15,10 +15,7 @@ export default function Navbar() {
   const userAvatar = session?.user_metadata?.avatar;
 
   return (
-    <div
-      className="navbar mt-2 h-fit    lg:fixed lg:z-50  rounded-2xl   "
-      data-theme="luxury"
-    >
+    <div className="navbar h-fit " data-theme="luxury">
       <div className="navbar-start">
         <Link
           className="ml-2 h-fit  text-2xl text-gray-500 font-medium flex items-center"
