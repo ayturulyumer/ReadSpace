@@ -15,19 +15,24 @@ export default function BookReviews({
 }) {
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="font-medium text-lg underline-orange uppercase mb-4">
-        Write review
-      </h1>
-      <WriteBookReview
-        userAvatar={userAvatar}
-        bookId={bookId}
-        userId={userId}
-        userReview={userReview}
-        userRated={userRated}
-        handleRatingSubmit={handleRatingSubmit}
-        handleReviewSubmit={handleReviewSubmit}
-        handleReviewTextChange={handleReviewTextChange}
-      />
+      {userId && (
+        <div>
+          <h1 className="font-medium text-lg underline-orange uppercase mb-4">
+            Write review
+          </h1>
+          <WriteBookReview
+            userAvatar={userAvatar}
+            bookId={bookId}
+            userId={userId}
+            userReview={userReview}
+            userRated={userRated}
+            handleRatingSubmit={handleRatingSubmit}
+            handleReviewSubmit={handleReviewSubmit}
+            handleReviewTextChange={handleReviewTextChange}
+          />
+        </div>
+      )}
+
       <div className="w-full flex flex-col">
         <h1 className="text-lg font-medium underline-orange uppercase">
           Reviews
