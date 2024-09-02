@@ -56,21 +56,28 @@ export default function Wishlist() {
         {wishlist.length === 0 ? (
           <EmptyState />
         ) : (
-          <div className="grid border py-4 grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {wishlist.map((item) => (
-              <div
-                key={item.book_id}
-                className="flex items-center justify-center"
-              >
-                <BookCard
-                  book={item}
-                  isInWishlist={wishlistStatus[item.book_id]}
-                  handleWishlistToggle={() => toggleWishlistItem(item.book_id)}
-                  getBookIdHandler={getBookIdHandler}
-                />
-              </div>
-            ))}
-          </div>
+          <>
+            <p className="mb-4 text-gray-500">
+              {wishlist.length} {wishlist.length > 1 ? "books" : "book"}
+            </p>
+            <div className="grid border py-4 grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {wishlist.map((item) => (
+                <div
+                  key={item.book_id}
+                  className="flex items-center justify-center"
+                >
+                  <BookCard
+                    book={item}
+                    isInWishlist={wishlistStatus[item.book_id]}
+                    handleWishlistToggle={() =>
+                      toggleWishlistItem(item.book_id)
+                    }
+                    getBookIdHandler={getBookIdHandler}
+                  />
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>
