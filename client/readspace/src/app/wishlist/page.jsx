@@ -30,8 +30,6 @@ export default function Wishlist() {
     }
   }, [userId]);
 
-  console.log(wishlist);
-
   if (loading) {
     return <Spinner />; // Show spinner while loading
   }
