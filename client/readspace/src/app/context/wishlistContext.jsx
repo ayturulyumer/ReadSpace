@@ -24,10 +24,10 @@ export function WishlistProvider({ children }) {
   const [state, dispatch] = useReducer(wishlistReducer, initialState);
   const { session } = useAuth();
   const router = useRouter();
+  const userId = session?.id;
 
   const fetchWishlistStatus = async (books) => {
-    const userId = session?.id;
-    if (!userId || books.length === 0) return;
+    if (!userId || books?.length === 0) return;
 
     dispatch({ type: "SET_LOADING" });
 
@@ -90,7 +90,6 @@ export function WishlistProvider({ children }) {
       });
     }
   };
-
   return (
     <WishlistContext.Provider
       value={{

@@ -1,13 +1,6 @@
 import BookCard from "../BookCard/BookCard.jsx";
 import { useState, useEffect } from "react";
-import { createClient } from "../../../../utils/supabase/client.js";
-import { useAuth } from "@/app/context/authContext.jsx";
-import {
-  addToWishlist,
-  removeFromWishlist,
-} from "@/app/actions/wishlistActions.js";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation.js";
+
 import { useWishlist } from "@/app/context/wishlistContext.jsx";
 
 export default function BooksCatalog({ books, error, getBookIdHandler }) {
@@ -31,6 +24,7 @@ export default function BooksCatalog({ books, error, getBookIdHandler }) {
               book={book}
               isInWishlist={wishlistStatus[book.book_id]}
               handleWishlistToggle={() => toggleWishlistItem(book.book_id)}
+              getBookIdHandler={getBookIdHandler}
             />
           ))}
         </div>

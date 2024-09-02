@@ -1,9 +1,11 @@
 "use client";
-import BookCard from "../components/BookCard/BookCard.jsx";
-import EmptyState from "../components/EmptyState/EmptyState.jsx";
 import { useEffect, useState } from "react";
 import { getWishlist } from "../actions/wishlistActions.js";
+import { useWishlist } from "../context/wishlistContext.jsx";
 import { useAuth } from "../context/authContext.jsx";
+import { useRouter } from "next/navigation.js";
+import BookCard from "../components/BookCard/BookCard.jsx";
+import EmptyState from "../components/EmptyState/EmptyState.jsx";
 import Spinner from "../components/Spinner/Spinner.jsx";
 import toast from "react-hot-toast";
 
@@ -11,6 +13,9 @@ export default function Wishlist() {
   const { session } = useAuth();
   const [wishlist, setWishlist] = useState();
   const [loading, setIsLoading] = useState(true);
+  const { wishlistStatus, fetchWishlistStatus, toggleWishlistItem } =
+    useWishlist();
+  const router = useRouter();
 
   const userId = session?.id;
 
@@ -30,6 +35,15 @@ export default function Wishlist() {
     }
   }, [userId]);
 
+  const getBookIdHandler = (bookId) => {
+    setIsLoading(true);
+    router.push(`/catalog/details/book?bookId=${bookId}`);
+  };
+
+  useEffect(() => {
+    fetchWishlistStatus(wishlist);
+  }, [wishlist]);
+
   if (loading) {
     return <Spinner />; // Show spinner while loading
   }
@@ -48,7 +62,12 @@ export default function Wishlist() {
                 key={item.book_id}
                 className="flex items-center justify-center"
               >
-                <BookCard book={item} />
+                <BookCard
+                  book={item}
+                  isInWishlist={wishlistStatus[item.book_id]}
+                  handleWishlistToggle={() => toggleWishlistItem(item.book_id)}
+                  getBookIdHandler={getBookIdHandler}
+                />
               </div>
             ))}
           </div>
