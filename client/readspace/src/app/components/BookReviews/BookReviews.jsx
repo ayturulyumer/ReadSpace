@@ -1,6 +1,6 @@
 import WriteBookReview from "../WriteBookReview/WriteBookReview.jsx";
 import SingleBookReview from "../SingleBookReview/SingleBookReview.jsx";
-import { bestSellers } from "../../../../utils/dummyData.js";
+
 
 export default function BookReviews({
   bookId,

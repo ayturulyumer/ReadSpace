@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { getWishlist } from "../actions/wishlistActions.js";
 import { useWishlist } from "../context/wishlistContext.jsx";
 import { useAuth } from "../context/authContext.jsx";
-import { useRouter } from "next/navigation.js";
 import BookCard from "../components/BookCard/BookCard.jsx";
 import EmptyState from "../components/EmptyState/EmptyState.jsx";
 import Spinner from "../components/Spinner/Spinner.jsx";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation.js";
 
 export default function Wishlist() {
   const { session } = useAuth();
@@ -15,9 +15,9 @@ export default function Wishlist() {
   const [loading, setIsLoading] = useState(true);
   const { wishlistStatus, fetchWishlistStatus, toggleWishlistItem } =
     useWishlist();
-  const router = useRouter();
 
   const userId = session?.id;
+  const router = useRouter();
 
   useEffect(() => {
     if (userId) {
