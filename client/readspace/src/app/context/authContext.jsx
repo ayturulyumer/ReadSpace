@@ -50,11 +50,11 @@ export const AuthProvider = ({ children }) => {
   const registerUser = async (email, password) => {
     toast.promise(
       signUp(email, password).then(async (result) => {
-        const { data, error } = result;
+        const { error } = result;
         if (error) {
           throw new Error(error);
         } else {
-          setSession(data.user);
+          setSession(result.user);
           router.push("/");
           return "Successful registration!";
         }
