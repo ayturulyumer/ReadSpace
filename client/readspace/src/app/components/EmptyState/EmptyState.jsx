@@ -7,8 +7,8 @@ export default function EmptyState() {
   const router = useRouter();
 
   return (
-    <div className="flex   items-center justify-center h-fit  bg-gray-100 p-4">
-      <div className="max-w-md w-full  bg-white rounded-lg shadow-lg p-8 text-center">
+    <div className="flex   items-center justify-center h-fit p-4">
+      <div className="max-w-md w-full  rounded-lg shadow-2xl p-8 text-center">
         <div className="mb-8 relative">
           <FaBook
             className={`text-9xl text-gray-300 transition-transform duration-300 ${
