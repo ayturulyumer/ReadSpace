@@ -4,7 +4,6 @@ import * as Yup from "yup";
 
 import { useAuth } from "../context/authContext.jsx";
 
-
 export default function Login() {
   const { loginUser } = useAuth();
 
@@ -22,11 +21,17 @@ export default function Login() {
         .required("Password is required"),
     }),
     onSubmit: async (values, { setSubmitting, setStatus }) => {
-      setStatus(null);
-      loginUser(values.email, values.password);
+      try {
+        await loginUser(values.email, values.password);
+        setStatus({ success: "Login successful" });
+      } catch (error) {
+        setStatus({ error: "Login failed. Please check your credentials." });
+      }
       setSubmitting(false);
     },
   });
+
+  console.log(formik.isSubmitting);
 
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
