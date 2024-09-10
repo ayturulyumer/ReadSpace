@@ -24,8 +24,14 @@ export default function Register() {
         .required("Confirm password is required"),
     }),
     onSubmit: async (values, { setSubmitting, setStatus }) => {
-      setStatus(null);
-      registerUser(values.email, values.password);
+      try {
+        await registerUser(values.email, values.password);
+        setStatus({ success: "Successfull registration" });
+      } catch (error) {
+        setStatus({
+          error: "Registration failed. Please check your credentials.",
+        });
+      }
       setSubmitting(false);
     },
   });
@@ -120,7 +126,7 @@ export default function Register() {
                   onBlur={formik.handleBlur}
                   value={formik.values.confirm_password}
                 />
-                
+
                 {formik.touched.confirm_password &&
                 formik.errors.confirm_password ? (
                   <div className="text-red-600 text-sm">
