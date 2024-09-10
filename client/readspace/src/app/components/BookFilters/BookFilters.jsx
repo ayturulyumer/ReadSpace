@@ -4,8 +4,6 @@ import PriceRange from "../PriceRange/PriceRange.jsx";
 
 export default function BookFilters() {
   const [openSections, setOpenSections] = useState({});
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(1000);
 
   const toggleCollapse = (section) => {
     setOpenSections((prev) => ({
@@ -28,11 +26,6 @@ export default function BookFilters() {
       items: ["Publisher 1", "Publisher 2"],
     },
   ];
-
-  const handlePriceChange = ({ min, max }) => {
-    setMinPrice(min);
-    setMaxPrice(max);
-  };
 
   return (
     <div className="relative flex flex-col self-center bg-clip-border rounded-xl bg-white text-gray-700 h-fit w-fit  p-4 shadow-xl shadow-blue-gray-900/5 lg:self-auto">
@@ -91,30 +84,7 @@ export default function BookFilters() {
           role="button"
           tabIndex={0}
           className="flex items-center w-full p-3 text-start"
-        >
-          <div className="grid place-items-center mr-4 w-full">
-            <div
-              className={`collapse ${
-                openSections["priceRange"] ? "collapse-open" : "collapse-close"
-              }`}
-            >
-              <div
-                className="collapse collapse-arrow relative flex justify-between items-center w-full cursor-pointer"
-                onClick={() => toggleCollapse("priceRange")}
-              >
-                <span className="collapse-title text-md font-medium">
-                  Price Range
-                </span>
-                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500"></div>
-              </div>
-              <PriceRange
-                minPrice={minPrice}
-                maxPrice={maxPrice}
-                onChange={handlePriceChange}
-              />
-            </div>
-          </div>
-        </div>
+        ></div>
       </nav>
     </div>
   );
