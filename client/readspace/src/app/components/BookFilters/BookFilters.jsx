@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import PriceRange from "../PriceRange/PriceRange.jsx";
 
 export default function BookFilters() {
   const [openSections, setOpenSections] = useState({});
