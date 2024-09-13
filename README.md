@@ -1,6 +1,6 @@
 # Read Space
 
-**Read Space** is an online book catalog and review platform where users can browse books, filter by author, publisher, or price range, and engage with books by liking, reviewing, and adding them to their wishlist. Users can also manage their profile by updating their avatar, email, and password.
+**Read Space** is an online book catalog and review platform where users can browse and buy books, filter by author, publisher, and engage with books by liking, reviewing, and adding them to their wishlist. Users can also manage their profile by updating their avatar, email, and password.
 
 [Live Demo](https://read-space-alpha.vercel.app/)
 
