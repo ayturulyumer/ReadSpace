@@ -27,7 +27,7 @@
 - **Cart with Products**: Implement a shopping cart feature to purchase books.
 - **Integration with Stripe**: Enable users to complete purchases through Stripe.
 - **Order History**: Display past orders for users.
-- **Admin Menu**: Admin section for managing books, users, and orders.
+- **Admin Menu**: Admin section for managing books.
 - **Filters**:  Apply filters by author, publisher
 
 ---
