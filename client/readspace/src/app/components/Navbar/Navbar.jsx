@@ -37,11 +37,11 @@ export default function Navbar() {
 
       <div className="navbar-end">
         <ul className="menu menu-sm menu-vertical font-bold items-center md:menu-horizontal md:menu-lg">
+          <li>
+            <Link href="/catalog">Catalog</Link>
+          </li>
           {session ? (
             <>
-              <li>
-                <Link href="/catalog">Catalog</Link>
-              </li>
               <Cart />
               <Profile userAvatar={userAvatar} logoutUser={logoutUser} />
             </>
