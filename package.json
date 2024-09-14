@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "express": "^4.19.2",
-    "framer-motion": "^11.5.4",
     "react-icons": "^5.2.1"
   },
   "devDependencies": {
