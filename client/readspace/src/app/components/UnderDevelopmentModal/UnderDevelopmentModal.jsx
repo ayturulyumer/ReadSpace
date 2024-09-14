@@ -87,7 +87,7 @@ export default function UnderDevelopmentModal() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowModal(false)}
-              className="btn bg-orange-400 text-white w-full text-lg font-semibold"
+              className="btn bg-orange-400 text-white w-full text-lg font-semibold hover:bg-orange-600"
             >
               Got it, thanks! 👍
             </motion.button>
