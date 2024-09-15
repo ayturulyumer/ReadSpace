@@ -1,5 +1,6 @@
 import WriteBookReview from "../WriteBookReview/WriteBookReview.jsx";
 import SingleBookReview from "../SingleBookReview/SingleBookReview.jsx";
+import { FaBook } from "react-icons/fa";
 
 export default function BookReviews({
   bookId,
@@ -38,16 +39,20 @@ export default function BookReviews({
         </h1>
         {allReviews.length > 0 ? (
           allReviews.map((review, i) => (
-            <SingleBookReview
-              key={i} // Assuming each review has a unique `id`
-              review={review}
-            />
+            <SingleBookReview key={i} review={review} />
           ))
         ) : (
-          <p className="my-10">No reviews available.</p>
+          <div className="flex flex-col items-center justify-center p-6  rounded-lg shadow-md max-w-sm mx-auto">
+            <FaBook className="w-12 h-12 text-gray-400 mb-4" />
+            <h2 className="text-xl font-semibold text-gray-800 mb-2">
+              No Reviews Yet
+            </h2>
+            <p className="text-gray-600 text-center">
+              This book has not received any reviews. Be the first to share your
+              thoughts!
+            </p>
+          </div>
         )}
-
-        {/* Add more <SingleBookReview /> components if needed */}
       </div>
     </div>
   );
