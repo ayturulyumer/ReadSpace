@@ -51,7 +51,7 @@ export default function BookCard({
           <h1 className="text-lg truncate max-w-full">{book?.title}</h1>
           <p>{book?.author}</p>
           <Rating
-            rating={book?.overall_rating === 0 ? 1 : book?.overall_rating}
+            rating={book?.overall_rating}
             name={book?.title}
             isDisabled={true}
           />

@@ -1,5 +1,5 @@
 export default function Rating({
-  rating = 1,
+  rating = 0,
   isDisabled = false,
   handleRatingSubmit,
   name,
@@ -12,7 +12,13 @@ export default function Rating({
   };
 
   return (
-    <div className="rating rating-sm">
+    <div className="rating rating-xs">
+      <input
+        type="radio"
+        name={name}
+        className="rating-hidden"
+        checked={rating === 0}
+      />
       {[...Array(5)].map((_, index) => (
         <input
           key={index}

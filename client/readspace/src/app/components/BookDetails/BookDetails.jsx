@@ -17,7 +17,7 @@ export default function BookDetails({ book }) {
           <section>
             <span className="mr-2 font-semibold">{book?.overall_rating}</span>
             <Rating
-              rating={book?.overall_rating === 0 ? 1 : book?.overall_rating}
+              rating={book?.overall_rating}
               name={"BookDetails"}
               isDisabled
             />
