@@ -38,7 +38,7 @@ export default function Login() {
         // add 0.5 second delay to prevent the button to be re-enabled too quickly
         setTimeout(() => {
           setIsSubmitting(false);
-        }, 1000);
+        }, 3000);
       }
     },
   });

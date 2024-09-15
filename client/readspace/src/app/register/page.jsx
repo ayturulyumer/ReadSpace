@@ -41,7 +41,7 @@ export default function Register() {
       } finally {
         setTimeout(() => {
           setIsSubmitting(false);
-        }, 1000);
+        }, 3000);
       }
     },
   });
