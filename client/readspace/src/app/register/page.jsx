@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -6,6 +7,8 @@ import { useAuth } from "../context/authContext.jsx";
 
 export default function Register() {
   const { registerUser } = useAuth();
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -23,16 +26,20 @@ export default function Register() {
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Confirm password is required"),
     }),
-    onSubmit: async (values, { setSubmitting, setStatus }) => {
+    onSubmit: async (values, { setStatus }) => {
       try {
+        setIsSubmitting(true);
         await registerUser(values.email, values.password);
         setStatus({ success: "Successfull registration" });
       } catch (error) {
         setStatus({
           error: "Registration failed. Please check your credentials.",
         });
+      } finally {
+        setTimeout(() => {
+          setIsSubmitting(false);
+        }, 1000);
       }
-      setSubmitting(false);
     },
   });
 
@@ -139,7 +146,7 @@ export default function Register() {
               <span className="block w-full rounded-md shadow-sm">
                 <button
                   type="submit"
-                  disabled={formik.isSubmitting}
+                  disabled={isSubmitting}
                   className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
                 >
                   {formik.isSubmitting

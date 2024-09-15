@@ -3,9 +3,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import { useAuth } from "../context/authContext.jsx";
+import { useState } from "react";
 
 export default function Login() {
   const { loginUser } = useAuth();
+
+  // create custom state to check if form is submitting
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -20,18 +24,21 @@ export default function Login() {
         .min(8, "Password must be at least 8 characters")
         .required("Password is required"),
     }),
-    onSubmit: async (values, { setSubmitting, setStatus }) => {
+    onSubmit: async (values, { setStatus }) => {
       try {
+        setIsSubmitting(true);
         await loginUser(values.email, values.password);
         setStatus({ success: "Login successful" });
       } catch (error) {
         setStatus({ error: "Login failed. Please check your credentials." });
+      } finally {
+        // add 1 second delay to prevent the button to be re-enabled too quickly
+        setTimeout(() => {
+          setIsSubmitting(false);
+        }, 1000);
       }
-      setSubmitting(false);
     },
   });
-
-  console.log(formik.isSubmitting);
 
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -110,10 +117,10 @@ export default function Login() {
               <span className="block w-full rounded-md shadow-sm">
                 <button
                   type="submit"
-                  disabled={formik.isSubmitting}
+                  disabled={isSubmitting}
                   className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
                 >
-                  {formik.isSubmitting ? "Signing in..." : "Sign in"}
+                  {isSubmitting ? "Signing in..." : "Sign in"}
                 </button>
               </span>
             </div>
