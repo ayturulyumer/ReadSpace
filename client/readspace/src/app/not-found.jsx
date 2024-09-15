@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { IoBookSharp } from "react-icons/io5";
 import Logo from "../../public/readspace.jpg";
 import Image from "next/image.js";
 
