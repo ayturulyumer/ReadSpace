@@ -41,7 +41,6 @@ export async function updateSession(request) {
   if (user && publicRoutes.includes(path)) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
-    console.log("2 IF USER REDIRECTED TO", url.pathname);
     return NextResponse.redirect(url);
   }
 
