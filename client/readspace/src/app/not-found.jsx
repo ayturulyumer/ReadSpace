@@ -13,7 +13,6 @@ export default function NotFound() {
         className="w-24 h-24 mask mask-circle mb-8 text-gray-600 animate-bounce"
       />
 
-      {/* <IoBookSharp className="w-24 h-24 mb-8 text-gray-600 animate-pulse" /> */}
       <h1 className="text-4xl font-bold mb-4 text-center">
         404 - Page Not Found
       </h1>

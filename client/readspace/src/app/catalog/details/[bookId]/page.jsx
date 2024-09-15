@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useSearchParams } from "next/navigation.js";
+import { useSearchParams, useRouter } from "next/navigation.js";
 
 import { useAuth } from "@/app/context/authContext.jsx";
 
@@ -26,6 +26,7 @@ import toast from "react-hot-toast";
 export default function Details() {
   // get user id from context
   const { session } = useAuth();
+  const router = useRouter();
 
   // saving the rating as number instead of boolean because i need to show the rating
   const [userRated, setUserRated] = useState(null);
@@ -48,8 +49,9 @@ export default function Details() {
       const { data: bookData, error: bookError } = await getBookById(
         Number(bookId)
       );
-      if (bookError) {
-        console.error(bookError.message);
+      // If there's an error or no book data, trigger 404
+      if (bookError || !bookData) {
+        router.push("/404");
       } else {
         setBook(bookData);
       }
