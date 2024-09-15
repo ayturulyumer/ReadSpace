@@ -1,10 +1,7 @@
-// TODO : Show error messages in UI and remove console logs
-
 "use client";
 import { useState, createContext, useContext, useEffect } from "react";
 
 import { createClient } from "../../../utils/supabase/client.js";
-
 
 import { signIn, signUp, logout } from "../actions/authActions.js";
 import toast from "react-hot-toast";
@@ -15,7 +12,6 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [session, setSession] = useState(null);
- 
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -67,13 +63,22 @@ export const AuthProvider = ({ children }) => {
   };
 
   const loginUser = async (email, password) => {
-    const { user, error } = await signIn(email, password);
-    if (error) {
-      toast.error(error);
-    } else if (user) {
-      setSession(user);
-      toast.success("Successfully logged in !");
-    }
+    toast.promise(
+      signIn(email, password).then(async (result) => {
+        const { error } = result;
+        if (error) {
+          throw new Error(error);
+        } else {
+          setSession(result.user);
+          return "Successfully logged in !";
+        }
+      }),
+      {
+        loading: "Logging in...",
+        success: (message) => message,
+        error: (err) => err.message || "Could not login.",
+      }
+    );
   };
 
   const logoutUser = async () => {
