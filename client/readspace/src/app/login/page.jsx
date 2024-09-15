@@ -3,10 +3,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import { useAuth } from "../context/authContext.jsx";
+import { useRouter } from "next/navigation.js";
 import { useState } from "react";
 
 export default function Login() {
   const { loginUser } = useAuth();
+  const router = useRouter();
 
   // create custom state to check if form is submitting
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,6 +31,7 @@ export default function Login() {
         setIsSubmitting(true);
         await loginUser(values.email, values.password);
         setStatus({ success: "Login successful" });
+        router.push("/");
       } catch (error) {
         setStatus({ error: "Login failed. Please check your credentials." });
       } finally {

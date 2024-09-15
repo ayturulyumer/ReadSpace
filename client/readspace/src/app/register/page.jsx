@@ -1,12 +1,14 @@
 "use client";
-import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation.js";
 import { useAuth } from "../context/authContext.jsx";
 
 export default function Register() {
   const { registerUser } = useAuth();
+  const router = useRouter();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formik = useFormik({
@@ -31,6 +33,7 @@ export default function Register() {
         setIsSubmitting(true);
         await registerUser(values.email, values.password);
         setStatus({ success: "Successfull registration" });
+        router.push("/");
       } catch (error) {
         setStatus({
           error: "Registration failed. Please check your credentials.",
