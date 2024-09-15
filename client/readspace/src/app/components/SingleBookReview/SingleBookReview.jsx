@@ -1,8 +1,5 @@
 import Rating from "../Rating/Rating.jsx";
 
-import Image from "next/image.js";
-import ProfilePhoto from "../../../../public/samba.jpg";
-
 export default function SingleBookReview({ review }) {
   return (
     <div className="flex flex-col gap-3 my-4 rounded border  border-gray-300 text-xs md:text-medium">
@@ -25,7 +22,7 @@ export default function SingleBookReview({ review }) {
         </div>
         <div className="font-medium">
           {review?.review_text}
-          <hr  className="h-[2px] mt-4 bg-gray-300"/>
+          <hr className="h-[2px] mt-4 bg-gray-300" />
         </div>
         <span>{review?.created_at}</span>
       </div>

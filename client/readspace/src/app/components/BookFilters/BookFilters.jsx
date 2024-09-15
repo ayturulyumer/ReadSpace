@@ -13,10 +13,6 @@ export default function BookFilters() {
 
   const sections = [
     {
-      title: "Genres",
-      items: ["Business", "Psychology", "Self-Help"],
-    },
-    {
       title: "Authors",
       items: ["Author 1", "Author 2"],
     },

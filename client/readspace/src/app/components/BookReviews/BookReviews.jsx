@@ -1,7 +1,6 @@
 import WriteBookReview from "../WriteBookReview/WriteBookReview.jsx";
 import SingleBookReview from "../SingleBookReview/SingleBookReview.jsx";
 
-
 export default function BookReviews({
   bookId,
   userRated,

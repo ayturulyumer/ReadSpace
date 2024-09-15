@@ -1,5 +1,5 @@
 "use client";
-// TODO : fix bestseller badge color to be the same with bestsellingbook section
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation.js";
 
@@ -34,7 +34,7 @@ export default function Catalog() {
     setIsLoading(true);
     router.push(`/catalog/details/book?bookId=${bookId}`);
   };
-  
+
   return (
     <div className="max-w-fit min-h-screen flex flex-col lg:flex-row  ">
       <BookFilters />

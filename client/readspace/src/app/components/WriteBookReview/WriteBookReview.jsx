@@ -1,9 +1,6 @@
 import Rating from "../Rating/Rating.jsx";
 import { FaRegComment } from "react-icons/fa";
 
-import Image from "next/image.js";
-import ProfilePhoto from "../../../../public/samba.jpg";
-
 export default function WriteBookReview({
   bookId,
   userRated,
