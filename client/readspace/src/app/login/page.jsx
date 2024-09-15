@@ -32,10 +32,10 @@ export default function Login() {
       } catch (error) {
         setStatus({ error: "Login failed. Please check your credentials." });
       } finally {
-        // add 1 second delay to prevent the button to be re-enabled too quickly
+        // add 0.5 second delay to prevent the button to be re-enabled too quickly
         setTimeout(() => {
           setIsSubmitting(false);
-        }, 1000);
+        }, 500);
       }
     },
   });
