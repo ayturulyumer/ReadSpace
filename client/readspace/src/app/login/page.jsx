@@ -30,12 +30,11 @@ export default function Login() {
       try {
         setIsSubmitting(true);
         await loginUser(values.email, values.password);
-        setStatus({ success: "Login successful" });
         router.push("/");
       } catch (error) {
         setStatus({ error: "Login failed. Please check your credentials." });
       } finally {
-        // add 0.5 second delay to prevent the button to be re-enabled too quickly
+        // add 3 second delay to prevent the button to be re-enabled too quickly
         setTimeout(() => {
           setIsSubmitting(false);
         }, 3000);

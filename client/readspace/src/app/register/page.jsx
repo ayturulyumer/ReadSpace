@@ -32,7 +32,6 @@ export default function Register() {
       try {
         setIsSubmitting(true);
         await registerUser(values.email, values.password);
-        setStatus({ success: "Successfull registration" });
         router.push("/");
       } catch (error) {
         setStatus({
