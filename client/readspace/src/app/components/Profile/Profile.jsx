@@ -20,7 +20,7 @@ export default function Profile({ logoutUser, userAvatar }) {
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content mt-5 z-[1] p-2 shadow rounded-box w-52 "
+        className="menu menu-sm dropdown-content mt-5 z-50 p-2 shadow rounded-box w-52 "
         data-theme=""
       >
         <Link href="/wishlist">

@@ -37,6 +37,9 @@ export default function Navbar() {
 
       <div className="navbar-end">
         <ul className="menu menu-sm menu-vertical font-bold items-center md:menu-horizontal md:menu-lg">
+        <li>
+            <Link href="/about">About</Link>
+          </li>
           <li>
             <Link href="/catalog">Catalog</Link>
           </li>
