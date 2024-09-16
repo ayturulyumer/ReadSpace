@@ -3,13 +3,12 @@ import { createClient } from "../../../utils/supabase/client.js";
 const supabase = createClient();
 
 // Get single user rating for book
-export async function getUserRatingByBook(bookId, userId) {
+export async function getUserReviewByBook(bookId, userId) {
   const { data, error } = await supabase
-    .from("ratings")
-    .select("rating,id")
+    .from("reviews")
+    .select("id")
     .eq("book_id", bookId)
-    .eq("user_id", userId)
-    .single();
+    .eq("user_id", userId);
 
   return { data, error };
 }
