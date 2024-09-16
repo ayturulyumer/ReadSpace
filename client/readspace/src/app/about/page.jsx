@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { motion } from "framer-motion";
 import LogoImage from "../../../public/readspace.jpg";
 import MissionImage from "../../../public/mission.jpg";
@@ -45,6 +45,7 @@ export default function AboutUs() {
         <div className="absolute inset-0 bg-black/60 z-10"></div>
         <Image
           src={LogoImage}
+          alt="LogoImage"
           width={0}
           height={0}
           className="absolute inset-0 object-cover blur-sm w-full h-full"
@@ -76,11 +77,12 @@ export default function AboutUs() {
             </motion.h2>
             <motion.p className="text-muted-foreground mb-4">
               At ReadSpace, we believe that books have the power to transform
-              lives and enrich experiences. We're passionate about connecting
-              readers with their next favorite book. Our mission is to create an
-              online platform where book lovers can discover, explore, and dive
-              into new worlds through the joy of reading.
+              lives and enrich experiences. We&apos;re passionate about
+              connecting readers with their next favorite book. Our mission is
+              to create an online platform where book lovers can discover,
+              explore, and dive into new worlds through the joy of reading.
             </motion.p>
+
             <ul className="space-y-2">
               {bulletPoints.map((item, index) => (
                 <motion.li
@@ -97,6 +99,7 @@ export default function AboutUs() {
           <motion.div variants={fadeInUp}>
             <Image
               src={MissionImage}
+              alt="MissionImage"
               width={0}
               height={0}
               className="rounded-lg shadow-lg"
