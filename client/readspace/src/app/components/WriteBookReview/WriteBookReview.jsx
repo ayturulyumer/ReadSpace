@@ -3,11 +3,11 @@ import { FaRegComment } from "react-icons/fa";
 
 export default function WriteBookReview({
   bookId,
-  userRated,
   userId,
+  userRating,
   userAvatar,
   userReview,
-  handleRatingSubmit,
+  handleSetUserRating,
   handleReviewSubmit,
   handleReviewTextChange,
 }) {
@@ -27,18 +27,15 @@ export default function WriteBookReview({
           className="input input-bordered   input-md  max-w-lg w-4/5  bg-white md:w-full  xl:w-screen"
         />
         <div className="flex w- flex-col items-baseline gap-4 md:flex-row md:justify-between">
-          {userRated !== null ? (
+          {userRating !== null ? (
             <section className="flex flex-col gap-2">
-              <Rating rating={userRated} name={"userRated"} isDisabled={true} />
-              <p className="text-sm font-medium text-green-500">
-                You rated this book !
-              </p>
+              <Rating rating={userRating} name={"userRated"} isDisabled={true} />
             </section>
           ) : (
             <Rating
               isDisabled={false}
               name={"userNotRated"}
-              handleRatingSubmit={handleRatingSubmit}
+              handleSetUserRating={handleSetUserRating}
             /> // Allow rating if the user hasn't rated yet
           )}
 

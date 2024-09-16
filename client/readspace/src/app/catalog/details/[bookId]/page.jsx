@@ -10,7 +10,7 @@ import {
   getBookWithRatingsById,
 } from "@/app/actions/booksActions.js";
 import {
-  getUserRatingByBook,
+  getUserReviewByBook,
   submitRating,
 } from "@/app/actions/ratingActions.js";
 
@@ -28,8 +28,8 @@ export default function Details() {
   const { session } = useAuth();
   const router = useRouter();
 
-  // saving the rating as number instead of boolean because i need to show the rating
-  const [userRated, setUserRated] = useState(null);
+  const [isUserAlreadyReviewed, setIsUserAlreadyReviewed] = useState([]);
+  const [userRating, setUserRating] = useState(null);
   const [userReview, setUserReview] = useState("");
   const [allReviews, setAllReviews] = useState([]);
   const [book, setBook] = useState(null);
@@ -56,17 +56,19 @@ export default function Details() {
         setBook(bookData);
       }
 
-      // Fetch user rating if userId is available
+      // Fetch user review  only if userId is available
       if (userId) {
-        const { data: ratingData, error: ratingError } =
-          await getUserRatingByBook(bookId, userId);
-        if (ratingError) {
-          console.error(ratingError.message);
+        const {
+          data: userAlreadyReviewedData,
+          error: userAlreadyReviewedError,
+        } = await getUserReviewByBook(bookId, userId);
+
+        if (userAlreadyReviewedError) {
+          console.error(userAlreadyReviewedError.message);
         } else {
-          setUserRated(ratingData?.rating);
+          setIsUserAlreadyReviewed(userAlreadyReviewedData);
         }
       }
-
       //Get all book reviews
       const { data: reviewsData, error: reviewsError } =
         await getAllReviewsForBookById(bookId);
@@ -80,57 +82,47 @@ export default function Details() {
     fetchBookAndRating();
   }, [bookId, userId]);
 
-  // Submit the rating to the rating table and once it's submitted disable the rating
-  const handleRatingSubmit = useCallback(async (newRating) => {
-    if (userId && bookId) {
-      toast.promise(
-        submitRating(bookId, userId, newRating).then(async (result) => {
-          const { error } = result;
-          if (error) {
-            throw new Error(error);
-          } else {
-            setUserRated(newRating);
-            return "You've Successfully rated this book !";
-          }
-        }),
-        {
-          loading: "Submitting rating...",
-          success: (message) => message,
-          error: (err) => err.message || "There was problem rating this book !",
-        }
-      );
-    }
-    [userId, bookId];
-  });
+  console.log(userRating);
+  const handleSetUserRating = useCallback(async (newRating) => {
+    setUserRating(newRating);
+  }, []);
 
   const handleReviewTextChange = (event) => {
     setUserReview(event.target.value);
   };
 
-  const handleReviewSubmit = async () => {
-    if (userReview) {
-      toast.promise(
-        submitReview(bookId, userId, username, userAvatar, userReview).then(
-          async (result) => {
-            const { data, error } = result;
-            if (error) {
-              throw new Error(error.message);
-            } else {
-              setAllReviews((prevReviews) => [data, ...prevReviews]);
-              return "Successfully submitted review !";
-            }
-          }
-        ),
-        {
-          loading: "Submitting review...",
-          success: (message) => message,
-          error: (err) =>
-            err.message || "There was problem submitting your review",
-        }
-      );
-    } else {
-      toast.error("You must type review first !");
+  const handleSubmit = async () => {
+    if (!userReview || !userRating) {
+      toast.error("Please provide both a rating and a review!");
+      return;
     }
+
+    toast.promise(
+      Promise.all([
+        submitRating(bookId, userId, userRating),
+        submitReview(bookId, userId, username, userAvatar, userReview),
+      ]).then(async ([ratingResult, reviewResult]) => {
+        const { error: ratingError } = ratingResult;
+        const { data: reviewData, error: reviewError } = reviewResult;
+
+        if (ratingError) {
+          throw new Error(ratingError.message);
+        }
+        if (reviewError) {
+          throw new Error(reviewError.message);
+        }
+
+        setAllReviews((prevReviews) => [reviewData, ...prevReviews]);
+        return "Successfully submitted your rating and review!";
+      }),
+      {
+        loading: "Submitting...",
+        success: (message) => message,
+        error: (err) =>
+          err.message ||
+          "There was a problem submitting your review and rating.",
+      }
+    );
   };
 
   return (
@@ -147,10 +139,11 @@ export default function Details() {
                 bookId={bookId}
                 userId={userId}
                 userAvatar={userAvatar}
-                userRated={userRated}
+                isUserAlreadyReviewed={isUserAlreadyReviewed}
+                userRating={userRating}
                 userReview={userReview}
-                handleRatingSubmit={handleRatingSubmit}
-                handleReviewSubmit={handleReviewSubmit}
+                handleSetUserRating={handleSetUserRating}
+                handleReviewSubmit={handleSubmit}
                 handleReviewTextChange={handleReviewTextChange}
                 allReviews={allReviews}
               />

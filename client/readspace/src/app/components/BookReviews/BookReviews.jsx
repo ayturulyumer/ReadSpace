@@ -4,10 +4,11 @@ import { FaBook } from "react-icons/fa";
 
 export default function BookReviews({
   bookId,
-  userRated,
+  isUserAlreadyReviewed,
+  userRating,
   userId,
   userAvatar,
-  handleRatingSubmit,
+  handleSetUserRating,
   handleReviewSubmit,
   handleReviewTextChange,
   userReview,
@@ -15,7 +16,7 @@ export default function BookReviews({
 }) {
   return (
     <div className="flex flex-col gap-6">
-      {userId && (
+      {userId && isUserAlreadyReviewed.length === 0 && (
         <div>
           <h1 className="font-medium text-lg underline-orange uppercase mb-4">
             Write review
@@ -24,9 +25,10 @@ export default function BookReviews({
             userAvatar={userAvatar}
             bookId={bookId}
             userId={userId}
+            userRating={userRating}
             userReview={userReview}
-            userRated={userRated}
-            handleRatingSubmit={handleRatingSubmit}
+            isUserAlreadyReviewed={isUserAlreadyReviewed}
+            handleSetUserRating={handleSetUserRating}
             handleReviewSubmit={handleReviewSubmit}
             handleReviewTextChange={handleReviewTextChange}
           />

@@ -1,13 +1,13 @@
 export default function Rating({
   rating = 0,
   isDisabled = false,
-  handleRatingSubmit,
+  handleSetUserRating,
   name,
 }) {
   // Handle rating change when a star is clicked
   const handleRatingChange = (index) => {
-    if (!isDisabled && handleRatingSubmit) {
-      handleRatingSubmit(index + 1);
+    if (!isDisabled) {
+      handleSetUserRating(index + 1);
     }
   };
 
