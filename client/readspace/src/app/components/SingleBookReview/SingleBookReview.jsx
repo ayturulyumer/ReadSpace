@@ -15,7 +15,7 @@ export default function SingleBookReview({ review }) {
             <span>{review?.username}</span>
           </div>
           <Rating
-            rating={review?.rating === null ? 1 : review?.rating}
+            rating={review?.rating}
             name={review?.review_text}
             isDisabled={true}
           />

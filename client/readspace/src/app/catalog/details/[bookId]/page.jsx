@@ -82,7 +82,6 @@ export default function Details() {
     fetchBookAndRating();
   }, [bookId, userId]);
 
-  console.log(userRating);
   const handleSetUserRating = useCallback(async (newRating) => {
     setUserRating(newRating);
   }, []);

@@ -18,6 +18,7 @@ export default function Rating({
         name={name}
         className="rating-hidden"
         checked={rating === 0}
+        readOnly
       />
       {[...Array(5)].map((_, index) => (
         <input
