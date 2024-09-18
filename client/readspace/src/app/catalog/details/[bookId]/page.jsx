@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation.js";
 
 import { useAuth } from "@/app/context/authContext.jsx";
+import { addToWishlist } from "@/app/actions/wishlistActions.js";
 
 import {
   getBookById,
@@ -90,6 +91,7 @@ export default function Details() {
     setUserReview(event.target.value);
   };
 
+  // Handle Rating & Review Submit
   const handleSubmit = async () => {
     if (!userReview || !userRating) {
       toast.error("Please provide both a rating and a review!");
@@ -126,7 +128,7 @@ export default function Details() {
 
   return (
     <main data-theme="retro" className="min-h-fit bg-white ">
-      <BookDetails book={book} />
+      <BookDetails book={book} userId={userId} />
       <div className="flex  max-w-full items-center justify-center p-1  ">
         <div
           data-theme="retro"

@@ -1,7 +1,11 @@
 import Rating from "../Rating/Rating.jsx";
 import { BsCartPlus } from "react-icons/bs";
 import { CiHeart } from "react-icons/ci";
-export default function BookDetails({ book }) {
+import { IoMdHeart } from "react-icons/io";
+import { useWishlist } from "@/app/context/wishlistContext.jsx";
+export default function BookDetails({ book, userId }) {
+  const { wishlistStatus, toggleWishlistItem } = useWishlist();
+
   return (
     <div className="hero mt-20  md:mt-0">
       <div className="hero-content flex-col   lg:flex-row">
@@ -53,8 +57,23 @@ export default function BookDetails({ book }) {
             </table>
           </div>
           <div className="flex flex-col items-center gap-4 mt-4 md:flex-row  md:items-start ">
-            <button className="btn btn-wide btn-primary text-white font-medium md:btn-md">
-              Add to wishlist <CiHeart style={{ fontSize: "2em" }} />
+            <button
+              onClick={() => toggleWishlistItem(book?.book_id)}
+              className="btn btn-wide btn-primary text-white font-medium md:btn-md"
+            >
+              {wishlistStatus[book?.book_id] ? (
+                <>
+                  Remove from wishlist{" "}
+                  <IoMdHeart
+                    className="text-white"
+                    style={{ fontSize: "2em" }}
+                  />
+                </>
+              ) : (
+                <>
+                  Add to wishlist <CiHeart style={{ fontSize: "2em" }} />
+                </>
+              )}
             </button>
             <button className="btn btn-wide btn-accent text-white md:btn-md">
               Add to cart <BsCartPlus style={{ fontSize: "2em" }} />
