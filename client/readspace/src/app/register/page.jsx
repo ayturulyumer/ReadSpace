@@ -1,14 +1,14 @@
 "use client";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Link from "next/link.js";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation.js";
 import { useAuth } from "../context/authContext.jsx";
 
 export default function Register() {
   const { registerUser } = useAuth();
-  const router = useRouter();
+
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formik = useFormik({
@@ -32,7 +32,6 @@ export default function Register() {
       try {
         setIsSubmitting(true);
         await registerUser(values.email, values.password);
-        router.push("/");
       } catch (error) {
         setStatus({
           error: "Registration failed. Please check your credentials.",
@@ -58,12 +57,12 @@ export default function Register() {
         </h2>
         <p className="mt-2 text-center text-sm leading-5 text-gray-500 max-w">
           Or
-          <a
+          <Link
             href="/login"
             className="font-medium ml-2 text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
           >
             Login to your account
-          </a>
+          </Link>
         </p>
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

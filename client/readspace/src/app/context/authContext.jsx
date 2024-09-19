@@ -4,6 +4,7 @@ import { useState, createContext, useContext, useEffect } from "react";
 import { createClient } from "../../../utils/supabase/client.js";
 
 import { signIn, signUp, logout } from "../actions/authActions.js";
+import { useRouter } from "next/navigation.js";
 import toast from "react-hot-toast";
 
 const supabase = createClient();
@@ -12,6 +13,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [session, setSession] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -51,6 +53,7 @@ export const AuthProvider = ({ children }) => {
           throw new Error(error);
         } else {
           setSession(result.user);
+          router.push("/")
           return "Successful registration!";
         }
       }),
@@ -70,6 +73,7 @@ export const AuthProvider = ({ children }) => {
           throw new Error(error);
         } else {
           setSession(result.user);
+          router.push("/");
           return "Successfully logged in !";
         }
       }),
