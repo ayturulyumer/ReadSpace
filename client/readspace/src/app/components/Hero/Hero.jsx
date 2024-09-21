@@ -15,7 +15,10 @@ export default function Hero() {
             Find books that educate, entertain, and inspire
           </p>
           <Link href="/catalog">
-            <button type="button" className="btn btn-accent  text-white ">
+            <button
+              type="button"
+              className="btn btn-accent  text-white  hover:btn-outline"
+            >
               Find Your Book
             </button>
           </Link>

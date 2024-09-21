@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link.js";
+import Image from "next/image.js";
+import GithubLogo from "../../../../public/github-mark.svg";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function UnderDevelopmentModal() {
@@ -73,16 +75,15 @@ export default function UnderDevelopmentModal() {
               </ul>
               <p className="mb-6 text-center">
                 I&#39;m working to get everything up and running soon! For more
-                details, feel free to check out
+                details, feel free to check out:
                 <Link
                   href="https://github.com/ayturulyumer/ReadSpace"
-                  className="text-blue-500 underline hover:text-blue-700 ml-1"
+                  className="flex justify-center py-4"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  GitHub
+                  <Image src={GithubLogo} className="h-8 w-8 animate-pulse" height={0} width={0} />
                 </Link>
-                .
               </p>
               <motion.button
                 whileHover={{ scale: 1.05 }}
