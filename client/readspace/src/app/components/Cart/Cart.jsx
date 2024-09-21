@@ -3,8 +3,12 @@ import React from "react";
 export default function Cart() {
   return (
     <div className="dropdown dropdown-end ">
-        <div className="tooltip tooltip-bottom" data-tip="Cart">
-        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+      <div className="tooltip tooltip-bottom" data-tip="Cart">
+        <div
+          tabIndex={0}
+          role="button"
+          className="btn btn-circle  btn-ghost hover:bg-transparent hover:text-white "
+        >
           <div className="indicator">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -25,21 +29,21 @@ export default function Cart() {
             </span>
           </div>
         </div>
-        </div>
-        <div
-          tabIndex={0}
-          className="mt-3 z-50 card card-compact dropdown-content w-52 bg-white shadow"
-        >
-          <div className="card-body">
-            <span className="font-bold text-lg">8 Items</span>
-            <span className="text-error">Subtotal: $999</span>
-            <div className="card-actions">
-              <button className="btn btn-accent text-white btn-block">
-                View cart
-              </button>
-            </div>
+      </div>
+      <div
+        tabIndex={0}
+        className="mt-3 z-50 card card-compact dropdown-content w-52 bg-white shadow"
+      >
+        <div className="card-body">
+          <span className="font-bold text-lg">8 Items</span>
+          <span className="text-error">Subtotal: $999</span>
+          <div className="card-actions">
+            <button className="btn btn-accent text-white btn-block">
+              View cart
+            </button>
           </div>
         </div>
       </div>
+    </div>
   );
 }

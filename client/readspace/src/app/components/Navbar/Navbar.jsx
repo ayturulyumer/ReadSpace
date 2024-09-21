@@ -36,12 +36,22 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-end">
-        <ul className="menu menu-sm menu-vertical font-bold items-center md:menu-horizontal md:menu-lg">
-        <li>
-            <Link href="/about">About</Link>
+        <ul className="menu menu-sm menu-vertical tracking-wide   font-bold items-center md:menu-horizontal md:menu-md">
+          <li>
+            <Link
+              className="btn btn-ghost hover:bg-transparent  hover:text-white"
+              href="/about"
+            >
+              About
+            </Link>
           </li>
           <li>
-            <Link href="/catalog">Catalog</Link>
+            <Link
+              className="btn btn-ghost hover:bg-transparent  hover:text-white"
+              href="/catalog"
+            >
+              Catalog
+            </Link>
           </li>
           {session ? (
             <>
@@ -51,10 +61,20 @@ export default function Navbar() {
           ) : (
             <>
               <li>
-                <Link href="/login">Login</Link>
+                <Link
+                  className="btn btn-ghost hover:bg-transparent  hover:text-white"
+                  href="/login"
+                >
+                  Login
+                </Link>
               </li>
               <li>
-                <Link href="/register">Register</Link>
+                <Link
+                  className="btn btn-ghost hover:bg-transparent  hover:text-white"
+                  href="/register"
+                >
+                  Register
+                </Link>
               </li>
             </>
           )}

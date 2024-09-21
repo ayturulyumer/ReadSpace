@@ -38,19 +38,19 @@ export default function Home() {
 
   const keyFeaturesRef = useRef(null);
   const isKeyFeaturesInView = useInView(keyFeaturesRef, {
-    once: false,
+    once: true,
     amount: 0.2,
   });
 
   const bestSellingBooksRef = useRef(null);
   const isBestSellingBooksInView = useInView(bestSellingBooksRef, {
-    once: false,
+    once: true,
     amount: 0.2,
   });
 
   const subscribeToUsRef = useRef(null);
   const isSubscribeToUsInView = useInView(subscribeToUsRef, {
-    once: false,
+    once: true,
     amount: 0.2,
   });
 

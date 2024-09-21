@@ -1,7 +1,7 @@
 import Link from "next/link.js";
 export default function Hero() {
   return (
-    <div data-theme="retro" className="hero min-h-fit py-28 rounded-br-[8em]">
+    <div data-theme="retro" className="hero min-h-fit pb-28 rounded-br-[8em]">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <img
           src="https://img.freepik.com/premium-vector/young-woman-enjoy-sitting-reading-book-hygge-concept-vector-illustration_194708-2078.jpg"
