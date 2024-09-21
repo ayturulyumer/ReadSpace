@@ -1,17 +1,16 @@
 "use client";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Link from "next/link.js";
+import Link from "next/link";
+import toast from "react-hot-toast";
 
-import { useAuth } from "../context/authContext.jsx";
-import { useRouter } from "next/navigation.js";
+import { useAuth } from "../context/authContext";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Login() {
   const { loginUser } = useAuth();
   const router = useRouter();
-
-  // create custom state to check if form is submitting
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formik = useFormik({
@@ -27,15 +26,31 @@ export default function Login() {
         .min(8, "Password must be at least 8 characters")
         .required("Password is required"),
     }),
-    onSubmit: async (values, { setStatus }) => {
+    onSubmit: async (values) => {
+      if (isSubmitting) return; // Prevent multiple submissions
+
+      setIsSubmitting(true);
+
       try {
-        setIsSubmitting(true);
-        await loginUser(values.email, values.password);
-        router.push("/");
+        await toast.promise(
+          loginUser(values.email, values.password).then((result) => {
+            if (result.success) {
+              router.push("/");
+            } else {
+              throw new Error(result.message);
+            }
+          }),
+          {
+            loading: "Logging in...",
+            success: (message) => message || "Successfully logged in!",
+            error: (err) =>
+              err.message || "Login failed. Please check your credentials.",
+          }
+        );
       } catch (error) {
-        setStatus({ error: "Login failed. Please check your credentials." });
+        console.error("Login error:", error);
       } finally {
-        // add 3 second delay to prevent the button to be re-enabled too quickly
+        // Disable the button for 3-4 seconds
         setTimeout(() => {
           setIsSubmitting(false);
         }, 3000);
@@ -120,8 +135,10 @@ export default function Login() {
               <span className="block w-full rounded-md shadow-sm">
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+                  disabled={isSubmitting} // Disable the button
+                  className={`w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out ${
+                    isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
                 >
                   {isSubmitting ? "Signing in..." : "Sign in"}
                 </button>

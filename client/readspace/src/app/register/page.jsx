@@ -9,7 +9,6 @@ import { useAuth } from "../context/authContext.jsx";
 export default function Register() {
   const { registerUser } = useAuth();
 
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: {
