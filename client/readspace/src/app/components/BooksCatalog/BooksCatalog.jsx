@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useWishlist } from "@/app/context/wishlistContext.jsx";
 
 export default function BooksCatalog({ books, error, getBookIdHandler }) {
+  console.log(books)
   const { wishlistStatus, fetchWishlistStatus, toggleWishlistItem } =
     useWishlist();
 
@@ -18,7 +19,7 @@ export default function BooksCatalog({ books, error, getBookIdHandler }) {
           <div className="text-red-600 text-center mb-4">Error: {error}</div>
         )}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-4">
-          {books.map((book, i) => (
+          {books?.map((book, i) => (
             <BookCard
               key={book.book_id}
               book={book}

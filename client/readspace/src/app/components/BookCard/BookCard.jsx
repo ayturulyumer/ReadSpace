@@ -14,6 +14,7 @@ const defaultBook = {
 };
 
 export default function BookCard({
+  body = true,
   book = defaultBook,
   size = "medium",
   actionsOverlay = false,
@@ -21,11 +22,12 @@ export default function BookCard({
   isInWishlist,
   handleWishlistToggle,
 }) {
-  const cardSizeClasses = size === "large" ? "w-64 h-full" : "w-52 h-full";
+  const cardSizeClasses = size === "large" ? "w-64 h-full" : "w-48 h-full";
 
+  // Depending from where i pass the book if it's in catalog it has book_id , if i'm passing it from  authors it's book.id
   const handleCardClick = () => {
-    if (book?.book_id) {
-      getBookIdHandler(book.book_id);
+    if (book?.book_id || book?.id) {
+      getBookIdHandler(book.book_id || book.id);
     }
   };
 
@@ -47,35 +49,37 @@ export default function BookCard({
             alt={book?.title}
           />
         </figure>
-        <div className="card-body items-baseline align-baseline font-medium">
-          <h1 className="text-lg truncate max-w-full">{book?.title}</h1>
-          <p>{book?.author}</p>
-          <Rating
-            rating={book?.overall_rating}
-            name={book?.title}
-            isDisabled={true}
-          />
-          <p className="text-red-500">${book?.price}</p>
-          {actionsOverlay ? (
-            <BookActionsOverlay />
-          ) : (
-            <div className="flex self-end gap-2">
-              <button className="text-accent">
-                <BsCartPlus style={{ fontSize: "2em" }} />
-              </button>
-              <button
-                className="text-primary"
-                onClick={() => handleWishlistToggle(book.book_id)}
-              >
-                {isInWishlist ? (
-                  <IoMdHeart style={{ fontSize: "2em" }} />
-                ) : (
-                  <CiHeart style={{ fontSize: "2em" }} />
-                )}
-              </button>
-            </div>
-          )}
-        </div>
+        {body && (
+          <div className="card-body items-baseline align-baseline font-medium">
+            <h1 className="text-lg truncate max-w-full">{book?.title}</h1>
+            <p>{book?.author}</p>
+            <Rating
+              rating={book?.overall_rating}
+              name={book?.title}
+              isDisabled={true}
+            />
+            <p className="text-red-500">${book?.price}</p>
+            {actionsOverlay ? (
+              <BookActionsOverlay />
+            ) : (
+              <div className="flex self-end gap-2">
+                <button className="text-accent">
+                  <BsCartPlus style={{ fontSize: "2em" }} />
+                </button>
+                <button
+                  className="text-primary"
+                  onClick={() => handleWishlistToggle(book.book_id)}
+                >
+                  {isInWishlist ? (
+                    <IoMdHeart style={{ fontSize: "2em" }} />
+                  ) : (
+                    <CiHeart style={{ fontSize: "2em" }} />
+                  )}
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
