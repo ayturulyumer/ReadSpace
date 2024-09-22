@@ -14,7 +14,7 @@ export default function Author() {
 
   useEffect(() => {
     const fetchAuthor = async () => {
-      const { data: authorData, error: authorError } = await getSingleAuthor(5);
+      const { data: authorData, error: authorError } = await getSingleAuthor(8);
 
       if (authorError || !authorData) {
         router.push("/404");
@@ -35,7 +35,7 @@ export default function Author() {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="container mx-auto px-4 py-8  tracking-wide text-primary-content ">
+        <div className="container mx-auto px-4 py-8 h-screen tracking-wide text-primary-content ">
           <header className="flex flex-col md:flex-row items-center mb-8">
             <div className="avatar mb-4 md:mb-0 md:mr-8">
               <div className="w-56 rounded-xl ring ring-accent ring-offset-base-100 ring-offset-2">
@@ -101,7 +101,7 @@ export default function Author() {
             <h2 className="text-2xl font-semibold mb-6 font-serif underline underline-offset-8 decoration-2 decoration- decoration-orange-500">
               Books by {author?.name}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-4">
               {author?.books && author.books.length > 0 ? (
                 author.books.map((book) => (
                   <BookCard
@@ -113,7 +113,10 @@ export default function Author() {
                 ))
               ) : (
                 <p className="col-span-1 md:col-span-2 lg:col-span-4 text-center py-6">
-                  Currently, we don't offer books from this author in our store.
+                  <p className="col-span-1 md:col-span-2 lg:col-span-4 text-center py-6">
+                    Currently, we don&rsquo;t offer books from this author in
+                    our store.
+                  </p>
                 </p>
               )}
             </div>
