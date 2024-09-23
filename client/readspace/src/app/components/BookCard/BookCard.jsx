@@ -44,7 +44,10 @@ export default function BookCard({
       >
         <figure className="relative cursor-pointer" onClick={handleCardClick}>
           <img
-            className="w-full h-80 object-fit rounded-b-3xl transition duration-300 ease-in-out hover:scale-110"
+            // if only the image is shown set bottom round to small else 3xl
+            className={`w-full h-80 object-fit ${
+              body ? "rounded-b-3xl" : ""
+            } transition duration-300 ease-in-out hover:scale-110`}
             src={book?.thumbnail_image}
             alt={book?.title}
           />
