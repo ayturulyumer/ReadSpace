@@ -32,7 +32,7 @@ export default function BookCard({
   };
 
   return (
-    <div className="indicator" data-theme="retro">
+    <div className="indicator">
       {book?.isBestseller && (
         <span className="indicator-item indicator-center badge font-medium badge-secondary text-primary-content md:indicator-end">
           Best Seller
