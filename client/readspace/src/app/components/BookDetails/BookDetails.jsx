@@ -7,6 +7,7 @@ import { useWishlist } from "@/app/context/wishlistContext.jsx";
 export default function BookDetails({ book, userId }) {
   const { wishlistStatus, toggleWishlistItem } = useWishlist();
 
+
   return (
     <div className="container mx-auto px-4 py-8 mt-20 md:mt-0">
       <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-8">
@@ -19,7 +20,7 @@ export default function BookDetails({ book, userId }) {
         </div>
         <div className="flex-grow lg:w-2/3">
           <section className="flex flex-col mb-4">
-            <h1 className="text-3xl font-medium">{book?.title}</h1>
+            <h1 className="text-3xl mb-2 font-medium">{book?.title}</h1>
             <p className="text-xl"> by {book?.author}</p>
           </section>
           <section className="mb-4">

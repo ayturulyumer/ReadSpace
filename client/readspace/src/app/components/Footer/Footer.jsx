@@ -2,7 +2,7 @@ export default function Footer() {
   return (
     <footer
       data-theme="luxury"
-      className="footer footer-center p-10  text-base-content   "
+      className="footer footer-center p-10  text-base-content  text-lg  "
     >
       <nav className="grid grid-flow-col gap-4">
         <a className="link link-hover">About us</a>

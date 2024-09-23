@@ -14,7 +14,7 @@ export default function Author() {
 
   useEffect(() => {
     const fetchAuthor = async () => {
-      const { data: authorData, error: authorError } = await getSingleAuthor(8);
+      const { data: authorData, error: authorError } = await getSingleAuthor(5);
 
       if (authorError || !authorData) {
         router.push("/404");
@@ -35,7 +35,7 @@ export default function Author() {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="container mx-auto px-4 py-8 h-screen tracking-wide text-primary-content ">
+        <div className="container mx-auto px-4 py-8 h-fit  tracking-wide text-primary-content ">
           <header className="flex flex-col md:flex-row items-center mb-8">
             <div className="avatar mb-4 md:mb-0 md:mr-8">
               <div className="w-56 rounded-xl ring ring-accent ring-offset-base-100 ring-offset-2">
@@ -94,14 +94,14 @@ export default function Author() {
             <h2 className="text-2xl font-semibold mb-4 font-serif relative underline underline-offset-8 decoration-2 decoration- decoration-orange-500">
               Biography
             </h2>
-            <p className="tracking-widest">{author?.bio}</p>
+            <p className="tracking-widest text-lg font-medium">{author?.bio}</p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-6 font-serif underline underline-offset-8 decoration-2 decoration- decoration-orange-500">
               Books by {author?.name}
             </h2>
-            <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1    sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {author?.books && author.books.length > 0 ? (
                 author.books.map((book) => (
                   <BookCard

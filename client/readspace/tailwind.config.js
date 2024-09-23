@@ -6,6 +6,11 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    extend: {
+      screens: {
+        sm: "450px",
+      },
+    },
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
   daisyui: {
