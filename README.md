@@ -19,7 +19,7 @@
 - Book ratings and reviews from other users.
 
 ### Author Page
--  Short bio about the author
+-  Short bio of the author
 -  List of all his/her books existing in the store
 
 ### Profile Management
