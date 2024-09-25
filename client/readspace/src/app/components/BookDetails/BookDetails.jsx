@@ -3,10 +3,11 @@ import { BsCartPlus } from "react-icons/bs";
 import { CiHeart } from "react-icons/ci";
 import { IoMdHeart } from "react-icons/io";
 import { useWishlist } from "@/app/context/wishlistContext.jsx";
+import Image from "next/image.js";
+import Link from "next/link.js";
 
 export default function BookDetails({ book, userId }) {
   const { wishlistStatus, toggleWishlistItem } = useWishlist();
-
 
   return (
     <div className="container mx-auto px-4 py-8 mt-20 md:mt-0">
@@ -20,8 +21,20 @@ export default function BookDetails({ book, userId }) {
         </div>
         <div className="flex-grow lg:w-2/3">
           <section className="flex flex-col mb-4">
-            <h1 className="text-3xl mb-2 font-medium">{book?.title}</h1>
-            <p className="text-xl"> by {book?.author}</p>
+            <h1 className="text-3xl mb-4 font-medium">{book?.title}</h1>
+            <div className="flex gap-2 items-center">
+              <p className="text-xl"> by {book?.author_name}</p>
+              <Link href={`/authors/${book?.author_id}`}>
+                <span className="avatar mask mask-circle w-12 h-12">
+                  <Image
+                    src={book?.author_image}
+                    width={0}
+                    height={0}
+                    unoptimized
+                  />
+                </span>
+              </Link>
+            </div>
           </section>
           <section className="mb-4">
             <span className="mr-2 font-semibold text-lg">
