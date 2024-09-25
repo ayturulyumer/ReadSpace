@@ -18,6 +18,10 @@
 - View detailed book descriptions.
 - Book ratings and reviews from other users.
 
+### Author Page
+-  Short bio of the author
+-  List of all his/her books existing in the store
+
 ### Profile Management
 - Update profile avatar, email, and password.
 - Add or remove books from wishlist.
