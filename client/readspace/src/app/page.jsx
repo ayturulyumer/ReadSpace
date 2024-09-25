@@ -55,7 +55,7 @@ export default function Home() {
   });
 
   return (
-    <main className="min-h-screen self-center">
+    <main className="min-h-screen  self-center">
       <UnderDevelopmentModal />
 
       {/* Hero Section */}

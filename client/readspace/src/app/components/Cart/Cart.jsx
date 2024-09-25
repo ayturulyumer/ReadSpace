@@ -1,9 +1,7 @@
-import React from "react";
-
 export default function Cart() {
   return (
     <div className="dropdown dropdown-end ">
-      <div className="tooltip tooltip-bottom" data-tip="Cart">
+      <div className="tooltip tooltip-bottom z-50" data-tip="Cart">
         <div
           tabIndex={0}
           role="button"
@@ -32,13 +30,14 @@ export default function Cart() {
       </div>
       <div
         tabIndex={0}
-        className="mt-3 z-50 card card-compact dropdown-content w-52 bg-white shadow"
+        className="mt-3 z-50 card card-compact dropdown-content w-52 shadow"
+        data-theme="luxury"
       >
-        <div className="card-body">
+        <div className="card-body gap-4">
           <span className="font-bold text-lg">8 Items</span>
           <span className="text-error">Subtotal: $999</span>
           <div className="card-actions">
-            <button className="btn btn-accent text-white btn-block">
+            <button className="btn btn-outline btn-primary-content text-white  btn-block">
               View cart
             </button>
           </div>

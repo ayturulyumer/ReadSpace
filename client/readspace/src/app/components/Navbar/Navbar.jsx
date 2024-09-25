@@ -15,7 +15,7 @@ export default function Navbar() {
   const userAvatar = session?.user_metadata?.avatar;
 
   return (
-    <div className="navbar h-fit " data-theme="luxury">
+    <div className="navbar h-fit" data-theme="luxury">
       <div className="navbar-start">
         <Link
           className="ml-2 h-fit  text-2xl text-gray-500 font-medium flex items-center"
@@ -40,17 +40,17 @@ export default function Navbar() {
           <li>
             <Link
               className="btn btn-ghost hover:bg-transparent  hover:text-white"
-              href="/about"
+              href="/catalog"
             >
-              About
+              Catalog
             </Link>
           </li>
           <li>
             <Link
               className="btn btn-ghost hover:bg-transparent  hover:text-white"
-              href="/catalog"
+              href="/about"
             >
-              Catalog
+              About
             </Link>
           </li>
           {session ? (
