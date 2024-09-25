@@ -24,8 +24,8 @@ export default function BookDetails({ book, userId }) {
             <h1 className="text-3xl mb-4 font-medium">{book?.title}</h1>
             <div className="flex gap-2 items-center">
               <p className="text-xl"> by {book?.author_name}</p>
-              <Link href={`/authors/${book?.author_id}`}>
-                <span className="avatar mask mask-circle w-12 h-12">
+              <Link href={`/authors/author?authorId=${encodeURIComponent(book?.author_id)}`}>
+                <span className="avatar mask ring-2  mask-circle w-12 h-12">
                   <Image
                     src={book?.author_image}
                     width={0}

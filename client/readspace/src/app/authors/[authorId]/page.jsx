@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getSingleAuthor } from "@/app/actions/authorActions.js";
-import { useRouter } from "next/navigation.js";
+import { useRouter, useSearchParams } from "next/navigation.js";
 import BookCard from "@/app/components/BookCard/BookCard.jsx";
 import Spinner from "@/app/components/Spinner/Spinner.jsx";
 import Image from "next/image";
@@ -11,10 +11,15 @@ export default function Author() {
   const [author, setAuthor] = useState(null);
   const [loading, setIsLoading] = useState(true);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const authorId = searchParams.get("authorId");
 
   useEffect(() => {
     const fetchAuthor = async () => {
-      const { data: authorData, error: authorError } = await getSingleAuthor(5);
+      const { data: authorData, error: authorError } = await getSingleAuthor(
+        authorId
+      );
 
       if (authorError || !authorData) {
         router.push("/404");
