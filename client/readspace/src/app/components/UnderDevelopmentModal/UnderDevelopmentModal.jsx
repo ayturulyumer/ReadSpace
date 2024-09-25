@@ -38,14 +38,14 @@ export default function UnderDevelopmentModal() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setShowModal(false)}
-            className="fixed inset-0  backdrop-blur-sm flex items-center justify-center p-4 z-50"
+            className="fixed inset-0  text-xs  backdrop-blur-sm flex items-center justify-center p-4 z-50  md:text-lg "
           >
             <motion.div
               initial={{ scale: 0.9, y: 50 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 50 }}
               onClick={(e) => e.stopPropagation()}
-              className=" text-primary-content rounded-lg shadow-2xl p-6 w-full max-w-md"
+              className=" text-primary-content rounded-lg shadow-2xl p-6 w-full  max-w-md  "
               data-theme="cupcake"
             >
               <h2 className="text-3xl font-bold mb-4 text-center">
@@ -82,7 +82,12 @@ export default function UnderDevelopmentModal() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Image src={GithubLogo} className="h-8 w-8 animate-pulse" height={0} width={0} />
+                  <Image
+                    src={GithubLogo}
+                    className="h-8 w-8 animate-pulse"
+                    height={0}
+                    width={0}
+                  />
                 </Link>
               </p>
               <motion.button
