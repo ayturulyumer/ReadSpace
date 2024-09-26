@@ -22,21 +22,24 @@ export default function BookDetails({ book, userId }) {
         <div className="flex-grow lg:w-2/3">
           <section className="flex flex-col mb-4">
             <h1 className="text-3xl mb-4 font-medium">{book?.title}</h1>
-            <div className="flex gap-2 items-center">
-              <p className="text-xl"> by {book?.author_name}</p>
-              <Link href={`/authors/author?authorId=${encodeURIComponent(book?.author_id)}`}>
-                <span className="avatar mask ring-2  mask-circle w-12 h-12">
-                  <Image
-                    src={book?.author_image}
-                    width={0}
-                    height={0}
-                    unoptimized
-                  />
-                </span>
-              </Link>
-            </div>
+            <Link
+              className="flex gap-4 items-center "
+              href={`/authors/author?authorId=${encodeURIComponent(
+                book?.author_id
+              )}`}
+            >
+              <p className="text-xl "> by {book?.author_name}</p>
+              <span className="avatar mask ring-2  mask-circle w-12 h-12">
+                <Image
+                  src={book?.author_image} 
+                  width={0}
+                  height={0}
+                  unoptimized
+                />
+              </span>
+            </Link>
           </section>
-          <section className="mb-4">
+          <section className="mb-4 badge badge-outline badge-primary-content badge-lg">
             <span className="mr-2 font-semibold text-lg">
               {book?.overall_rating}
             </span>
@@ -49,9 +52,11 @@ export default function BookDetails({ book, userId }) {
               {book?.total_ratings} ratings
             </span>
           </section>
+          <hr className="border-orange-200 my-2" />
           <p className="py-4 text-base tracking-wide">
             {book?.details?.description}
           </p>
+          <hr className="border-orange-200 my-2" />
           <div className="overflow-x-auto mb-6">
             <table className="w-full text-left">
               <tbody>
@@ -81,7 +86,7 @@ export default function BookDetails({ book, userId }) {
           <div className="flex flex-col items-start gap-4 mt-4 md:flex-row">
             <button
               onClick={() => toggleWishlistItem(book?.book_id)}
-              className="w-full md:w-auto px-6 py-3 bg-primary text-white font-medium text-lg rounded-md transition-colors duration-200 hover:bg-primary-dark"
+              className="w-full md:w-auto px-6 py-3 bg-primary text-white font-medium text-md rounded-md transition-colors duration-200 hover:bg-primary-dark"
             >
               {wishlistStatus[book?.book_id] ? (
                 <>
@@ -101,7 +106,7 @@ export default function BookDetails({ book, userId }) {
                 </>
               )}
             </button>
-            <button className="w-full md:w-auto px-6 py-3 bg-accent text-white font-medium text-lg rounded-md transition-colors duration-200 hover:bg-accent-dark">
+            <button className="w-full md:w-auto px-6 py-3 bg-accent text-white font-medium text-md rounded-md transition-colors duration-200 hover:bg-accent-dark">
               Add to cart{" "}
               <BsCartPlus
                 className="inline-block ml-2"

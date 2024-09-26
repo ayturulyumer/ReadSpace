@@ -30,7 +30,7 @@ export default function Cart() {
       </div>
       <div
         tabIndex={0}
-        className="mt-3 z-50 card card-compact dropdown-content w-52 shadow"
+        className="mt-6 z-50 card card-compact dropdown-content w-52 shadow  p-2  rounded-box "
         data-theme="luxury"
       >
         <div className="card-body gap-4">

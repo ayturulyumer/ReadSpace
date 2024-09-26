@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation.js";
 
-import { getAllBooks } from "../actions/booksActions.js";
+import { getAllBooksWithOptionalAuthors } from "../actions/booksActions.js";
+import useDebounce from "../hooks/debounceHook.jsx";
 
 import BookFilters from "../components/BookFilters/BookFilters.jsx";
 import BooksCatalog from "../components/BooksCatalog/BooksCatalog.jsx";
@@ -11,14 +12,19 @@ import Spinner from "../components/Spinner/Spinner.jsx";
 
 export default function Catalog() {
   const [books, setBooks] = useState([]);
+  const [selectedAuthors, setSelectedAuthors] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setIsLoading] = useState(true);
   const router = useRouter();
 
+  const debouncedAuthors = useDebounce(selectedAuthors, 500); // 500ms debounce
+
   useEffect(() => {
     const fetchBooks = async () => {
       setIsLoading(true);
-      const { data, error } = await getAllBooks();
+      const { data, error } = await getAllBooksWithOptionalAuthors(
+        debouncedAuthors
+      );
       if (error) {
         setError(error);
       } else {
@@ -28,16 +34,29 @@ export default function Catalog() {
     };
 
     fetchBooks();
-  }, []);
+  }, [debouncedAuthors]);
 
   const getBookIdHandler = (bookId) => {
     setIsLoading(true);
     router.push(`/catalog/details/book?bookId=${bookId}`);
   };
 
+  const handleAuthorSelect = (author) => {
+    setSelectedAuthors((prev) => {
+      const isSelected = prev.includes(author);
+      if (isSelected) {
+        return prev.filter((a) => a !== author);
+      } else {
+        return [...prev, author];
+      }
+    });
+  };
+
+  console.log(selectedAuthors);
+
   return (
     <div className="max-w-fit min-h-screen flex flex-col lg:flex-row  ">
-      <BookFilters />
+      <BookFilters onAuthorSelect={handleAuthorSelect} />
       {loading ? (
         <Spinner />
       ) : (

@@ -2,14 +2,14 @@ import { createClient } from "../../../utils/supabase/client.js";
 
 const supabase = createClient();
 
-export async function getAllBooks() {
-  // this fetch returns all books without details and calculated ratings & rating count
-  const { data, error } = await supabase.rpc("get_all_books_with_ratings");
+export async function getAllBooksWithOptionalAuthors(authors = []) {
+  // Call the RPC function with the authors array (or an empty array for all books)
+  const { data, error } = await supabase.rpc("get_all_books_with_ratings", {
+    author_names_param: authors.length ? authors : null, // Passing the authors array or null
+  });
 
   return { data, error };
 }
-
-
 
 export async function getBookWithRatingsById(bookId) {
   // rpc always returns array of objects

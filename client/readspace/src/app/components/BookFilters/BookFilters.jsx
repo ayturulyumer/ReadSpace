@@ -1,8 +1,23 @@
 "use client";
-import { useState } from "react";
+import { getAllAuthors } from "@/app/actions/authorActions.js";
+import { useState, useEffect } from "react";
 
-export default function BookFilters() {
+export default function BookFilters({ onAuthorSelect }) {
+  const [authors, setAuthors] = useState([]);
+  const [errors, setErrors] = useState({ authors: null }); // Initialize errors for each section
   const [openSections, setOpenSections] = useState({});
+
+  useEffect(() => {
+    const fetchAuthors = async () => {
+      const { data, error } = await getAllAuthors();
+      if (error) {
+        setErrors((prev) => ({ ...prev, authors: error })); // Set error for authors
+      } else {
+        setAuthors(data);
+      }
+    };
+    fetchAuthors();
+  }, []);
 
   const toggleCollapse = (section) => {
     setOpenSections((prev) => ({
@@ -14,16 +29,12 @@ export default function BookFilters() {
   const sections = [
     {
       title: "Authors",
-      items: ["Author 1", "Author 2"],
-    },
-    {
-      title: "Publishers",
-      items: ["Publisher 1", "Publisher 2"],
+      items: errors.authors ? [errors.authors] : authors,
     },
   ];
 
   return (
-    <div className="relative flex flex-col self-center bg-clip-border rounded-xl bg-white text-gray-700 h-fit w-fit  p-4 shadow-xl shadow-blue-gray-900/5 lg:self-auto">
+    <div className="relative flex flex-col self-center bg-clip-border rounded-xl bg-white text-gray-700 h-fit w-fit p-4 shadow-xl shadow-blue-gray-900/5 lg:self-auto">
       <div className="p-4">
         <h5 className="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-gray-900">
           Filters
@@ -55,18 +66,39 @@ export default function BookFilters() {
                   <div className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500"></div>
                 </div>
                 <div className="collapse-content font-medium">
-                  {section.items.map((item) => (
+                  {section.items.map((item, index) => (
                     <div
-                      className="form-control"
-                      key={item}
-                      onClick={(e) => e.stopPropagation()}
+                      className={`form-control ${
+                        errors[section.title.toLowerCase()]
+                          ? "pointer-events-none"
+                          : ""
+                      }`} // Disable pointer events if there's an error
+                      key={item.name || index} // Use index if item is an error
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent triggering the collapse
+                        if (!errors.authors) {
+                          // Check if there's no error
+                          onAuthorSelect(item.name); // Call the handler with the author's name
+                        }
+                      }}
                     >
                       <label className="label cursor-pointer">
-                        <span className="label-text">{item}</span>
-                        <input
-                          type="checkbox"
-                          className="checkbox checkbox-accent checkbox-sm"
-                        />
+                        <span
+                          className={`label-text ${
+                            errors[section.title.toLowerCase()]
+                              ? "text-red-500"
+                              : ""
+                          }`} // Apply red color for errors
+                        >
+                          {item.name || item} {/* Display error or item */}
+                        </span>
+                        {/**Show checkbox only if there is no error */}
+                        {!errors[section.title.toLowerCase()] && (
+                          <input
+                            type="checkbox"
+                            className="checkbox checkbox-accent checkbox-sm"
+                          />
+                        )}
                       </label>
                     </div>
                   ))}

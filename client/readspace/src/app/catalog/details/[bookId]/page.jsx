@@ -52,7 +52,7 @@ export default function Details() {
       );
       // If there's an error or no book data, trigger 404
       if (bookError || !bookData) {
-        // router.push("/404");
+        router.push("/404");
       } else {
         setBook(bookData);
       }
@@ -83,7 +83,6 @@ export default function Details() {
     fetchBookAndRating();
   }, [bookId, userId]);
 
-  console.log(book);
   const handleSetUserRating = useCallback(async (newRating) => {
     setUserRating(newRating);
   }, []);

@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useWishlist } from "@/app/context/wishlistContext.jsx";
 
 export default function BooksCatalog({ books, error, getBookIdHandler }) {
-  console.log(books)
   const { wishlistStatus, fetchWishlistStatus, toggleWishlistItem } =
     useWishlist();
 
