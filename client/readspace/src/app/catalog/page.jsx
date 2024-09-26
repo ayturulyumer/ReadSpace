@@ -48,8 +48,6 @@ export default function Catalog() {
         ? prev.filter((a) => a !== author)
         : [...prev, author];
 
-      // Debug log to see the new state
-      console.log("Selected Authors:", newSelection);
       return newSelection;
     });
   };
