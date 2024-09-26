@@ -44,19 +44,22 @@ export default function Catalog() {
   const handleAuthorSelect = (author) => {
     setSelectedAuthors((prev) => {
       const isSelected = prev.includes(author);
-      if (isSelected) {
-        return prev.filter((a) => a !== author);
-      } else {
-        return [...prev, author];
-      }
+      const newSelection = isSelected
+        ? prev.filter((a) => a !== author)
+        : [...prev, author];
+
+      // Debug log to see the new state
+      console.log("Selected Authors:", newSelection);
+      return newSelection;
     });
   };
 
-  console.log(selectedAuthors);
-
   return (
     <div className="max-w-fit min-h-screen flex flex-col lg:flex-row  ">
-      <BookFilters onAuthorSelect={handleAuthorSelect} />
+      <BookFilters
+        selectedAuthors={selectedAuthors}
+        onAuthorSelect={handleAuthorSelect}
+      />
       {loading ? (
         <Spinner />
       ) : (

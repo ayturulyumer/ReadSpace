@@ -2,7 +2,7 @@
 import { getAllAuthors } from "@/app/actions/authorActions.js";
 import { useState, useEffect } from "react";
 
-export default function BookFilters({ onAuthorSelect }) {
+export default function BookFilters({ onAuthorSelect, selectedAuthors }) {
   const [authors, setAuthors] = useState([]);
   const [errors, setErrors] = useState({ authors: null }); // Initialize errors for each section
   const [openSections, setOpenSections] = useState({});
@@ -77,8 +77,7 @@ export default function BookFilters({ onAuthorSelect }) {
                       onClick={(e) => {
                         e.stopPropagation(); // Prevent triggering the collapse
                         if (!errors.authors) {
-                          // Check if there's no error
-                          onAuthorSelect(item.name); // Call the handler with the author's name
+                          onAuthorSelect(item.name);
                         }
                       }}
                     >
@@ -90,13 +89,15 @@ export default function BookFilters({ onAuthorSelect }) {
                               : ""
                           }`} // Apply red color for errors
                         >
-                          {item.name || item} {/* Display error or item */}
+                          {item.name || item}
                         </span>
                         {/**Show checkbox only if there is no error */}
                         {!errors[section.title.toLowerCase()] && (
                           <input
                             type="checkbox"
                             className="checkbox checkbox-accent checkbox-sm"
+                            checked={selectedAuthors.includes(item.name)} // Check if the author is selected
+                            readOnly // Make the checkbox read-only to prevent direct modification
                           />
                         )}
                       </label>
