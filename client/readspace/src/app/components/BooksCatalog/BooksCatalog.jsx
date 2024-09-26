@@ -18,15 +18,21 @@ export default function BooksCatalog({ books, error, getBookIdHandler }) {
           <div className="text-red-600 text-center mb-4">Error: {error}</div>
         )}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-4">
-          {books?.map((book, i) => (
-            <BookCard
-              key={book.book_id}
-              book={book}
-              isInWishlist={wishlistStatus[book.book_id]}
-              handleWishlistToggle={() => toggleWishlistItem(book.book_id)}
-              getBookIdHandler={getBookIdHandler}
-            />
-          ))}
+          {books.length > 0 ? (
+            books.map((book) => (
+              <BookCard
+                key={book.book_id}
+                book={book}
+                isInWishlist={wishlistStatus[book.book_id]}
+                handleWishlistToggle={() => toggleWishlistItem(book.book_id)}
+                getBookIdHandler={getBookIdHandler}
+              />
+            ))
+          ) : (
+            <div className="col-span-full flex justify-center items-center">
+              <p className="text-red-500 font-bold">No books found</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
