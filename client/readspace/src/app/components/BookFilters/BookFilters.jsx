@@ -60,12 +60,12 @@ export default function BookFilters({ onAuthorSelect, selectedAuthors }) {
                   className="collapse collapse-arrow relative flex justify-between items-center w-full cursor-pointer"
                   onClick={() => toggleCollapse(section.title)}
                 >
-                  <span className="collapse-title text-md font-medium">
+                  <span className="collapse-title text-lg font-medium">
                     {section.title}
                   </span>
                   <div className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500"></div>
                 </div>
-                <div className="collapse-content font-medium">
+                <div className="collapse-content   font-medium">
                   {section.items.map((item, index) => (
                     <div
                       className={`form-control ${
@@ -81,9 +81,9 @@ export default function BookFilters({ onAuthorSelect, selectedAuthors }) {
                         }
                       }}
                     >
-                      <label className="label cursor-pointer">
+                      <label className="label   cursor-pointer">
                         <span
-                          className={`label-text ${
+                          className={`label-text tracking-tight lg:tracking-wide ${
                             errors[section.title.toLowerCase()]
                               ? "text-red-500"
                               : ""
