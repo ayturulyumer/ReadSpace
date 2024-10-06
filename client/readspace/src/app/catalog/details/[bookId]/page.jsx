@@ -114,7 +114,7 @@ export default function Details() {
         }
 
         setAllReviews((prevReviews) => [reviewData, ...prevReviews]); // Add the new review to existing reviews immediately
-        setIsUserAlreadyReviewed((reviews) => [reviewData, ...reviews]); // Flag that the user already reviewed , so writeReview component disables immediately
+        setIsUserAlreadyReviewed((reviews) => [reviewData, ...reviews]); // Flag that the user already reviewed , so writeReview component disable immediately
         return "Successfully submitted your rating and review!";
       }),
       {
@@ -136,7 +136,7 @@ export default function Details() {
           className="flex flex-col items-start justify-center my-4 ml-6 w-full gap-6 bg-white min-[1440px]:ml-24 2xl:w-4/6 2xl:ml-6"
         >
           <div className="w-full ">
-            <div className="grid grid-cols-1   sm:grid-cols-2">
+            <div className="grid grid-cols-1    [@media(min-width:600px)]:grid-cols-2">
               <BookReviews
                 bookId={bookId}
                 userId={userId}
