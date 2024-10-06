@@ -7,7 +7,7 @@ export default function RelatedBooks() {
       <h1 className="uppercase font-medium underline-orange  text-lg ">
         Related Books
       </h1>
-      <div className="grid grid-cols-1 gap-6 ml-8 lg:grid-cols-2 sm:ml-4 md:ml-0 ">
+      <div className="grid grid-cols-1 gap-2 ml-8 lg:grid-cols-2 sm:ml-4 md:ml-0 ">
         {bestSellers.map((book, i) => (
           <BookCard key={i} book={book} isBestSeller={false} actionsOverlay={true} />
         ))}
