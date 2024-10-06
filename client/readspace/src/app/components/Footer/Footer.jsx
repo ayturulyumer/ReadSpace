@@ -1,3 +1,4 @@
+import Link from "next/link.js";
 export default function Footer() {
   return (
     <footer
@@ -5,7 +6,9 @@ export default function Footer() {
       className="footer footer-center p-10  text-base-content  text-lg  "
     >
       <nav className="grid grid-flow-col gap-4">
-        <a className="link link-hover">About us</a>
+        <Link className="link link-hover" href="/about">
+          About
+        </Link>
         <a className="link link-hover">Contact</a>
       </nav>
       <nav>
