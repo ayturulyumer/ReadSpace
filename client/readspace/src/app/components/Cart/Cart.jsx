@@ -34,8 +34,11 @@ export default function Cart() {
         data-theme="luxury"
       >
         <div className="card-body gap-4">
-          <span className="font-bold text-lg">8 Items</span>
-          <span className="text-error">Subtotal: $999</span>
+          <span className="font-bold text-lg">8 products</span>
+          <span>
+            <span className="">Subtotal:</span>
+            <span className=" text-success font-bold ml-1">$ 25</span>
+          </span>
           <div className="card-actions">
             <button className="btn btn-outline btn-primary-content text-white  btn-block">
               View cart
