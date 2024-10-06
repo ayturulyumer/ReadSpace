@@ -33,13 +33,15 @@ export default function Login() {
 
       try {
         await toast.promise(
-          loginUser(values.email, values.password).then((result) => {
+          (async () => {
+            const result = await loginUser(values.email, values.password);
+            console.log(result);
             if (result.success) {
               router.push("/");
             } else {
               throw new Error(result.message);
             }
-          }),
+          })(), // IIFE
           {
             loading: "Logging in...",
             success: (message) => message || "Successfully logged in!",
@@ -50,7 +52,7 @@ export default function Login() {
       } catch (error) {
         console.error("Login error:", error);
       } finally {
-        // Disable the button for 3-4 seconds
+        // Disable the button for 3 seconds
         setTimeout(() => {
           setIsSubmitting(false);
         }, 3000);

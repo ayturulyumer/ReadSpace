@@ -2,12 +2,15 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link.js";
+import toast from "react-hot-toast";
 
 import { useState } from "react";
 import { useAuth } from "../context/authContext.jsx";
+import { useRouter } from "next/navigation.js";
 
 export default function Register() {
   const { registerUser } = useAuth();
+  const router = useRouter();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formik = useFormik({
@@ -27,15 +30,31 @@ export default function Register() {
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Confirm password is required"),
     }),
-    onSubmit: async (values, { setStatus }) => {
+    onSubmit: async (values) => {
+      if (isSubmitting) return; // Prevent multiple submissions
+
+      setIsSubmitting(true);
       try {
-        setIsSubmitting(true);
-        await registerUser(values.email, values.password);
+        await toast.promise(
+          (async () => {
+            const result = await registerUser(values.email, values.password);
+            console.log(result);
+            if (result.success) {
+              router.push("/");
+            } else {
+              throw new Error(result.message);
+            }
+          })(), // IIFE
+          {
+            loading: "Registering...",
+            success: (message) => message || "Successfully registered!",
+            error: (err) => err.message || "Registration failed !",
+          }
+        );
       } catch (error) {
-        setStatus({
-          error: "Registration failed. Please check your credentials.",
-        });
+        console.error("Registration error:", error);
       } finally {
+        // Disable the button for 3 seconds
         setTimeout(() => {
           setIsSubmitting(false);
         }, 3000);

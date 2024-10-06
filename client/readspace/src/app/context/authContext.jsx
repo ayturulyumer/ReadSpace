@@ -45,22 +45,21 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registerUser = async (email, password) => {
-    toast.promise(
-      signUp(email, password).then(async (result) => {
-        const { error } = result;
-        if (error) {
-          throw new Error(error);
-        } else {
-          setSession(result.user);
-          return "Successful registration!";
-        }
-      }),
-      {
-        loading: "Registering...",
-        success: (message) => message,
-        error: (err) => err.message || "Could not register user.",
+    try {
+      const result = await signUp(email, password);
+
+      if (result.error) {
+        throw new Error(result.error);
       }
-    );
+
+      setSession(result.user);
+      return { success: true, message: "Successfull registration !" };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message || "Could not register.",
+      };
+    }
   };
 
   const loginUser = async (email, password) => {
