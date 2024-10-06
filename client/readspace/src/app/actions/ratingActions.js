@@ -8,7 +8,8 @@ export async function getUserReviewByBook(bookId, userId) {
     .from("reviews")
     .select("id")
     .eq("book_id", bookId)
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .single();
 
   return { data, error };
 }

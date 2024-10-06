@@ -113,7 +113,8 @@ export default function Details() {
           throw new Error(reviewError.message);
         }
 
-        setAllReviews((prevReviews) => [reviewData, ...prevReviews]);
+        setAllReviews((prevReviews) => [reviewData, ...prevReviews]); // Add the new review to existing reviews immediately
+        setIsUserAlreadyReviewed((reviews) => [reviewData, ...reviews]); // Flag that the user already reviewed , so writeReview component disables immediately
         return "Successfully submitted your rating and review!";
       }),
       {
