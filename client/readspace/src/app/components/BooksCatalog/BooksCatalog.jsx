@@ -2,14 +2,23 @@ import BookCard from "../BookCard/BookCard.jsx";
 import { useState, useEffect } from "react";
 
 import { useWishlist } from "@/app/context/wishlistContext.jsx";
+import Pagination from "../Pagination/Pagination.jsx";
 
 export default function BooksCatalog({ books, error, getBookIdHandler }) {
   const { wishlistStatus, fetchWishlistStatus, toggleWishlistItem } =
     useWishlist();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
   useEffect(() => {
     fetchWishlistStatus(books);
   }, [books]);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    // Add any additional logic for when the page changes (e.g., fetching new data)
+  };
 
   return (
     <div className="relative flex h-full w-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
@@ -17,7 +26,7 @@ export default function BooksCatalog({ books, error, getBookIdHandler }) {
         {error && (
           <div className="text-red-600 text-center mb-4">Error: {error}</div>
         )}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:grid-cols-3 2xl:grid-cols-5">
+        <div className="grid place-items-center grid-cols-1 sm:grid-cols-2 gap-8 md:grid-cols-3 2xl:grid-cols-5">
           {books.length > 0 ? (
             books.map((book) => (
               <BookCard
@@ -34,6 +43,16 @@ export default function BooksCatalog({ books, error, getBookIdHandler }) {
             </div>
           )}
         </div>
+        {/* Show Pagination only if there are books */}
+        {books.length > 0 && (
+          <section>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          </section>
+        )}
       </div>
     </div>
   );
