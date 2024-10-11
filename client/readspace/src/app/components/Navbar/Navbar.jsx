@@ -68,9 +68,9 @@ export default function Navbar() {
         <div
           className={`${
             isMenuOpen ? "block" : "hidden"
-          } md:hidden absolute top-16 right-0 bg-base-200 z-50 p-4 shadow-lg rounded-lg`}
+          } md:hidden absolute top-16 right-0 bg-black z-50 p-4 mr-2 shadow-lg rounded-lg`}
         >
-          <ul className="menu menu-sm tracking-wide font-bold items-start flex flex-col">
+          <ul className="menu menu-sm tracking-wide  font-bold items-center flex flex-col ">
             <li>
               <Link
                 className="btn btn-ghost hover:bg-transparent hover:text-white"
