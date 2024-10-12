@@ -2,10 +2,16 @@ import { createClient } from "../../../utils/supabase/client.js";
 
 const supabase = createClient();
 
-export async function getAllBooksWithOptionalAuthors(authors = []) {
-  // Call the RPC function with the authors array (or an empty array for all books)
+export async function getAllBooksWithOptionalAuthors(
+  authors = [],
+  limit = 10,
+  offset = 0
+) {
+  // Call the RPC function with the authors array, limit, and offset for pagination
   const { data, error } = await supabase.rpc("get_all_books_with_ratings", {
-    author_names_param: authors.length ? authors : null, // Passing the authors array or null
+    author_names_param: authors.length ? authors : null, // Authors filter or null
+    limit_param: limit, // Number of books to fetch per page
+    offset_param: offset, // Starting point for fetching books (used for pagination)
   });
 
   return { data, error };

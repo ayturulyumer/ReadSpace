@@ -15,6 +15,9 @@ export default function Catalog() {
   const [selectedAuthors, setSelectedAuthors] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1); // Current page state
+  const [totalCount, setTotalCount] = useState(0); // Total count of books
+  const booksLimit = 15;
   const router = useRouter();
 
   const debouncedAuthors = useDebounce(selectedAuthors, 500); // 500ms debounce
@@ -22,19 +25,23 @@ export default function Catalog() {
   useEffect(() => {
     const fetchBooks = async () => {
       setIsLoading(true);
+      const offset = (currentPage - 1) * booksLimit; // Calculate offset based on current page
       const { data, error } = await getAllBooksWithOptionalAuthors(
-        debouncedAuthors
+        debouncedAuthors,
+        booksLimit,
+        offset
       );
       if (error) {
         setError(error);
       } else {
-        setBooks(data);
+        setBooks(data[0].book_data);
+        setTotalCount(data[0].total_count); // Set total count of books
         setIsLoading(false);
       }
     };
 
     fetchBooks();
-  }, [debouncedAuthors]);
+  }, [debouncedAuthors, currentPage]);
 
   const getBookIdHandler = (bookId) => {
     setIsLoading(true);
@@ -52,6 +59,14 @@ export default function Catalog() {
     });
   };
 
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    // Add any additional logic for when the page changes (e.g., fetching new data)
+  };
+
+  // Calculate total pages
+  const totalPages = Math.ceil(totalCount / booksLimit);
+
   return (
     <div className="max-w-fit min-h-screen flex flex-col lg:flex-row  ">
       <BookFilters
@@ -62,6 +77,9 @@ export default function Catalog() {
         <Spinner />
       ) : (
         <BooksCatalog
+          currentPage={currentPage}
+          handlePageChange={handlePageChange}
+          totalPages={totalPages}
           books={books}
           error={error}
           getBookIdHandler={getBookIdHandler}

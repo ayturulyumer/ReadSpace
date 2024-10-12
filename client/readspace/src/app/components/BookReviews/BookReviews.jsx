@@ -1,7 +1,8 @@
+import { useState } from "react";
 import WriteBookReview from "../WriteBookReview/WriteBookReview.jsx";
 import SingleBookReview from "../SingleBookReview/SingleBookReview.jsx";
 import { FaBook } from "react-icons/fa";
-
+import Pagination from "../Pagination/Pagination.jsx";
 export default function BookReviews({
   bookId,
   isUserAlreadyReviewed,
@@ -14,6 +15,13 @@ export default function BookReviews({
   userReview,
   allReviews,
 }) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    // Add any additional logic for when the page changes (e.g., fetching new data)
+  };
   return (
     <div className="flex flex-col gap-6">
       {userId && isUserAlreadyReviewed.length === 0 && (
@@ -55,6 +63,12 @@ export default function BookReviews({
             </p>
           </div>
         )}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+          size="sm"
+        />
       </div>
     </div>
   );
