@@ -43,7 +43,7 @@ export default function BooksCatalog({
           )}
         </div>
         {/* Show Pagination only if there are books */}
-        {books.length > 0 && (
+        {books?.length > 0 && (
           <section>
             <Pagination
               currentPage={currentPage}

@@ -61,10 +61,9 @@ export default function Catalog() {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-    // Add any additional logic for when the page changes (e.g., fetching new data)
   };
 
-  // Calculate total pages
+  // Calculate total pages to render number of pages accordingly
   const totalPages = Math.ceil(totalCount / booksLimit);
 
   return (
