@@ -13,15 +13,11 @@ export default function BookReviews({
   handleReviewSubmit,
   handleReviewTextChange,
   userReview,
-  allReviews,
+  paginatedReviews,
+  handlePageChange,
+  currentPage,
+  totalPages,
 }) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5;
-
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-    // Add any additional logic for when the page changes (e.g., fetching new data)
-  };
   return (
     <div className="flex flex-col gap-6">
       {userId && isUserAlreadyReviewed.length === 0 && (
@@ -47,8 +43,8 @@ export default function BookReviews({
         <h1 className="text-lg font-medium underline-orange uppercase">
           Reviews
         </h1>
-        {allReviews.length > 0 ? (
-          allReviews.map((review, i) => (
+        {paginatedReviews.length > 0 ? (
+          paginatedReviews.map((review, i) => (
             <SingleBookReview key={i} review={review} />
           ))
         ) : (
@@ -63,12 +59,14 @@ export default function BookReviews({
             </p>
           </div>
         )}
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-          size="sm"
-        />
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            size="sm"
+          />
+        )}
       </div>
     </div>
   );

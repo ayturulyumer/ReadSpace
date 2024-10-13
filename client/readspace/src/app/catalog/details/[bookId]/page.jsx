@@ -19,7 +19,7 @@ import BookDetails from "@/app/components/BookDetails/BookDetails.jsx";
 import BookReviews from "@/app/components/BookReviews/BookReviews.jsx";
 import RelatedBooks from "@/app/components/RelatedBooks/RelatedBooks.jsx";
 import {
-  getAllReviewsForBookById,
+  getPaginatedReviewsForBookById,
   submitReview,
 } from "@/app/actions/reviewActions.js";
 import toast from "react-hot-toast";
@@ -32,8 +32,12 @@ export default function Details() {
   const [isUserAlreadyReviewed, setIsUserAlreadyReviewed] = useState([]);
   const [userRating, setUserRating] = useState(null);
   const [userReview, setUserReview] = useState("");
-  const [allReviews, setAllReviews] = useState([]);
+  const [paginatedReviews, setPaginatedReviews] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalReviewsCount, setTotalReviewsCount] = useState(0);
   const [book, setBook] = useState(null);
+
+  const reviewsLimit = 5;
 
   const searchParams = useSearchParams();
   // declare userID
@@ -70,18 +74,34 @@ export default function Details() {
           setIsUserAlreadyReviewed(userAlreadyReviewedData);
         }
       }
+      // Calculate the `from` and `to` based on the current page and reviewsLimit
+      const from = (currentPage - 1) * reviewsLimit;
+      const to = from + reviewsLimit - 1;
+
       //Get all book reviews
-      const { data: reviewsData, error: reviewsError } =
-        await getAllReviewsForBookById(bookId);
+      const {
+        data: reviewsData,
+        count: reviewsCount,
+        error: reviewsError,
+      } = await getPaginatedReviewsForBookById(bookId, from, to);
       if (reviewsError) {
         console.error(reviewsError.message);
       } else {
-        setAllReviews(reviewsData);
+        setPaginatedReviews(reviewsData);
+        setTotalReviewsCount(reviewsCount);
       }
     };
 
     fetchBookAndRating();
-  }, [bookId, userId]);
+  }, [bookId, userId, currentPage]);
+
+  // Handle pagination page change
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  // Calculate total pages for pagination
+  const totalPages = Math.ceil(totalReviewsCount / reviewsLimit);
 
   const handleSetUserRating = useCallback(async (newRating) => {
     setUserRating(newRating);
@@ -113,7 +133,7 @@ export default function Details() {
           throw new Error(reviewError.message);
         }
 
-        setAllReviews((prevReviews) => [reviewData, ...prevReviews]); // Add the new review to existing reviews immediately
+        setPaginatedReviews((prevReviews) => [reviewData, ...prevReviews]); // Add the new review to existing reviews immediately
         setIsUserAlreadyReviewed((reviews) => [reviewData, ...reviews]); // Flag that the user already reviewed , so writeReview component disable immediately
         return "Successfully submitted your rating and review!";
       }),
@@ -147,7 +167,10 @@ export default function Details() {
                 handleSetUserRating={handleSetUserRating}
                 handleReviewSubmit={handleSubmit}
                 handleReviewTextChange={handleReviewTextChange}
-                allReviews={allReviews}
+                paginatedReviews={paginatedReviews}
+                currentPage={currentPage}
+                handlePageChange={handlePageChange}
+                totalPages={totalPages}
               />
               <RelatedBooks />
             </div>

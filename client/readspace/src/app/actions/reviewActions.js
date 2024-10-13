@@ -2,14 +2,17 @@ import { createClient } from "../../../utils/supabase/client.js";
 
 const supabase = createClient();
 
-export async function getAllReviewsForBookById(bookId) {
-  const { data, error } = await supabase
+export async function getPaginatedReviewsForBookById(bookId, from = 0, to = 4) {
+  const { data, count, error } = await supabase
     .from("reviews")
-    .select("username, rating, review_text,user_avatar ,created_at")
+    .select("username, rating, review_text,user_avatar ,created_at", {
+      count: "exact", // also get the count of reviews to calculate totalpages needed
+    })
     .eq("book_id", bookId)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .range(from, to);
 
-  return { data, error };
+  return { data, count, error };
 }
 
 export async function submitReview(
