@@ -23,10 +23,6 @@ export default function UnderDevelopmentModal() {
     { icon: "🔍", text: "Search bar is still under development." },
     { icon: "🛒", text: "Shopping cart will be available soon." },
     { icon: "💳", text: "Stripe integration is in progress." },
-    {
-      icon: "🔧",
-      text: "Filters: Filter by author, publisher being developed.",
-    },
   ];
 
   return (
