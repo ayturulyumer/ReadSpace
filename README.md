@@ -13,10 +13,12 @@
 - Like, review, and rate books (one rating & review per book per user).
 - Add books to your wishlist.
 - Profile page for users to change their avatar, email, and password.
+- Pagination for catalog and reviews
 
 ### Book Catalog
 - View detailed book descriptions.
 - Book ratings and reviews from other users.
+- Filter by authors
 
 ### Author Page
 -  Short bio of the author
@@ -32,7 +34,7 @@
 - **Integration with Stripe**: Enable users to complete purchases through Stripe.
 - **Order History**: Display past orders for users.
 - **Admin Menu**: Admin section for managing books.
-- **Filters**:  Apply filters by author, publisher
+
 
 ---
 
