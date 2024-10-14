@@ -11,6 +11,14 @@ import BooksCatalog from "../components/BooksCatalog/BooksCatalog.jsx";
 import Spinner from "../components/Spinner/Spinner.jsx";
 import { scrollToTop } from "../../../utils/scrollToTop.js";
 
+// New component to handle search parameters with Suspense
+const SearchParamsWrapper = ({ setQueryParam }) => {
+  const searchParams = useSearchParams(); // Fetch search params inside this component
+  const queryParam = searchParams.get("query");
+  setQueryParam(queryParam); // Update the query param state
+  return null; // This component does not render anything
+};
+
 export default function Catalog() {
   const [books, setBooks] = useState([]);
   const [selectedAuthors, setSelectedAuthors] = useState([]);
@@ -19,11 +27,9 @@ export default function Catalog() {
   const [currentPage, setCurrentPage] = useState(1); // Current page state
   const [totalCount, setTotalCount] = useState(0); // Total count of books
   const booksLimit = 15;
+  const [queryParam, setQueryParam] = useState(""); // State for query param
 
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const queryParam = searchParams.get("query");
 
   const debouncedAuthors = useDebounce(selectedAuthors, 500); // 500ms debounce
 
@@ -42,8 +48,8 @@ export default function Catalog() {
       } else {
         setBooks(data[0].book_data);
         setTotalCount(data[0].total_count); // Set total count of books
-        setIsLoading(false);
       }
+      setIsLoading(false);
     };
 
     fetchBooks();
@@ -74,8 +80,9 @@ export default function Catalog() {
   const totalPages = Math.ceil(totalCount / booksLimit);
 
   return (
-    <Suspense fallback={"Loading..."}>
-      <div className="max-w-fit min-h-screen flex flex-col lg:flex-row  ">
+    <Suspense fallback={<Spinner />}>
+      <SearchParamsWrapper setQueryParam={setQueryParam} />
+      <div className="max-w-fit min-h-screen flex flex-col lg:flex-row">
         <BookFilters
           selectedAuthors={selectedAuthors}
           onAuthorSelect={handleAuthorSelect}
