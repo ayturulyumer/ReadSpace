@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation.js";
 
 import { getAllBooksWithOptionalAuthors } from "../actions/booksActions.js";
@@ -79,18 +79,20 @@ export default function Catalog() {
         selectedAuthors={selectedAuthors}
         onAuthorSelect={handleAuthorSelect}
       />
-      {loading ? (
-        <Spinner />
-      ) : (
-        <BooksCatalog
-          currentPage={currentPage}
-          handlePageChange={handlePageChange}
-          totalPages={totalPages}
-          books={books}
-          error={error}
-          getBookIdHandler={getBookIdHandler}
-        />
-      )}
+      <Suspense fallback={<Spinner />}>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <BooksCatalog
+            currentPage={currentPage}
+            handlePageChange={handlePageChange}
+            totalPages={totalPages}
+            books={books}
+            error={error}
+            getBookIdHandler={getBookIdHandler}
+          />
+        )}
+      </Suspense>
     </div>
   );
 }
