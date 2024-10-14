@@ -74,7 +74,7 @@ export default function Catalog() {
   const totalPages = Math.ceil(totalCount / booksLimit);
 
   return (
-    <Suspense fallback={<Spinner />}>
+    <Suspense fallback={"Loading..."}>
       <div className="max-w-fit min-h-screen flex flex-col lg:flex-row  ">
         <BookFilters
           selectedAuthors={selectedAuthors}
