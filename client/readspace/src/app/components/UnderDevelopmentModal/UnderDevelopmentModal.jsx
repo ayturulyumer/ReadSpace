@@ -20,7 +20,6 @@ export default function UnderDevelopmentModal() {
   if (!showModal) return null;
 
   const features = [
-    { icon: "🔍", text: "Search bar is still under development." },
     { icon: "🛒", text: "Shopping cart will be available soon." },
     { icon: "💳", text: "Stripe integration is in progress." },
   ];
