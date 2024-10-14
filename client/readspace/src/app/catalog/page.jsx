@@ -74,12 +74,12 @@ export default function Catalog() {
   const totalPages = Math.ceil(totalCount / booksLimit);
 
   return (
-    <div className="max-w-fit min-h-screen flex flex-col lg:flex-row  ">
-      <BookFilters
-        selectedAuthors={selectedAuthors}
-        onAuthorSelect={handleAuthorSelect}
-      />
-      <Suspense fallback={<Spinner />}>
+    <Suspense fallback={<Spinner />}>
+      <div className="max-w-fit min-h-screen flex flex-col lg:flex-row  ">
+        <BookFilters
+          selectedAuthors={selectedAuthors}
+          onAuthorSelect={handleAuthorSelect}
+        />
         {loading ? (
           <Spinner />
         ) : (
@@ -92,7 +92,7 @@ export default function Catalog() {
             getBookIdHandler={getBookIdHandler}
           />
         )}
-      </Suspense>
-    </div>
+      </div>
+    </Suspense>
   );
 }
