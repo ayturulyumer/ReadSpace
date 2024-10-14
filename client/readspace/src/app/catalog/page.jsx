@@ -9,6 +9,7 @@ import useDebounce from "../hooks/debounceHook.jsx";
 import BookFilters from "../components/BookFilters/BookFilters.jsx";
 import BooksCatalog from "../components/BooksCatalog/BooksCatalog.jsx";
 import Spinner from "../components/Spinner/Spinner.jsx";
+import { scrollToTop } from "../../../utils/scrollToTop.js";
 
 export default function Catalog() {
   const [books, setBooks] = useState([]);
@@ -41,6 +42,7 @@ export default function Catalog() {
     };
 
     fetchBooks();
+    scrollToTop();
   }, [debouncedAuthors, currentPage]);
 
   const getBookIdHandler = (bookId) => {

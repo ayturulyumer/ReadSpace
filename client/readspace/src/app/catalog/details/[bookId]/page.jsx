@@ -23,6 +23,7 @@ import {
   submitReview,
 } from "@/app/actions/reviewActions.js";
 import toast from "react-hot-toast";
+import { scrollToTop } from "../../../../../utils/scrollToTop.js";
 
 export default function Details() {
   // get user id from context
@@ -93,6 +94,7 @@ export default function Details() {
     };
 
     fetchBookAndRating();
+    scrollToTop();
   }, [bookId, userId, currentPage]);
 
   // Handle pagination page change
