@@ -35,7 +35,6 @@ export default function Login() {
         await toast.promise(
           (async () => {
             const result = await loginUser(values.email, values.password);
-            console.log(result);
             if (result.success) {
               router.push("/");
             } else {

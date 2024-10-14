@@ -4,12 +4,14 @@ const supabase = createClient();
 
 export async function getAllBooksWithOptionalAuthors(
   authors = [],
+  query = "",
   limit = 10,
   offset = 0
 ) {
   // Call the RPC function with the authors array, limit, and offset for pagination
   const { data, error } = await supabase.rpc("get_all_books_with_ratings", {
-    author_names_param: authors.length ? authors : null, // Authors filter or null
+    author_names_param: authors.length ? authors : null,
+    query_param: query || null,
     limit_param: limit, // Number of books to fetch per page
     offset_param: offset, // Starting point for fetching books (used for pagination)
   });

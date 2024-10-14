@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation.js";
+import { useRouter, useSearchParams } from "next/navigation.js";
 
 import { getAllBooksWithOptionalAuthors } from "../actions/booksActions.js";
 import useDebounce from "../hooks/debounceHook.jsx";
@@ -19,7 +19,11 @@ export default function Catalog() {
   const [currentPage, setCurrentPage] = useState(1); // Current page state
   const [totalCount, setTotalCount] = useState(0); // Total count of books
   const booksLimit = 15;
+
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const queryParam = searchParams.get("query");
 
   const debouncedAuthors = useDebounce(selectedAuthors, 500); // 500ms debounce
 
@@ -29,6 +33,7 @@ export default function Catalog() {
       const offset = (currentPage - 1) * booksLimit; // Calculate offset based on current page
       const { data, error } = await getAllBooksWithOptionalAuthors(
         debouncedAuthors,
+        queryParam,
         booksLimit,
         offset
       );
@@ -43,7 +48,7 @@ export default function Catalog() {
 
     fetchBooks();
     scrollToTop();
-  }, [debouncedAuthors, currentPage]);
+  }, [debouncedAuthors, currentPage, queryParam]);
 
   const getBookIdHandler = (bookId) => {
     setIsLoading(true);

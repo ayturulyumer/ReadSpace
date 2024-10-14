@@ -30,12 +30,15 @@ export default function BookDetails({ book, userId }) {
             >
               <p className="text-xl "> by {book?.author_name}</p>
               <span className="avatar mask ring-2  mask-circle w-12 h-12">
-                <Image
-                  src={book?.author_image} 
-                  width={0}
-                  height={0}
-                  unoptimized
-                />
+                {book?.author_image && (
+                  <Image
+                    src={book?.author_image}
+                    alt="Author Image"
+                    width={0}
+                    height={0}
+                    unoptimized
+                  />
+                )}
               </span>
             </Link>
           </section>
