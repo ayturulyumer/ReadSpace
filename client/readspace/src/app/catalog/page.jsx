@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation.js";
 
 import { getAllBooksWithOptionalAuthors } from "../actions/booksActions.js";
@@ -74,25 +74,23 @@ export default function Catalog() {
   const totalPages = Math.ceil(totalCount / booksLimit);
 
   return (
-    <Suspense fallback={<Spinner />}>
-      <div className="max-w-fit min-h-screen flex flex-col lg:flex-row  ">
-        <BookFilters
-          selectedAuthors={selectedAuthors}
-          onAuthorSelect={handleAuthorSelect}
+    <div className="max-w-fit min-h-screen flex flex-col lg:flex-row  ">
+      <BookFilters
+        selectedAuthors={selectedAuthors}
+        onAuthorSelect={handleAuthorSelect}
+      />
+      {loading ? (
+        <Spinner />
+      ) : (
+        <BooksCatalog
+          currentPage={currentPage}
+          handlePageChange={handlePageChange}
+          totalPages={totalPages}
+          books={books}
+          error={error}
+          getBookIdHandler={getBookIdHandler}
         />
-        {loading ? (
-          <Spinner />
-        ) : (
-          <BooksCatalog
-            currentPage={currentPage}
-            handlePageChange={handlePageChange}
-            totalPages={totalPages}
-            books={books}
-            error={error}
-            getBookIdHandler={getBookIdHandler}
-          />
-        )}
-      </div>
-    </Suspense>
+      )}
+    </div>
   );
 }
