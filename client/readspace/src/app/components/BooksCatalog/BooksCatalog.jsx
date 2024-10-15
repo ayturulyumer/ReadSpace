@@ -20,7 +20,16 @@ export default function BooksCatalog({
   }, [books]);
 
   return (
-    <div className="relative flex h-full w-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
+    <div className="relative flex h-full w-screen flex-col justify-center overflow-hidden  py-6 sm:py-12">
+      {books?.length > 0 && (
+        <section>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </section>
+      )}
       <div className="max-w-screen mx-auto">
         {error && (
           <div className="text-red-600 text-center mb-4">Error: {error}</div>
@@ -29,6 +38,7 @@ export default function BooksCatalog({
           {books?.length > 0 ? (
             books.map((book) => (
               <BookCard
+                size="large"
                 key={book.book_id}
                 book={book}
                 isInWishlist={wishlistStatus[book.book_id]}
