@@ -1,4 +1,25 @@
+import { FaShoppingCart, FaPlus, FaMinus } from "react-icons/fa";
+import Image from "next/image";
+
 export default function Cart() {
+  const products = [
+    {
+      id: 1,
+      name: "The Almanack of Naval Ravikant",
+      price: 19.99,
+      quantity: 1,
+      image:
+        "https://m.media-amazon.com/images/I/31EQXd8E9eL._SY445_SX342_.jpg",
+    },
+    {
+      id: 2,
+      name: "The Almanack of Naval Ravikant",
+      price: 29.99,
+      quantity: 2,
+      image:
+        "https://m.media-amazon.com/images/I/31EQXd8E9eL._SY445_SX342_.jpg",
+    },
+  ];
   return (
     <div className="dropdown dropdown-end ">
       <div className="tooltip tooltip-bottom z-50" data-tip="Cart">
@@ -35,6 +56,28 @@ export default function Cart() {
       >
         <div className="card-body gap-4">
           <span className="font-bold text-lg">8 products</span>
+          <div className="max-h-96 w-fit overflow-auto">
+            {products.map((item) => (
+              <div key={item.id} className="flex items-center gap-4 mb-4">
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  width={80}
+                  height={80}
+                  className="rounded-md"
+                  unoptimized
+                />
+                <div className="flex-grow">
+                  <h3 className="font-semibold text-xs text-ellipsis">
+                    {item.name}
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    ${item.price.toFixed(2)}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
           <span>
             <span className="">Subtotal:</span>
             <span className=" text-success font-bold ml-1">$ 25</span>
