@@ -2,13 +2,11 @@ import { CiSettings } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 
-import Image from "next/image.js";
-
 import Link from "next/link.js";
 
 export default function Profile({ logoutUser, userAvatar }) {
   return (
-    <div className="dropdown dropdown-end">
+    <div className="dropdown dropdown-end ">
       <div
         tabIndex={0}
         role="button"
