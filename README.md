@@ -11,6 +11,7 @@
 ### General
 - Browse a catalog of books with detailed information
 - Like, review, and rate books (one rating & review per book per user).
+- Search books by book name or author name
 - Add books to your wishlist.
 - Profile page for users to change their avatar, email, and password.
 - Pagination for catalog and reviews
