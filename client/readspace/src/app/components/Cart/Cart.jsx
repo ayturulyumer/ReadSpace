@@ -1,15 +1,14 @@
-import { FaShoppingCart, FaPlus, FaMinus } from "react-icons/fa";
+import { TiDelete } from "react-icons/ti";
 import Image from "next/image";
 
 export default function Cart() {
   const products = [
     {
       id: 1,
-      name: "The Almanack of Naval Ravikant",
-      price: 19.99,
+      name: "$100M Offers: How To Make Offers So Good People Feel Stupid Saying No (Acquisition.com $100M Series Book 1)",
+      price: 20,
       quantity: 1,
-      image:
-        "https://m.media-amazon.com/images/I/31EQXd8E9eL._SY445_SX342_.jpg",
+      image: "https://m.media-amazon.com/images/I/718ewn+YFJL._SY466_.jpg",
     },
     {
       id: 2,
@@ -19,14 +18,37 @@ export default function Cart() {
       image:
         "https://m.media-amazon.com/images/I/31EQXd8E9eL._SY445_SX342_.jpg",
     },
+    {
+      id: 3,
+      name: "The Almanack of Naval Ravikant",
+      price: 29.99,
+      quantity: 2,
+      image:
+        "https://m.media-amazon.com/images/I/31EQXd8E9eL._SY445_SX342_.jpg",
+    },
+    {
+      id: 4,
+      name: "The Almanack of Naval Ravikant",
+      price: 29.99,
+      quantity: 2,
+      image:
+        "https://m.media-amazon.com/images/I/31EQXd8E9eL._SY445_SX342_.jpg",
+    },
   ];
+
+  // Placeholder function for handling delete action
+  const handleDelete = (id) => {
+    console.log("Delete product with id:", id);
+    // Add logic to remove the product from the cart
+  };
+
   return (
-    <div className="dropdown dropdown-end ">
+    <div className="dropdown dropdown-end group">
       <div className="tooltip tooltip-bottom z-50" data-tip="Cart">
         <div
           tabIndex={0}
           role="button"
-          className="btn btn-circle  btn-ghost hover:bg-transparent hover:text-white "
+          className="btn btn-circle btn-ghost hover:bg-transparent hover:text-white"
         >
           <div className="indicator">
             <svg
@@ -49,42 +71,63 @@ export default function Cart() {
           </div>
         </div>
       </div>
+
+      {/* This div will now show on hover */}
       <div
         tabIndex={0}
-        className="mt-6 z-50 card card-compact dropdown-content w-52 shadow  p-2  rounded-box "
+        className="z-50 card card-compact dropdown-content w-80 shadow p-2 rounded-box opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200"
         data-theme="luxury"
       >
         <div className="card-body gap-4">
           <span className="font-bold text-lg">8 products</span>
-          <div className="max-h-96 w-fit overflow-auto">
+          <div className="max-h-96 overflow-auto">
             {products.map((item) => (
-              <div key={item.id} className="flex items-center gap-4 mb-4">
+              <div
+                key={item.id}
+                className="flex items-center gap-4 mb-4 relative"
+              >
                 <Image
                   src={item.image}
                   alt={item.name}
-                  width={80}
-                  height={80}
+                  width={100}
+                  height={100}
                   className="rounded-md"
                   unoptimized
                 />
                 <div className="flex-grow">
-                  <h3 className="font-semibold text-xs text-ellipsis">
+                  <h3 className="font-semibold text-md w-9/12 text-gray-400">
                     {item.name}
                   </h3>
-                  <p className="text-sm text-gray-600">
-                    ${item.price.toFixed(2)}
+                  <p className="text-lg font-bold mt-2 text-white">
+                    $ {Math.floor(item.price)}
+                    <span className="relative top-[-5px] text-sm">
+                      .{(item.price % 1).toFixed(2).split(".")[1]}
+                    </span>
                   </p>
                 </div>
+                {/* Delete Icon */}
+                <button
+                  className="absolute top-0 right-0 text-white  hover:text-red-700 mx-2"
+                  onClick={() => handleDelete(item.id)}
+                >
+                  <TiDelete style={{ height: "24px", width: "24px" }} />
+                </button>
               </div>
             ))}
           </div>
-          <span>
-            <span className="">Subtotal:</span>
-            <span className=" text-success font-bold ml-1">$ 25</span>
+          <span className="flex justify-between font-sans text-white align-baseline text-lg">
+            <span className="uppercase">Subtotal:</span>
+            <span className="">$ 25.99</span>
           </span>
-          <div className="card-actions">
-            <button className="btn btn-outline btn-primary-content text-white  btn-block">
+          <div
+            data-theme="retro"
+            className="flex w-full  bg-transparent justify-between"
+          >
+            <button className="btn w-30 uppercase  btn-active glass text-white font-extrabold ">
               View cart
+            </button>
+            <button className="btn w-36 uppercase     btn-accent btn-active text-white font-extrabold ">
+              Checkout
             </button>
           </div>
         </div>
