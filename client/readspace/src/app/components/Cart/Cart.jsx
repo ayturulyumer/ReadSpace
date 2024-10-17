@@ -79,7 +79,8 @@ export default function Cart() {
         data-theme="luxury"
       >
         <div className="card-body gap-4">
-          <span className="font-bold text-lg">8 products</span>
+          <span className="font-bold text-md text-white font-sans uppercase ">8 products </span>
+          <hr className="border-orange-400" />
           <div className="max-h-96 overflow-auto">
             {products.map((item) => (
               <div
@@ -115,6 +116,7 @@ export default function Cart() {
               </div>
             ))}
           </div>
+          <hr className="border-orange-400" />
           <span className="flex justify-between font-sans text-white align-baseline text-lg">
             <span className="uppercase">Subtotal:</span>
             <span className="">$ 25.99</span>
@@ -123,7 +125,7 @@ export default function Cart() {
             data-theme="retro"
             className="flex w-full  bg-transparent justify-between"
           >
-            <button className="btn w-30 uppercase  btn-active glass text-white font-extrabold ">
+            <button className="btn w-30 uppercase  btn-active btn-ghost  text-white font-extrabold ">
               View cart
             </button>
             <button className="btn w-36 uppercase     btn-accent btn-active text-white font-extrabold ">
