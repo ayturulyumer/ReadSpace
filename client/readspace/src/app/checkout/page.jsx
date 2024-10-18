@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MdShoppingCart, MdAdd, MdRemove, MdArrowBack } from "react-icons/md";
 import Image from "next/image";
+import Link from "next/link.js";
 
 export default function Checkout() {
   const [items, setItems] = useState([
@@ -146,11 +147,19 @@ export default function Checkout() {
               data-theme="retro"
               className="flex bg-transparent flex-col sm:flex-row justify-between items-center gap-4"
             >
-              <button className="btn btn-info text-white  w-full sm:w-auto">
-                <MdArrowBack className="mr-2" size={20} />
-                Continue Shopping
-              </button>
-              <button className="btn btn-accent w-full text-white sm:w-auto">
+              <Link href="/catalog">
+                <button
+                  type="button"
+                  className="btn btn-info text-white  w-full sm:w-auto"
+                >
+                  <MdArrowBack className="mr-2" size={20} />
+                  Continue Shopping
+                </button>
+              </Link>
+              <button
+                type="button"
+                className="btn btn-accent w-full text-white sm:w-auto"
+              >
                 Proceed to Checkout
                 <MdShoppingCart className="ml-2" size={20} />
               </button>
