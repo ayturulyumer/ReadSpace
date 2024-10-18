@@ -4,11 +4,11 @@ import { useRouter } from "next/navigation.js";
 
 export default function Profile({ logoutUser, userAvatar }) {
   const router = useRouter();
-  const [dropdownOpen, setDropdownOpen] = useState(false); // State for dropdown visibility
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   // Central handler to handle clicks
   const handleClick = (action) => {
-    setDropdownOpen(false); // Close the dropdown
+    setDropdownOpen(false);
     switch (action) {
       case "wishlist":
         router.push("/wishlist");
@@ -36,11 +36,11 @@ export default function Profile({ logoutUser, userAvatar }) {
           <img src={userAvatar} alt="userAvatar" className="bg-white" />
         </div>
       </div>
-      {dropdownOpen && ( // Render dropdown only if open
+      {dropdownOpen && (
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content mt-5 z-50 p-2 shadow rounded-box w-52"
-          data-theme=""
+          className="menu menu-sm dropdown-content mt-5 z-50 p-2  shadow rounded-box w-52"
+          data-theme="luxury"
         >
           <li
             className="rounded-lg hover:bg-red-300 hover:text-white group"

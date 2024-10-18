@@ -66,9 +66,10 @@ export default function Navbar() {
 
         {/* Dropdown Menu for Tablets/Mobile */}
         <div
+          data-theme="luxury"
           className={`${
             isMenuOpen ? "block" : "hidden"
-          } md:hidden absolute top-16 right-0 bg-black z-50 p-4 mr-2 shadow-lg rounded-lg`}
+          } md:hidden absolute top-16 right-0  z-50 p-4 mr-2 shadow-lg rounded-lg`}
         >
           <ul className="menu menu-sm tracking-wide  font-bold items-center flex flex-col ">
             <li>
