@@ -135,7 +135,9 @@ export default function Navbar() {
           </li>
           {session ? (
             <>
-              <Cart />
+              <Link href="/checkout">
+                <Cart />
+              </Link>
               <Profile userAvatar={userAvatar} logoutUser={logoutUser} />
             </>
           ) : (
