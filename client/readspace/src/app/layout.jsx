@@ -6,6 +6,7 @@ import Footer from "./components/Footer/Footer.jsx";
 import { AuthProvider } from "./context/authContext.jsx";
 import { WishlistProvider } from "./context/wishlistContext.jsx";
 import toast, { Toaster } from "react-hot-toast";
+import StoreProvider from "./storeProdiver.jsx";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,11 +28,13 @@ export default function RootLayout({ children }) {
           }}
         />
         <AuthProvider>
-          <WishlistProvider>
-            <Navbar />
-            {children}
-            <Footer />
-          </WishlistProvider>
+          <StoreProvider>
+            <WishlistProvider>
+              <Navbar />
+              {children}
+              <Footer />
+            </WishlistProvider>
+          </StoreProvider>
         </AuthProvider>
       </body>
     </html>
