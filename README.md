@@ -15,6 +15,8 @@
 - Add books to your wishlist.
 - Profile page for users to change their avatar, email, and password.
 - Pagination for catalog and reviews
+- Search for books by title or author.
+- Add products to shopping cart
 
 ### Book Catalog
 - View detailed book descriptions.
@@ -30,8 +32,7 @@
 - Add or remove books from wishlist.
 
 ### Upcoming Features (In Progress)
-- **Search Bar**: Allow users to search for books by title or author.
-- **Cart with Products**: Implement a shopping cart feature to purchase books.
+
 - **Integration with Stripe**: Enable users to complete purchases through Stripe.
 - **Order History**: Display past orders for users.
 - **Admin Menu**: Admin section for managing books.
