@@ -60,7 +60,7 @@ export default function Cart() {
               />
             </svg>
             {products.length > 0 && (
-              <span className="badge badge-sm badge-secondary text-white indicator-item animate-pulse">
+              <span className="badge badge-sm bg-orange-500 text-white font-extrabold indicator-item animate-pulse">
                 {productsQuantity}
               </span>
             )}

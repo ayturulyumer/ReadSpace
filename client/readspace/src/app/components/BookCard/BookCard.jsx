@@ -5,6 +5,7 @@ import Rating from "../Rating/Rating.jsx";
 import BookActionsOverlay from "../BookActionsOverlay/BookActionsOverlay.jsx";
 import { useAppDispatch } from "@/app/lib/hooks.js";
 import { addItem } from "../Cart/cartSlice.js";
+import toast from "react-hot-toast";
 
 const defaultBook = {
   title: "Book Title",
@@ -35,17 +36,15 @@ export default function BookCard({
     }
   };
 
-  console.log(book);
-
   const handleAddToCart = () => {
     const itemToAdd = {
       id: book.book_id,
       name: book.title,
       price: book.price,
-      quantity: 1, // Assuming you want to add one item at a time
+      quantity: 1,
       image: book.thumbnail_image,
     };
-
+    toast.success(`${book.title} was added to your cart`);
     dispatch(addItem(itemToAdd));
   };
 
