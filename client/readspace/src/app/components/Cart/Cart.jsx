@@ -26,12 +26,11 @@ export default function Cart() {
     },
   ];
 
-  // Function to close the dropdown
   const closeDropdown = () => {
     setDropdownOpen(false);
   };
 
-  // Function to handle cart click and redirect to checkout page
+  
   const handleCartClick = () => {
     closeDropdown(); // Close the dropdown
     router.push("/checkout"); // Redirect to checkout page
@@ -45,7 +44,10 @@ export default function Cart() {
     >
       {/* Cart Button */}
       <div className="tooltip tooltip-bottom z-50" data-tip="Cart">
-        <button className="btn btn-circle btn-ghost hover:bg-transparent hover:text-white">
+        <button
+          type="button"
+          className="btn btn-circle btn-ghost hover:bg-transparent hover:text-white"
+        >
           <div className="indicator">
             <svg
               xmlns="http://www.w3.org/2000/svg"
