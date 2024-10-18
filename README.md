@@ -16,7 +16,7 @@
 - Profile page for users to change their avatar, email, and password.
 - Pagination for catalog and reviews
 - Search for books by title or author.
-- Add products to shopping cart
+- Add products to your shopping cart
 
 ### Book Catalog
 - View detailed book descriptions.
