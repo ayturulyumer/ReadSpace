@@ -3,6 +3,8 @@ import { CiHeart } from "react-icons/ci";
 import { IoMdHeart } from "react-icons/io";
 import Rating from "../Rating/Rating.jsx";
 import BookActionsOverlay from "../BookActionsOverlay/BookActionsOverlay.jsx";
+import { useAppDispatch } from "@/app/lib/hooks.js";
+import { addItem } from "../Cart/cartSlice.js";
 
 const defaultBook = {
   title: "Book Title",
@@ -24,11 +26,27 @@ export default function BookCard({
 }) {
   const cardSizeClasses = size === "large" ? "w-64 h-full" : "w-48 h-full";
 
+  const dispatch = useAppDispatch();
+
   // Depending from where i pass the book if it's in catalog it has book_id , if i'm passing it from  authors it's book.id
   const handleCardClick = () => {
     if (book?.book_id || book?.id) {
       getBookIdHandler(book.book_id || book.id);
     }
+  };
+
+  console.log(book);
+
+  const handleAddToCart = () => {
+    const itemToAdd = {
+      id: book.book_id,
+      name: book.title,
+      price: book.price,
+      quantity: 1, // Assuming you want to add one item at a time
+      image: book.thumbnail_image,
+    };
+
+    dispatch(addItem(itemToAdd));
   };
 
   return (
@@ -66,11 +84,16 @@ export default function BookCard({
               <BookActionsOverlay />
             ) : (
               <div className="flex self-end gap-2">
-                <button className="text-accent">
+                <button
+                  type="button"
+                  className="text-accent"
+                  onClick={handleAddToCart}
+                >
                   <BsCartPlus style={{ fontSize: "2em" }} />
                 </button>
                 <button
                   className="text-primary"
+                  type="button"
                   onClick={() => handleWishlistToggle(book.book_id)}
                 >
                   {isInWishlist ? (
