@@ -59,14 +59,16 @@ export default function Checkout() {
                 >
                   <div className="flex items-center w-1/3">
                     <div className="flex-shrink-0 w-24 h-36 bg-base-200 rounded-md overflow-hidden">
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        width={100}
-                        height={100}
-                        className="w-full h-full object-cover"
-                        unoptimized
-                      />
+                      <Link href={`/catalog/details/book?bookId=${item.id}`}>
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          width={100}
+                          height={100}
+                          className="w-full h-full object-cover"
+                          unoptimized
+                        />
+                      </Link>
                     </div>
                     <div className="ml-4 hidden flex-1 md:block">
                       <h3 className="text-lg font-semibold break-words">
