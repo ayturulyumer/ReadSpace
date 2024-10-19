@@ -78,7 +78,7 @@ export default function Cart() {
             {products.length > 0 ? (
               <>
                 <span className="font-bold text-md text-white font-sans uppercase">
-                  {products.length} {products.length === 1 ? "item" : "items"}
+                  {productsQuantity} {products.length === 1 ? "item" : "items"}
                 </span>
                 <hr className="border-orange-400" />
                 <div className="max-h-96 overflow-auto">
