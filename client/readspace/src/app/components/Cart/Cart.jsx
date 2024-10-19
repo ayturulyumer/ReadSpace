@@ -110,7 +110,7 @@ export default function Cart() {
                           <span className="relative top-[-5px] text-sm">
                             .{(item.price % 1).toFixed(2).split(".")[1]}
                           </span>
-                          <p className="text-md font-bold text-white">
+                          <p className="text-xs font-bold text-gray-400">
                             x {item.quantity}
                           </p>
                         </p>
