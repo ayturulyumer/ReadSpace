@@ -44,7 +44,7 @@ export default function Checkout() {
           </h3>
         </div>
       </header>
-      <main className="flex-grow container mx-auto my-auto px-4 py-2">
+      <main className="flex-grow container mx-auto my-auto px-4 py-8">
         {products.length > 0 ? (
           <div className="bg-base-100 shadow-md p-6">
             {/* Table Header */}
