@@ -49,6 +49,7 @@ export default function Checkout() {
               <span className="w-1/3 text-center">Quantity</span>
               <span className="w-1/3 text-right">Price</span>
             </div>
+            <hr className="bg-orange-500" />
             {/* End of Table Header */}
 
             <ul className="divide-y divide-base-300">
@@ -102,7 +103,7 @@ export default function Checkout() {
                     ${(item.price * item.quantity).toFixed(2)}
                     {/* Remove Button */}
                     <button
-                      className="absolute -top-10 -right-10  text-black hover:text-red-700 mx-2"
+                      className="absolute -top-10 -right-5  text-black hover:text-red-700 mx-2"
                       onClick={() => dispatch(removeItem(item.id))}
                     >
                       <TiDelete style={{ height: "24px", width: "24px" }} />
