@@ -30,6 +30,10 @@ export default function Checkout() {
     dispatch(decreaseQuantity(productId));
   };
 
+  const handleRemoveItem = (productId) => {
+    dispatch(removeItem(productId));
+  };
+
   return (
     <div data-theme="light" className="min-h-screen flex flex-col">
       <header className="bg-base-100 shadow-md py-4">
@@ -40,9 +44,9 @@ export default function Checkout() {
           </h3>
         </div>
       </header>
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <main className="flex-grow container mx-auto my-auto px-4 py-2">
         {products.length > 0 ? (
-          <div className="bg-base-100 rounded-box shadow-lg p-6">
+          <div className="bg-base-100 shadow-md p-6">
             {/* Table Header */}
             <div className="hidden sm:flex justify-between font-semibold text-base-content/70 text-center mb-4">
               <span className="w-1/3 text-left">Product</span>
@@ -103,8 +107,8 @@ export default function Checkout() {
                     ${(item.price * item.quantity).toFixed(2)}
                     {/* Remove Button */}
                     <button
-                      className="absolute -top-10 -right-5  text-black hover:text-red-700 mx-2"
-                      onClick={() => dispatch(removeItem(item.id))}
+                      className="absolute -top-10 -right-5  text-black  hover:text-red-700 opacity-50 mx-2"
+                      onClick={() => handleRemoveItem(item.id)}
                     >
                       <TiDelete style={{ height: "24px", width: "24px" }} />
                     </button>
@@ -134,34 +138,34 @@ export default function Checkout() {
             </Link>
           </div>
         )}
-      </main>
-      {products.length > 0 && (
-        <footer className="shadow-md py-8">
-          <div className="container mx-auto px-4">
-            <div
-              data-theme="retro"
-              className="flex   bg-transparent flex-col sm:flex-row  justify-between items-center gap-4"
-            >
-              <Link href="/catalog">
+        {products.length > 0 && (
+          <footer className=" py-8">
+            <div className="container mx-auto px-4">
+              <div
+                data-theme="retro"
+                className="flex   bg-inherit flex-col sm:flex-row  justify-between items-center gap-4"
+              >
+                <Link href="/catalog">
+                  <button
+                    type="button"
+                    className="btn btn-info text-white    flex items-center justify-center px-4 py-2 min-w-[200px]"
+                  >
+                    <MdArrowBack className="mr-2" size={16} />
+                    Continue Shopping
+                  </button>
+                </Link>
                 <button
                   type="button"
-                  className="btn btn-info text-white    flex items-center justify-center px-4 py-2 min-w-[200px]"
+                  className="btn btn-accent text-white   flex items-center justify-center px-4 py-2 min-w-[200px]"
                 >
-                  <MdArrowBack className="mr-2" size={16} />
-                  Continue Shopping
+                  Proceed to Checkout
+                  <MdShoppingCart className="ml-2" size={16} />
                 </button>
-              </Link>
-              <button
-                type="button"
-                className="btn btn-accent text-white   flex items-center justify-center px-4 py-2 min-w-[200px]"
-              >
-                Proceed to Checkout
-                <MdShoppingCart className="ml-2" size={16} />
-              </button>
+              </div>
             </div>
-          </div>
-        </footer>
-      )}
+          </footer>
+        )}
+      </main>
     </div>
   );
 }
