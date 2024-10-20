@@ -35,7 +35,7 @@ export default function Checkout() {
   };
 
   return (
-    <div data-theme="light" className="min-h-screen flex flex-col">
+    <div data-theme="cupcake" className="min-h-screen flex flex-col">
       <header className="bg-base-100 shadow-md py-4">
         <div className="container mx-auto px-4">
           <h1 className="py-6 text-4xl font-semibold">Your Shopping Cart</h1>
