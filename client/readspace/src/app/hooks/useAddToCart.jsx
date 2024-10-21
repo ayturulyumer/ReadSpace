@@ -11,7 +11,7 @@ export const useAddToCart = (product) => {
 
   const handleAddToCart = () => {
     if (!session) {
-      toast.error("You must be logged in to add items to your cart");
+      toast.error("You must be logged in to add books to your cart");
       return router.push("/login"); // Return early to avoid dispatching
     }
 
