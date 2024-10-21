@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
 
 const publicRoutes = ["/login", "/register"];
-const protectedRoutes = ["/wishlist", "/settings"];
+const protectedRoutes = ["/wishlist", "/settings", "/checkout"];
 
 export async function updateSession(request) {
   const supabase = createServerClient(
