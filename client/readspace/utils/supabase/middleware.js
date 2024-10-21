@@ -33,7 +33,6 @@ export async function updateSession(request) {
   if (!user && protectedRoutes.includes(path)) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
-    console.log("1 IF USER REDIRECTED TO", url.pathname);
     return NextResponse.redirect(url);
   }
 
