@@ -70,19 +70,21 @@ export default function BookCard({
           />
         </figure>
         {body && (
-          <div className="card-body items-baseline align-baseline font-medium">
-            <h1 className="text-lg truncate max-w-full">{book?.title}</h1>
+          <div className="card-body items-start font-medium">
+            <h1 className="text-lg  truncate max-w-full">{book?.title}</h1>
             <p>{book?.author}</p>
-            <Rating
-              rating={book?.overall_rating}
-              name={book?.title}
-              isDisabled={true}
-            />
+            <div className="-ml-2">
+              <Rating
+                rating={book?.overall_rating}
+                name={book?.title}
+                isDisabled={true}
+              />
+            </div>
             <p className="text-red-500">${book?.price}</p>
             {actionsOverlay ? (
               <BookActionsOverlay />
             ) : (
-              <div className="flex justify-center align-middle items-center self-center gap-2">
+              <div className="flex self-end  gap-2">
                 <button
                   type="button"
                   className="text-accent"
