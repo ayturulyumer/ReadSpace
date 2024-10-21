@@ -9,14 +9,14 @@ export const useAddToCart = (product) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (product) => {
     if (!session) {
       toast.error("You must be logged in to add books to your cart");
       return router.push("/login"); // Return early to avoid dispatching
     }
-
+    console.log(product);
     dispatch(addItem(product));
-    toast.success(`${product.title} was added to your cart`);
+    toast.success(`${product.name} was added to your cart`);
   };
 
   return handleAddToCart;
