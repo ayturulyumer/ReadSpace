@@ -3,9 +3,7 @@ import { CiHeart } from "react-icons/ci";
 import { IoMdHeart } from "react-icons/io";
 import Rating from "../Rating/Rating.jsx";
 import BookActionsOverlay from "../BookActionsOverlay/BookActionsOverlay.jsx";
-import { useAppDispatch } from "@/app/lib/hooks.js";
-import { addItem } from "../Cart/cartSlice.js";
-import toast from "react-hot-toast";
+import { useAddToCart } from "@/app/hooks/useAddToCart.jsx";
 
 const defaultBook = {
   title: "Book Title",
@@ -27,7 +25,7 @@ export default function BookCard({
 }) {
   const cardSizeClasses = size === "large" ? "w-64 h-full" : "w-48 h-full";
 
-  const dispatch = useAppDispatch();
+  const handleAddToCart = useAddToCart();
 
   // Depending from where i pass the book if it's in catalog it has book_id , if i'm passing it from  authors it's book.id
   const handleCardClick = () => {
@@ -36,18 +34,16 @@ export default function BookCard({
     }
   };
 
-  const handleAddToCart = () => {
-    const itemToAdd = {
+  const onAddToCartClick = () => {
+    const product = {
       id: book.book_id,
       name: book.title,
       price: book.price,
       quantity: 1,
       image: book.thumbnail_image,
     };
-    toast.success(`${book.title} was added to your cart`);
-    dispatch(addItem(itemToAdd));
+    handleAddToCart(product); // Call the returned function with the product
   };
-
   return (
     <div className="indicator">
       {book?.isBestseller && (
@@ -88,7 +84,7 @@ export default function BookCard({
                 <button
                   type="button"
                   className="text-accent"
-                  onClick={handleAddToCart}
+                  onClick={onAddToCartClick}
                 >
                   <BsCartPlus style={{ fontSize: "2em" }} />
                 </button>

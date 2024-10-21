@@ -5,24 +5,21 @@ import { IoMdHeart } from "react-icons/io";
 import { useWishlist } from "@/app/context/wishlistContext.jsx";
 import Image from "next/image.js";
 import Link from "next/link.js";
-import { useAppDispatch } from "@/app/lib/hooks.js";
-import { addItem } from "../Cart/cartSlice.js";
-import toast from "react-hot-toast";
+import { useAddToCart } from "@/app/hooks/useAddToCart.jsx";
 
 export default function BookDetails({ book, userId }) {
   const { wishlistStatus, toggleWishlistItem } = useWishlist();
-  const dispatch = useAppDispatch();
+  const handleAddToCart = useAddToCart();
 
-  const handleAddToCart = () => {
-    const itemToAdd = {
+  const onAddToCartClick = () => {
+    const product = {
       id: book.book_id,
       name: book.title,
       price: book.price,
       quantity: 1,
       image: book.thumbnail_image,
     };
-    toast.success(`${book.title} was added to your cart`);
-    dispatch(addItem(itemToAdd));
+    handleAddToCart(product);
   };
 
   return (
@@ -126,7 +123,7 @@ export default function BookDetails({ book, userId }) {
               )}
             </button>
             <button
-              onClick={handleAddToCart}
+              onClick={onAddToCartClick}
               className="w-full md:w-auto px-6 py-3 bg-accent text-white font-medium text-md rounded-md transition-colors duration-200 hover:bg-accent-dark"
             >
               Add to cart{" "}
