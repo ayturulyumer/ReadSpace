@@ -1,16 +1,16 @@
 "use client";
-import React from "react";
+import { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import Link from "next/link.js";
 import Image from "next/image.js";
-import { useSearchParams } from "next/navigation.js";
 
 import CheckoutForm from "../components/CheckoutForm/CheckoutForm.jsx";
 import CompletePage from "../components/CompletePage/CompletePage.jsx";
 import CheckoutSkeleton from "./checkoutSkeleton.jsx";
 
 import { useAppDispatch, useAppSelector } from "../lib/hooks.js";
+import { resetCart } from "../components/Cart/cartSlice.js";
 import convertToSubcurrency from "../../../utils/convertToSubCurrency.js";
 import { persistor } from "../lib/store.js";
 
@@ -19,18 +19,20 @@ const stripePromise = loadStripe(
 );
 
 export default function Checkout() {
-  const [clientSecret, setClientSecret] = React.useState("");
-  const [dpmCheckerLink, setDpmCheckerLink] = React.useState("");
-  const [confirmed, setConfirmed] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
+  const [clientSecret, setClientSecret] = useState("");
+  const [dpmCheckerLink, setDpmCheckerLink] = useState("");
+  const [confirmed, setConfirmed] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Get the products from redux state
   const products = useAppSelector((state) => state.cart.products);
   const totalSum = useAppSelector((state) => state.cart.totalSum);
 
+  const dispatch = useAppDispatch();
+
   const amount = convertToSubcurrency(totalSum);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setConfirmed(
       new URLSearchParams(window.location.search).get(
         "payment_intent_client_secret"
@@ -38,7 +40,17 @@ export default function Checkout() {
     );
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
+    const paymentIntent = new URLSearchParams(window.location.search).get(
+      "payment_intent_client_secret"
+    );
+    if (paymentIntent) {
+      setConfirmed(true);
+      dispatch(resetCart()); // Clear cart if payment is successful
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
     fetch("/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -46,12 +58,6 @@ export default function Checkout() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (confirmed) {
-          setClientSecret(data.clientSecret);
-          setDpmCheckerLink(data.dpmCheckerLink);
-          setLoading(false);
-          persistor.purge();
-        }
         setClientSecret(data.clientSecret);
         setDpmCheckerLink(data.dpmCheckerLink);
         setLoading(false);

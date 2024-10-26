@@ -5,7 +5,6 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 
-import { resetCart } from "../Cart/cartSlice.js";
 import { useAppDispatch } from "@/app/lib/hooks.js";
 import { persistor } from "@/app/lib/store.js";
 import Spinner from "../Spinner/Spinner.jsx";
@@ -13,11 +12,6 @@ import Spinner from "../Spinner/Spinner.jsx";
 export default function CheckoutForm({ dpmCheckerLink, amount }) {
   const stripe = useStripe();
   const elements = useElements();
-  const dispatch = useAppDispatch();
-
-  const resetCartProducts = () => {
-    dispatch(resetCart());
-  };
 
   const [message, setMessage] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -52,9 +46,6 @@ export default function CheckoutForm({ dpmCheckerLink, amount }) {
       } else {
         setMessage("An unexpected error occurred.");
       }
-    } else {
-      // Reset the cart if the payment is successful
-      persistor.purge();
     }
 
     setIsLoading(false);
