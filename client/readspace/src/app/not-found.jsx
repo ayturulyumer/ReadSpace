@@ -10,6 +10,7 @@ export default function NotFound() {
     >
       <Image
         src={Logo}
+        alt="Logo"
         className="w-24 h-24 mask mask-circle mb-8 text-gray-600 animate-bounce"
       />
 
