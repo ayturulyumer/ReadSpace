@@ -83,6 +83,21 @@ export default function Checkout() {
     appearance,
   };
 
+
+  // If payment is confirmed return success page 
+  if (confirmed && clientSecret) {
+    return (
+      <main
+        className="max-w-full max-h-full  mx-auto p-10 h-full items-center text-white text-center border m-10 rounded-md lg:h-screen"
+        data-theme="cupcake"
+      >
+        <Elements options={options} stripe={stripePromise}>
+          <CompletePage />
+        </Elements>
+      </main>
+    );
+  }
+
   return (
     <main
       className="max-w-full max-h-full  mx-auto p-10 h-full items-center text-white text-center border m-10 rounded-md lg:h-screen"
