@@ -8,6 +8,7 @@ import {
 import { resetCart } from "../Cart/cartSlice.js";
 import { useAppDispatch } from "@/app/lib/hooks.js";
 import { persistor } from "@/app/lib/store.js";
+import Spinner from "../Spinner/Spinner.jsx";
 
 export default function CheckoutForm({ dpmCheckerLink, amount }) {
   const stripe = useStripe();
@@ -68,18 +69,16 @@ export default function CheckoutForm({ dpmCheckerLink, amount }) {
       <form id="payment-form" className="h-96" onSubmit={handleSubmit}>
         <PaymentElement id="payment-element" options={paymentElementOptions} />
         <button
-          className="w-full md:w-auto px-6 py-3 bg-accent text-white font-medium text-md rounded-md my-4"
+          className="btn btn-accent btn-active font-bolder  tracking-wide mt-4 text-white "
           disabled={isLoading || !stripe || !elements}
           id="submit"
         >
-          <span id="button-text">
-            {isLoading ? (
-              <div className="spinner" id="spinner"></div>
-            ) : (
-              // Convert amount to dollars from cents
-              `Pay now ${amount / 100} $`
-            )}
-          </span>
+          {isLoading ? (
+            <span className="  loading loading-spinner"></span>
+          ) : (
+            // Convert amount to dollars from cents
+            `Pay now  $${amount / 100} `
+          )}
         </button>
         {/* Show any error or success messages */}
         {message && <div id="payment-message">{message}</div>}
