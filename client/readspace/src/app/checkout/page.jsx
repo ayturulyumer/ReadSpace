@@ -88,7 +88,7 @@ export default function Checkout() {
   if (confirmed && clientSecret) {
     return (
       <main
-        className="max-w-full max-h-full  mx-auto p-10 h-full items-center text-white text-center border m-10 rounded-md lg:h-screen"
+        className="max-w-full max-h-full   mx-auto p-10 h-screen items-center text-white text-center border m-10 rounded-md lg:h-screen"
         data-theme="cupcake"
       >
         <Elements options={options} stripe={stripePromise}>

@@ -117,7 +117,7 @@ export default function CompletePage() {
   }, [stripe]);
 
   return (
-    <div className="p-6 max-w-md mx-auto  bg-white rounded-lg shadow-lg text-gray-700">
+    <div className="p-6 max-w-fit mx-auto   bg-white rounded-lg shadow-lg text-gray-700">
       <div className="flex items-center space-x-4 mb-4">
         <div
           className={`w-12 h-12 flex items-center justify-center rounded-full ${STATUS_CONTENT_MAP[status].iconColor}`}
@@ -133,8 +133,8 @@ export default function CompletePage() {
           <table className="text-left w-full border-collapse">
             <tbody>
               <tr>
-                <td className="py-2 font-medium text-gray-500">ID</td>
-                <td className="py-2">{intentId}</td>
+                <td className="py-2  font-medium text-gray-500">ID</td>
+                <td className="py-2 text-xs ">{intentId}</td>
               </tr>
               <tr>
                 <td className="py-2 font-medium text-gray-500">Status</td>
