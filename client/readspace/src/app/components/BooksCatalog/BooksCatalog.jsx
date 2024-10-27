@@ -60,11 +60,11 @@ export default function BooksCatalog({
           ) : (
             <div className="col-span-full  flex justify-center items-center">
               {query ? (
-                <p className="text-gray-600 font-bold text-3xl italic">
+                <p className="text-gray-600 text-center font-bold text-lg italic md:text-2xl">
                   No results found for "{query}"
                 </p>
               ) : (
-                <p className="text-gray-500 font-bold text-3xl italic">
+                <p className="text-gray-600 text-center font-bold text-lg italic md:text-2xl">
                   No results found
                 </p>
               )}
