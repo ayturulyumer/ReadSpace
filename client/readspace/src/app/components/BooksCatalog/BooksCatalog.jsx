@@ -28,8 +28,8 @@ export default function BooksCatalog({
       {/*If there is a query and books are found  */}
       {query && books?.length > 0 && (
         <p className="text-gray-600 text-center font-bold text-lg italic md:text-2xl">
-          {books?.length} result{books?.length !== 1 ? "s" : ""} found for "
-          {query}"
+          {books?.length} result{books?.length !== 1 ? "s" : ""} found for
+          &quot;{query}&quot;
         </p>
       )}
       {books?.length > 0 && (
