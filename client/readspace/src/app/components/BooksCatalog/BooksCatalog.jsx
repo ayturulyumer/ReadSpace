@@ -1,5 +1,6 @@
 import BookCard from "../BookCard/BookCard.jsx";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation.js";
 
 import { useWishlist } from "@/app/context/wishlistContext.jsx";
 import Pagination from "../Pagination/Pagination.jsx";
@@ -15,12 +16,22 @@ export default function BooksCatalog({
   const { wishlistStatus, fetchWishlistStatus, toggleWishlistItem } =
     useWishlist();
 
+  const search = useSearchParams();
+  const query = search.get("query");
+
   useEffect(() => {
     fetchWishlistStatus(books);
   }, [books]);
 
   return (
     <div className="relative flex h-full w-screen flex-col justify-center overflow-hidden  py-6 sm:py-12">
+      {/*If there is a query and books are found  */}
+      {query && books?.length > 0 && (
+        <p className="text-gray-600 text-center font-bold text-lg italic md:text-2xl">
+          {books?.length} result{books?.length !== 1 ? "s" : ""} found for "
+          {query}"
+        </p>
+      )}
       {books?.length > 0 && (
         <section>
           <Pagination
@@ -47,8 +58,16 @@ export default function BooksCatalog({
               />
             ))
           ) : (
-            <div className="col-span-full flex justify-center items-center">
-              <p className="text-red-500 font-bold">No books found</p>
+            <div className="col-span-full  flex justify-center items-center">
+              {query ? (
+                <p className="text-gray-600 font-bold text-3xl italic">
+                  No results found for "{query}"
+                </p>
+              ) : (
+                <p className="text-gray-500 font-bold text-3xl italic">
+                  No results found
+                </p>
+              )}
             </div>
           )}
         </div>
