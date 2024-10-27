@@ -6,6 +6,7 @@
 
 ---
 
+
 ## Features
 
 ### General
@@ -17,6 +18,9 @@
 - Pagination for catalog and reviews
 - Search for books by title or author.
 - Add products to your shopping cart
+- Secure Purchases: Complete book purchases via Stripe - https://docs.stripe.com/testing
+
+   
 
 ### Book Catalog
 - View detailed book descriptions.
@@ -33,7 +37,6 @@
 
 ### Upcoming Features (In Progress)
 
-- **Integration with Stripe**: Enable users to complete purchases through Stripe.
 - **Order History**: Display past orders for users.
 - **Admin Menu**: Admin section for managing books.
 
@@ -45,7 +48,7 @@
 - **Frontend**: React, Next.js, Tailwind CSS
 - **Backend**: Supabase for authentication, database, and storage
 - **Deployment**: Vercel
-- **Payment Integration**: Stripe (in progress)
+- **Payment Integration**: Stripe
 
 ---
 
