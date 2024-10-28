@@ -19,7 +19,17 @@ export default function UnderDevelopmentModal() {
 
   if (!showModal) return null;
 
-  const features = [{ icon: "💳", text: "Stripe integration is in progress." }];
+  const featuresUnderDevelopment = [
+    { icon: "📚", text: "Featured books section is under development!" },
+    { icon: "🏆", text: "Bestsellers section is under development." },
+  ];
+
+  const featuresAdded = [
+    { icon: "🔍", text: "Search by book title or author" },
+    { icon: "💖", text: "Add books to your wishlist" },
+    { icon: "⭐", text: "Review and rate books" },
+    { icon: "🛒", text: "Add products to your cart and checkout via Stripe" },
+  ];
 
   return (
     <>
@@ -30,14 +40,14 @@ export default function UnderDevelopmentModal() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setShowModal(false)}
-            className="fixed inset-0  text-xs  backdrop-blur-sm flex items-center justify-center p-4 z-50  md:text-lg "
+            className="fixed inset-0 text-xs backdrop-blur-sm flex items-center justify-center p-4 z-50 md:text-lg"
           >
             <motion.div
               initial={{ scale: 0.9, y: 50 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 50 }}
               onClick={(e) => e.stopPropagation()}
-              className=" text-primary-content rounded-lg shadow-2xl p-6 w-full  max-w-md  "
+              className="text-primary-content rounded-lg shadow-2xl p-6 w-full max-w-md"
               data-theme="cupcake"
             >
               <h2 className="text-3xl font-bold mb-4 text-center">
@@ -47,24 +57,51 @@ export default function UnderDevelopmentModal() {
                 Hey there! Thanks for checking out my work-in-progress
                 application.
               </p>
-              <p className="mb-4">
-                I&#39;m super excited to show you what I&#39;m working on, but
-                just a heads up:
-              </p>
-              <ul className="space-y-3 mb-6">
-                {features.map((item, index) => (
-                  <motion.li
-                    key={index}
-                    initial={{ x: -50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-center space-x-2  bg-orange-400 bg-opacity-20 rounded-lg p-2"
-                  >
-                    <span className="text-2xl">{item.icon}</span>
-                    <span>{item.text}</span>
-                  </motion.li>
-                ))}
-              </ul>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                {/* Features Added */}
+                <div>
+                  <h3 className="text-xl  text-center font-semibold mb-2">
+                    Features Added
+                  </h3>
+                  <ul className="space-y-3">
+                    {featuresAdded.map((item, index) => (
+                      <motion.li
+                        key={index}
+                        initial={{ x: -50, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="flex items-center  space-x-2 bg-green-400 bg-opacity-20 rounded-lg p-2"
+                      >
+                        <span className="text-2xl">{item.icon}</span>
+                        <span>{item.text}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Features Under Development */}
+                <div>
+                  <h3 className="text-xl text-center font-semibold mb-2">
+                    In Progress
+                  </h3>
+                  <ul className="space-y-3">
+                    {featuresUnderDevelopment.map((item, index) => (
+                      <motion.li
+                        key={index}
+                        initial={{ x: -50, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="flex items-center  space-x-2 bg-orange-400 bg-opacity-20 rounded-lg p-2"
+                      >
+                        <span className="text-2xl">{item.icon}</span>
+                        <span>{item.text}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
               <p className="mb-6 text-center">
                 I&#39;m working to get everything up and running soon! For more
                 details, feel free to check out:
@@ -82,6 +119,7 @@ export default function UnderDevelopmentModal() {
                   />
                 </Link>
               </p>
+
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
